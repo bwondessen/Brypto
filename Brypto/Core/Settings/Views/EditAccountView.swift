@@ -1,0 +1,93 @@
+//
+//  EditAccountView.swift
+//  Brypto
+//
+//  Created by Bruke on 9/7/22.
+//
+
+import SwiftUI
+
+struct EditAccountView: View {
+    @EnvironmentObject private var vm: HomeViewModel
+    
+    @State private var showDeleteAccountAlert: Bool = false
+    
+    var body: some View {
+        NavigationView {
+            ZStack {
+                // background layer
+                Color.theme.background
+                    .ignoresSafeArea()
+                
+                // content layer
+                List {
+                    Section {
+                        changeUserNameSection
+                        changePasswordSection
+                        securitySection
+                    }
+                    .foregroundColor(Color.theme.accent)
+                    
+                    Section {
+                        deleteSection
+                    }
+                }
+                .listStyle(.insetGrouped)
+            }
+            .navigationBarTitleDisplayMode(.inline)
+            .font(.headline)
+            .tint(.blue)
+            .navigationTitle("Account")
+            .alert("Confirm account deletion", isPresented: $showDeleteAccountAlert) {
+                Button("Delete", role: .destructive) {
+                    vm.deleteAccount()
+                }
+            } message: {
+                Text("Are you sure you want to delete your account? This action is permanent.")
+            }
+        }
+    }
+}
+
+struct EditAccountView_Previews: PreviewProvider {
+    static var previews: some View {
+        EditAccountView()
+    }
+}
+
+extension EditAccountView {
+    var changeUserNameSection: some View {
+        NavigationLink {
+            ChangeUserNameView()
+                .navigationBarBackButtonHidden(true)
+        } label: {
+            Text("Change username")
+        }
+    }
+    
+    var changePasswordSection: some View {
+        NavigationLink {
+            ChangePasswordView()
+                .navigationBarBackButtonHidden(true)
+        } label: {
+            Text("Change password")
+        }
+    }
+    
+    var securitySection: some View {
+        NavigationLink {
+            SecurityView()
+                .navigationBarBackButtonHidden(true)
+        } label: {
+            Text("Security")
+        }
+        
+    }
+    
+    var deleteSection: some View {
+        Button("Delete \(vm.userName)") {
+            showDeleteAccountAlert = true
+        }
+        .foregroundColor(.blue)
+    }
+}
