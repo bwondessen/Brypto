@@ -11,12 +11,12 @@ struct StatisticView: View {
     let stat: StatisticModel
     
     var body: some View {
-        VStack(alignment: .center, spacing: 4) {
+        VStack(alignment: .leading, spacing: 4) {
             Text(stat.title)
-                .font(.caption)
+                .font(.callout)
                 .foregroundColor(stat.title == "Your balance" ? .primary : Color.theme.secondaryText)
             Text(stat.value)
-                .font(stat.title == "Your balance" ? .headline.bold() : .headline)
+                .font(stat.title == "Your balance" ? .headline.bold() : .headline.bold())
                 .foregroundColor(Color.theme.accent)
             
             HStack(spacing: 4) {

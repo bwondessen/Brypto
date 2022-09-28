@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct HomeView: View {
+struct DiscveryView: View {
     @EnvironmentObject private var vm: HomeViewModel
     @State private var showPortfolio: Bool = false // animate right
     @State private var showPortfolioView: Bool = false // new sheet
@@ -93,14 +93,14 @@ struct HomeView: View {
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            HomeView()
+            DiscveryView()
                 .navigationBarHidden(true)
         }
         .environmentObject(dev.homeVM)
     }
 }
 
-extension HomeView {
+extension DiscveryView {
     var searchResults: [CoinModel] {
         if searchText.isEmpty {
             return []

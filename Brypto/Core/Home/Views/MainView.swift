@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MainView: View {
     @EnvironmentObject private var vm: HomeViewModel
-    @State private var selectedTab = "HomeView"
+    @State private var selectedTab = "PortfolioView"
     @State private var inPortfolioTab = true
     
     var body: some View {
@@ -40,31 +40,36 @@ struct MainView_Previews: PreviewProvider {
 extension MainView {
     var mainView: some View {
         TabView(selection: $selectedTab) {
-            HomeView()
-                .tabItem {
-                    Image(systemName: "magnifyingglass")
-                }
-                .tag("HomeView")
-            
             CryptoNewsView()
                 .tabItem {
                     Image(systemName: "newspaper")
                 }
                 .tag("CryptoNewsView")
             
+            DiscveryView()
+                .tabItem {
+                    Image(systemName: "magnifyingglass")
+                }
+                .tag("DiscoveryView")
+            
             PortfolioView(inPortfolioTab: .constant(true))
                 .tabItem {
-                    Image(systemName: "person")
+                    Image(systemName: "house")
                 }
                 .tag("PortfolioView")
                 .navigationViewStyle(.stack)
+            
+            AccountDetailsView()
+                .tabItem {
+                    Image(systemName: "person")
+                }
+                .tag("SettingsView")
             
             SettingsView()
                 .tabItem {
                     Image(systemName: "gearshape")
                 }
                 .tag("SettingsView")
-            
         }
      }
     

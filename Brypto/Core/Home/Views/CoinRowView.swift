@@ -110,6 +110,7 @@ extension CoinRowView {
             Text(coin.currentPrice?.asCurrencyWith2Decimals() ?? "N/A")
                 .bold()
                 .foregroundColor(Color.theme.accent)
+                .lineLimit(1)
             Text(coin.priceChangePercentage24H?.asPercentString() ?? "")
                 .foregroundColor(
                     (coin.priceChangePercentage24H ?? 0) >= 0 ?
@@ -117,6 +118,6 @@ extension CoinRowView {
                         Color.theme.red
                 )
         }
-        .frame(width: UIScreen.main.bounds.width / 5, alignment: .trailing)
+        .frame(width: UIScreen.main.bounds.width / 4.75, alignment: .trailing)
     }
 }

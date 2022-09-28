@@ -28,7 +28,7 @@ struct DetailView: View {
     @State private var isBookmarked: Bool = false
     
     @Environment(\.dismiss) var dismiss
-//    @State private var selectedCoin: CoinModel? = nil
+    //    @State private var selectedCoin: CoinModel? = nil
     @State private var quantityText: String = ""
     @State private var showCheckMark: Bool = false
     @State private var showPortfolioInputSection: Bool = false
@@ -59,13 +59,21 @@ struct DetailView: View {
                         .padding()
                     
                     VStack(spacing: 20) {
-                        overviewTitle
-                        Divider()
-                        descriptionSection
-                        overviewGrid
-                        additionalTitle
-                        Divider()
-                        additionalGrid
+                        Group {
+                            overviewTitle
+                            descriptionSection
+                            //Divider()
+                            if homeVM.purchasedCoins.contains(where: { $0.id == coin.id }) {
+                                positionTitle
+                                positionSection
+                            }
+                        }
+                        statsTitle
+                        //Divider()
+                        statsGrid
+                        //additionalTitle
+                        //Divider()
+                        //additionalGrid
                         websiteSection
                     }
                     .padding()
@@ -84,7 +92,7 @@ struct DetailView: View {
                 }
                 if showBuyAndSellButtons {
                     withAnimation {
-                    buyAndSellButtons
+                        buyAndSellButtons
                             .background(
                                 Color.white.opacity(0.000001)
                                     .frame(height: 20000)
@@ -100,7 +108,7 @@ struct DetailView: View {
         )
         .navigationTitle(vm.coin.name)
         //.navigationBarBackButtonHidden(true)
-        .toolbar {            
+        .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 navigationBarTrailingItems
             }
@@ -117,6 +125,10 @@ struct DetailView_Previews: PreviewProvider {
 }
 
 extension DetailView {
+    var percentChange: String {
+        return (coin.priceChangePercentage24H ?? 0).asPercentString() /// 100
+    }
+    
     private var navigationBarTrailingItems: some View {
         HStack {
             Text(vm.coin.symbol.uppercased())
@@ -162,10 +174,10 @@ extension DetailView {
                         .background(Color.theme.accent)
                         .cornerRadius(10)
                         .padding(.horizontal)
-//                        .onTapGesture {
-//                            showSellView = true
-//                            //showBuyView = false
-//                        }
+                    //                        .onTapGesture {
+                    //                            showSellView = true
+                    //                            //showBuyView = false
+                    //                        }
                 }
             }
             
@@ -182,10 +194,10 @@ extension DetailView {
                     .background(Color.theme.accent)
                     .cornerRadius(10)
                     .padding(.horizontal)
-//                    .onTapGesture {
-//                        //showSellView = false
-//                        showBuyView = true
-//                    }
+                //                    .onTapGesture {
+                //                        //showSellView = false
+                //                        showBuyView = true
+                //                    }
             }
         }
     }
@@ -205,13 +217,6 @@ extension DetailView {
             }
             .tint(Color.theme.accent)
         }
-    }
-    
-    private var additionalTitle: some View {
-        Text("Additional Details")
-            .font(.title.bold())
-            .foregroundColor(Color.theme.accent)
-            .frame(maxWidth: .infinity, alignment: .leading)
     }
     
     private var descriptionSection: some View {
@@ -240,7 +245,86 @@ extension DetailView {
         }
     }
     
-    private var overviewGrid: some View {
+    private var positionTitle: some View {
+        HStack {
+            Text(homeVM.purchasedCoins.contains(where: { $0.id == coin.id }) ? "Your position" : "")
+                .font(.title.bold())
+                .foregroundColor(Color.theme.accent)
+                .frame(maxWidth: .infinity, alignment: .leading)
+        }
+    }
+    
+    private var positionSection: some View {
+        VStack(spacing: 30) {
+            LazyVGrid(
+                columns: columns,
+                alignment: .leading,
+                spacing: spacing,
+                pinnedViews: [],
+                content: {
+                    VStack(alignment: .leading) {
+                        Text("Shares")
+                            .font(.callout)
+                            .foregroundColor(Color.theme.secondaryText)
+                        Text(coin.currentHoldings?.asNumberString() ?? "0")
+                            .font(.headline.bold())
+                            .foregroundColor(Color.theme.accent)
+                    }
+                    VStack(alignment: .leading) {
+                        Text("Equity")
+                            .font(.callout)
+                            .foregroundColor(Color.theme.secondaryText)
+                        Text("\(((coin.currentHoldings ?? 0) * (coin.currentPrice ?? 0)).asCurrencyWith2Decimals())")
+                            .font(.headline)
+                            .foregroundColor(Color.theme.accent)
+                    }
+                    VStack(alignment: .leading) {
+                        Text("Avg Cost")
+                            .font(.callout)
+                            .foregroundColor(Color.theme.secondaryText)
+                        Text("\(coin.avgCost.asCurrencyWith2Decimals())")
+                            .font(.headline)
+                            .foregroundColor(Color.theme.accent)
+                    }
+                    VStack(alignment: .leading) {
+                        Text("Portfolio Diversity")
+                            .font(.callout)
+                            .foregroundColor(Color.theme.secondaryText)
+                        HStack(spacing: -85) {
+                            Text(((coin.currentHoldingsValue / homeVM.portfolioValue) * 100).asPercentString())
+                                .font(.headline)
+                                .foregroundColor(Color.theme.accent)
+                            Circle()
+                                .trim(from: 0, to: ((coin.currentHoldingsValue / homeVM.portfolioValue)))
+                                .stroke(Color.theme.green, lineWidth: 2.5)
+                                .background(
+                                    Circle()
+                                        .trim(from: 0, to: ((coin.currentHoldingsValue / homeVM.portfolioValue)))
+                                        .stroke(Color.theme.secondaryText, lineWidth: 2.5)
+                                )
+                        }
+                    }
+                }
+            )
+        }
+        .padding(.bottom)
+    }
+    
+    private var additionalTitle: some View {
+        Text("Additional Details")
+            .font(.title.bold())
+            .foregroundColor(Color.theme.accent)
+            .frame(maxWidth: .infinity, alignment: .leading)
+    }
+    
+    private var statsTitle: some View {
+        Text("Stats")
+            .font(.title.bold())
+            .foregroundColor(Color.theme.accent)
+            .frame(maxWidth: .infinity, alignment: .leading)
+    }
+    
+    private var statsGrid: some View {
         LazyVGrid(
             columns: columns,
             alignment: .leading,
@@ -250,23 +334,26 @@ extension DetailView {
                 ForEach(vm.overviewStatistics) { stat in
                     StatisticView(stat: stat)
                 }
-            }
-        )
-    }
-    
-    private var additionalGrid: some View {
-        LazyVGrid(
-            columns: columns,
-            alignment: .leading,
-            spacing: spacing,
-            pinnedViews: [],
-            content: {
                 ForEach(vm.additionalStatistics) { stat in
                     StatisticView(stat: stat)
                 }
             }
         )
     }
+    
+//    private var additionalGrid: some View {
+//        LazyVGrid(
+//            columns: columns,
+//            alignment: .leading,
+//            spacing: spacing,
+//            pinnedViews: [],
+//            content: {
+//                ForEach(vm.additionalStatistics) { stat in
+//                    StatisticView(stat: stat)
+//                }
+//            }
+//        )
+//    }
     
     private var websiteSection: some View {
         VStack(alignment: .leading, spacing: 20) {
@@ -285,40 +372,40 @@ extension DetailView {
         .font(.headline)
     }
     
-//    private func getCurrentValue() -> Double {
-//        if let quantity = Double(quantityText) {
-//            return quantity * (selectedCoin?.currentPrice ?? 0)
-//        }
-//        return 0
-//    }
+    //    private func getCurrentValue() -> Double {
+    //        if let quantity = Double(quantityText) {
+    //            return quantity * (selectedCoin?.currentPrice ?? 0)
+    //        }
+    //        return 0
+    //    }
     
-//    private func saveButtonPressed() {
-//        guard
-//            let coin = selectedCoin,
-//            let amount = Double(quantityText)
-//        else { return }
-//
-//        // save to portfolio
-//        homeVM.updatePortfolio(coin: coin, amount: amount)
-//        // show the checkmart
-//        withAnimation(.easeIn) {
-//            showCheckMark = true
-//            removeSelectedCoin()
-//        }
-//
-//        // hdie keyboard
-//        UIApplication.shared.endEditing()
-//
-//        // hide checkmark
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-//            withAnimation(.easeOut) {
-//                showCheckMark = false
-//            }
-//        }
-//    }
+    //    private func saveButtonPressed() {
+    //        guard
+    //            let coin = selectedCoin,
+    //            let amount = Double(quantityText)
+    //        else { return }
+    //
+    //        // save to portfolio
+    //        homeVM.updatePortfolio(coin: coin, amount: amount)
+    //        // show the checkmart
+    //        withAnimation(.easeIn) {
+    //            showCheckMark = true
+    //            removeSelectedCoin()
+    //        }
+    //
+    //        // hdie keyboard
+    //        UIApplication.shared.endEditing()
+    //
+    //        // hide checkmark
+    //        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+    //            withAnimation(.easeOut) {
+    //                showCheckMark = false
+    //            }
+    //        }
+    //    }
     
-//    private func removeSelectedCoin() {
-//        selectedCoin = nil
-//        homeVM.searchText = ""
-//    }
+    //    private func removeSelectedCoin() {
+    //        selectedCoin = nil
+    //        homeVM.searchText = ""
+    //    }
 }

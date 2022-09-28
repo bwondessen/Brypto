@@ -35,34 +35,34 @@ struct PortfolioInputSection: View {
     @State private var animate0: Bool = false
     @State private var animateArrow: Bool = false
     
-//    @State private var buyButtonPressed: Bool = false
+    //    @State private var buyButtonPressed: Bool = false
     
     let coin: CoinModel
     
     var body: some View {
         NavigationView {
-        VStack {
-            inputSection
-            numberPad
-            buyOrSellButton
-        }
-        .onChange(of: dollarAmount, perform: { _ in
-            updateDollarAmount()
-        })
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Image(systemName: "arrow.backward")
-                    .font(.title2.bold())
-                    .onTapGesture {
-                        dismiss()
-                    }
+            VStack {
+                inputSection
+                numberPad
+                buyOrSellButton
+            }
+            .onChange(of: dollarAmount, perform: { _ in
+                updateDollarAmount()
+            })
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Image(systemName: "arrow.backward")
+                        .font(.title2.bold())
+                        .onTapGesture {
+                            dismiss()
+                        }
+                }
             }
         }
-        }
-//        .background(
-//            RoundedRectangle(cornerRadius: 10)
-//                .fill(.white)
-//        )
+        //        .background(
+        //            RoundedRectangle(cornerRadius: 10)
+        //                .fill(.white)
+        //        )
     }
 }
 
@@ -74,60 +74,61 @@ struct PortfolioInputSection_Previews: PreviewProvider {
 }
 
 extension PortfolioInputSection {
-//    private var trailingNavBarButtons: some View {
-//        VStack {
-////            Rectangle()
-////                .frame(height: 2)
-//
-//            HStack(spacing: 10) {
-//                Image(systemName: "checkmark")
-//                    .opacity(showCheckMark ? 1.0 : 0.0)
-//                .opacity(
-//                    (showBuyView != false && coin.currentHoldings != Double(dollarAmount)) ? 1.0 : 0.0
-//                )
-//            }
-//            .font(.headline)
-//        }
-//    }
+    //    private var trailingNavBarButtons: some View {
+    //        VStack {
+    ////            Rectangle()
+    ////                .frame(height: 2)
+    //
+    //            HStack(spacing: 10) {
+    //                Image(systemName: "checkmark")
+    //                    .opacity(showCheckMark ? 1.0 : 0.0)
+    //                .opacity(
+    //                    (showBuyView != false && coin.currentHoldings != Double(dollarAmount)) ? 1.0 : 0.0
+    //                )
+    //            }
+    //            .font(.headline)
+    //        }
+    //    }
     
     private var inputSection: some View {
         VStack {
             VStack {
                 Text(showBuyView ? "Buy" : "Sell")
-                    //.font(.title.bold())
+                //.font(.title.bold())
                     .font(.system(.title, design: .rounded))
                     .fontWeight(.bold)
-                Text((dollarAmount.isEmpty ? "$0" : "$" + (Double(dollarAmount)?.commaSeperatedWith2Decimals() ?? "$0")) ?? "$0")
-    //                .font(.largeTitle.bold())
+                Text((dollarAmount.isEmpty ? "$0" : "$" + (Double(dollarAmount)?.commaSeperatedWith2Decimals() ?? "$0")) )
+                //                .font(.largeTitle.bold())
                     .font(.system(size: 75, weight: .bold, design: .rounded))
                     .padding(.bottom)
                 //Divider()
                 HStack {
-                    Text("Shares:")
-                    Text((getAmountOfShares().asNumberString()))
-                }
-                .foregroundColor(Color.theme.secondaryText)
-            }
-            .overlay(
-                HStack {
-                    Text(showSellView ? "\(coin.currentHoldingsValue.asCurrencyWith2Decimals())" : "")
-                        .padding()
-//                        .onTapGesture {
-//                            dollarAmount = coin.currentHoldingsValue
-//                        }
+                    VStack {
+                        Text(showSellView ? "Sell all" : "")
+                        Text(showSellView ? "-\(coin.currentHoldingsValue.asCurrencyWith2Decimals())-" : "")
+                    }
+                        .onTapGesture {
+                            dollarAmount = String(coin.currentHoldingsValue)
+                        }
                     Spacer()
                 }
-                    .frame(width: UIScreen.main.bounds.width)
                 .overlay(
-                    VStack {
-                        Image(systemName: "checkmark")
-                            .font(.title.bold())
-                            .padding()
-                            .opacity(showCheckMark ? 1.0 : 0.0)
-                        Spacer()
+                    HStack {
+                        Text("Shares:")
+                        Text((getAmountOfShares().asNumberString()))
                     }
-                        .frame(height: UIScreen.main.bounds.width)
+                        .foregroundColor(Color.theme.secondaryText)
                 )
+            }
+            .overlay(
+                VStack {
+                    Image(systemName: "checkmark")
+                        .font(.title.bold())
+                        .padding()
+                        .opacity(showCheckMark ? 1.0 : 0.0)
+                    Spacer()
+                }
+                    .frame(height: UIScreen.main.bounds.width)
             )
         }
         .animation(nil, value: UUID())
@@ -370,14 +371,14 @@ extension PortfolioInputSection {
         .disabled(dollarAmount.isEmpty || Double(dollarAmount) == 0)
         .opacity(dollarAmount.isEmpty || Double(dollarAmount) == 0 ? 0.75 : 1)
     }
-        
+    
     private func buyButtonPressed() {
         guard let currentPrice = coin.currentPrice else { return }
         
         let amountOfShares = (Double(dollarAmount) ?? 0) / currentPrice
         
         // save to portfolio
-//        vm.updatePortfolio(coin: coin, amount: amountOfShares)
+        //        vm.updatePortfolio(coin: coin, amount: amountOfShares)
         vm.buyCoin(coin: coin, amount: amountOfShares)
         
         // show the checkmart
@@ -405,7 +406,7 @@ extension PortfolioInputSection {
         let amountOfShares = (Double(dollarAmount) ?? 0) / currentPrice
         
         // save to portfolio
-//        vm.updatePortfolio(coin: coin, amount: amountOfShares)
+        //        vm.updatePortfolio(coin: coin, amount: amountOfShares)
         vm.sellCoin(coin: coin, amount: amountOfShares)
         
         // show the checkmart
@@ -440,12 +441,12 @@ extension PortfolioInputSection {
         }
     }
     
-//    private func getCurrentValue() -> Double {
-//        if let quantity = Double(dollarAmount) {
-//            return quantity * (coin.currentPrice ?? 0)
-//        }
-//        return 0
-//    }
+    //    private func getCurrentValue() -> Double {
+    //        if let quantity = Double(dollarAmount) {
+    //            return quantity * (coin.currentPrice ?? 0)
+    //        }
+    //        return 0
+    //    }
     
     //    private func removeSelectedCoin() {
     //        coin = nil

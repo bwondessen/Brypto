@@ -45,12 +45,30 @@ class HomeViewModel: ObservableObject {
     
     @AppStorage("faceIDEnabled") var faceIDEnabled: Bool = false
     @AppStorage("passcodeRequired") var passcodeRequired: Bool = false
-    
+        
     let icons: [String] = ["bonjour", "antenna.radiowaves.left.and.right", "wifi", "icloud.and.arrow.down", "lock.icloud", "key.icloud", "bolt.horizontal", "network.badge.shield.half.filled", "personalhotspot", "externaldrive.connected.to.line.below", "lock.iphone", "pencil.slash", "square.and.pencil", "folder", "square.grid.3x1.folder.badge.plus", "paperplane", "tray.and.arrow.down", "externaldrive", "doc", "doc.text.magnifyingglass", "note.text", "calendar.badge.clock", "text.book.closed", "newspaper", "link", "umbrella", "bolt.shield", "wand.and.stars", "speedometer", "amplifier", "dice", "theatermasks", "puzzlepiece", "lock", "testtube.2", "checkerboard.shield", "chart.xyaxis.line", "chart.pie", "sdcard", "esim", "camera.filters", "lightbulb", "person.wave.2", "person.crop.circle.fill.badge.plus", "brain.head.profile", "face.smiling", "globe.americas", "flame", "bolt", "scale.3d", "bag", "cart", "creditcard", "banknote", "dollarsign.square", "centsign.square"]
     
     enum SortOption {
         case rank, rankReversed, holdings, holdingsReversed, price, priceReversed
     }
+    
+    var portfolioValue: Double {
+       return purchasedCoins
+            .map({ $0.currentHoldingsValue })
+            .reduce(0, +)
+    }
+        
+//    let previousValue =
+//        portfolioCoins
+//        .map { coin -> Double in
+//            let currentValue = coin.currentHoldingsValue
+//            let percentChange = (coin.priceChangePercentage24H ?? 0) / 100
+//            let previousValue = currentValue / (1 + percentChange)
+//            return previousValue
+//        }
+//        .reduce(0, +)
+    
+//    let percentageChange = ((portfolioValue - previousValue) / previousValue) * 100
     
     init() {
         addSubscribers()
