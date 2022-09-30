@@ -274,7 +274,7 @@ extension DetailView {
                         Text("Equity")
                             .font(.callout)
                             .foregroundColor(Color.theme.secondaryText)
-                        Text("\(((coin.currentHoldings ?? 0) * (coin.currentPrice ?? 0)).asCurrencyWith2Decimals())")
+                        Text("\(coin.currentHoldingsValue.asCurrencyWith2Decimals())")
                             .font(.headline)
                             .foregroundColor(Color.theme.accent)
                     }
@@ -306,6 +306,30 @@ extension DetailView {
                     }
                 }
             )
+            
+            VStack(spacing: 15) {
+                HStack {
+                    Text("Todays Return")
+                        .font(.callout)
+                        .foregroundColor(Color.theme.secondaryText)
+                    Spacer()
+                    Text("$1 million")
+                        .font(.headline)
+                        .foregroundColor(Color.theme.accent)
+                }
+                Divider()
+                
+                HStack {
+                    Text("Total Return")
+                        .font(.callout)
+                        .foregroundColor(Color.theme.secondaryText)
+                    Spacer()
+                    Text("$1,000 (\(homeVM.getTotalPriceChange(portfolioCoins: [coin]).asPercentString()))")
+                        .font(.headline)
+                        .foregroundColor(Color.theme.accent)
+                }
+                Divider()
+            }
         }
         .padding(.bottom)
     }

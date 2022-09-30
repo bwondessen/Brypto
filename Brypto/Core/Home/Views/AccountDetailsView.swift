@@ -6,15 +6,163 @@
 //
 
 import SwiftUI
+import SwiftPieChart
 
 struct AccountDetailsView: View {
+    @EnvironmentObject private var vm: HomeViewModel
+    @EnvironmentObject private var detailVM: DetailViewModel
+    
+    //    var randomColor: Color {
+    //        let color: [Color] = [.red, .blue, .orange, .green, .purple, .yellow, .brown, .gray, .mint, .cyan].shuffled()
+    //
+    //        return color.randomElement() ?? .cyan
+    //    }
+    
+    let randomColor: [Color] = [.red, .blue, .orange, .green, .purple, .yellow, .brown, .gray, .mint, .cyan].shuffled()
+    
+    //    @AppStorage("totalDollarAmountInPortfolio") var totalDollarAmountInPortfolio: Double = 0
+    
+    //    @AppStorage("bio") var bio: String = ""
+    
+    @State private var index: Int = 1
+    
+    @State private var diversitySelected: Bool = true
+    @State private var returnSelected: Bool = false
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ScrollView {
+            VStack {
+                userAccountHeading
+                investingInfoSection
+                portfolioBreakdownHeader
+                portfolioBreakdownCategoriesHeader
+                portfolioBreakdownSection
+            }
+        }
     }
 }
 
 struct AccountDetailsView_Previews: PreviewProvider {
     static var previews: some View {
         AccountDetailsView()
+    }
+}
+
+extension AccountDetailsView {
+    private var userAccountHeading: some View {
+        VStack(spacing: 10) {
+            Image("lebron")
+                .resizable()
+                .frame(width: 70, height: 70)
+                .clipShape(Circle())
+            //            Image(systemName: "face.smiling")
+            //                .resizable()
+            //                .frame(width: 60, height: 60)
+            Text("@\(vm.userName)")
+                .font(.headline.bold())
+            VStack(alignment: .leading, spacing: 5) {
+                HStack {
+                    Text("Portfolio Value:")
+                        .font(.headline)
+                        .foregroundColor(Color.theme.secondaryText)
+                    Text("\(vm.portfolioValue.asCurrencyWith2Decimals())")
+                        .font(.headline.bold())
+                        .foregroundColor(Color.theme.accent)
+                        .frame(maxWidth: .infinity, alignment: .trailing)
+                }
+                HStack {
+                    Text("Buying Power")
+                        .font(.headline)
+                        .foregroundColor(Color.theme.secondaryText)
+                    Text("-$buyingPower-")
+                        .font(.headline.bold())
+                        .foregroundColor(Color.theme.accent)
+                        .frame(maxWidth: .infinity, alignment: .trailing)
+                }
+            }
+            .frame(width: UIScreen.main.bounds.width / 1.55)
+        }
+        .padding(.vertical)
+    }
+    
+    private var investingInfoSection: some View {
+        VStack {
+            VStack {
+                HStack {
+                    Text("Total Return")
+                        .font(.headline)
+                        .foregroundColor(Color.theme.secondaryText)
+                    Spacer()
+                    HStack {
+                        Text("\(vm.totalReturn.asCurrencyWith2Decimals())")
+                            .font(.headline.bold())
+                            .foregroundColor(Color.theme.accent)
+                        Text("(\(vm.totalReturnPercentage.asPercentString()))")
+                            .font(.callout)
+                            .foregroundColor(vm.totalReturnPercentage >= 0 ? Color.theme.green : Color.theme.red)
+                    }
+                }
+            }
+        }
+        .padding()
+    }
+    
+    private var portfolioBreakdownHeader: some View {
+        HStack {
+            Text("Portfolio Breakdown")
+            //Text("\(detailVM.categories)")
+                .font(.title2.bold())
+            Spacer()
+        }
+        .padding()
+    }
+    
+    private var portfolioBreakdownCategoriesHeader: some View {
+        HStack {
+            VStack {
+                Text("Diversity")
+                Rectangle().frame(height: 3).foregroundColor(diversitySelected ? Color.theme.green : Color.clear)
+            }
+            .frame(width: 100, height: 10)
+            .onTapGesture {
+                diversitySelected = true
+                returnSelected = false
+                }
+            //Spacer()
+            VStack {
+                Text("Return")
+                Rectangle().frame(height: 3).foregroundColor(returnSelected ? Color.theme.green : Color.clear)
+            }
+                .frame(width: 100, height: 10)
+                .onTapGesture {
+                    diversitySelected = false
+                    returnSelected = true
+                }
+        }
+        .padding()
+        .font(.headline)
+        .foregroundColor(Color.theme.accent)
+    }
+    
+//    diversitySelected ? $0.currentHoldingsValue : (returnSelected ? vm.getTotalPriceChange(portfolioCoins: vm.purchasedCoins) : $0.currentPrice))
+    
+    private var portfolioBreakdownSection: some View {
+        VStack {
+            PieChartView(
+                values: vm.purchasedCoins.map({diversitySelected ? $0.currentHoldingsValue : vm.getTotalPriceChange(portfolioCoins: vm.purchasedCoins)}),
+                names: vm.purchasedCoins.map({$0.name}),
+                formatter: {value in
+                    //String(format: "$%.2f", value)
+                    String(value.asCurrencyWith2Decimals())
+                },
+                colors: randomColor,
+                backgroundColor: Color.theme.background,
+                widthFraction: 0.70,
+                innerRadiusFraction: 0.55
+            )
+            //                    PieChartView(values: T##[Double], names: T##[String], formatter: T##(Double) -> String, colors: T##[Color], backgroundColor: T##Color, widthFraction: T##CGFloat, innerRadiusFraction: T##CGFloat)
+        }
+        .padding()
+        .padding(.bottom)
     }
 }

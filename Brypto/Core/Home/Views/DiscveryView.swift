@@ -50,7 +50,6 @@ struct DiscveryView: View {
                 // content layer
                 VStack {
                     homeHeader
-                    Text("News count: \(vm.marketNews.count)")
                     SearchBarView(searchText: $vm.searchText)
                         .padding(.horizontal, 8)
                     

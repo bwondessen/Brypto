@@ -62,6 +62,8 @@
 		36CE1E2C28BEDC5D0065B98A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 36CE1E2B28BEDC5D0065B98A /* LaunchScreen.storyboard */; };
 		36CE1E2E28BEDEA30065B98A /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36CE1E2D28BEDEA30065B98A /* LaunchView.swift */; };
 		36DE56BD28E500800026AA79 /* AccountDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36DE56BC28E500800026AA79 /* AccountDetailsView.swift */; };
+		36DE56C428E5FE0A0026AA79 /* PieSliceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36DE56C228E5FE090026AA79 /* PieSliceView.swift */; };
+		36DE56C528E5FE0A0026AA79 /* PieChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36DE56C328E5FE090026AA79 /* PieChartView.swift */; };
 		36E09CD6285FDDF500FFEA59 /* MarketDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E09CD5285FDDF500FFEA59 /* MarketDataModel.swift */; };
 		36E09CD8285FE70000FFEA59 /* MarketDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E09CD7285FE70000FFEA59 /* MarketDataService.swift */; };
 		36E09CDA2860045600FFEA59 /* PortfolioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E09CD92860045600FFEA59 /* PortfolioView.swift */; };
@@ -134,6 +136,8 @@
 		36CE1E2B28BEDC5D0065B98A /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		36CE1E2D28BEDEA30065B98A /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
 		36DE56BC28E500800026AA79 /* AccountDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailsView.swift; sourceTree = "<group>"; };
+		36DE56C228E5FE090026AA79 /* PieSliceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PieSliceView.swift; sourceTree = "<group>"; };
+		36DE56C328E5FE090026AA79 /* PieChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PieChartView.swift; sourceTree = "<group>"; };
 		36E09CD5285FDDF500FFEA59 /* MarketDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketDataModel.swift; sourceTree = "<group>"; };
 		36E09CD7285FE70000FFEA59 /* MarketDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketDataService.swift; sourceTree = "<group>"; };
 		36E09CD92860045600FFEA59 /* PortfolioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioView.swift; sourceTree = "<group>"; };
@@ -324,6 +328,7 @@
 				361F4B6B2859458700FB9530 /* NetworkingManager.swift */,
 				361F4B74285BFE4000FB9530 /* LocalFileManager.swift */,
 				3676662E28622FEE0008CD85 /* HapticManager.swift */,
+				36DE56C128E5FE090026AA79 /* SwiftPieChart */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -386,6 +391,15 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		36DE56C128E5FE090026AA79 /* SwiftPieChart */ = {
+			isa = PBXGroup;
+			children = (
+				36DE56C228E5FE090026AA79 /* PieSliceView.swift */,
+				36DE56C328E5FE090026AA79 /* PieChartView.swift */,
+			);
+			path = SwiftPieChart;
+			sourceTree = "<group>";
+		};
 		36F5138728BED59700B0FC1D /* Launch */ = {
 			isa = PBXGroup;
 			children = (
@@ -419,6 +433,8 @@
 			dependencies = (
 			);
 			name = Brypto;
+			packageProductDependencies = (
+			);
 			productName = Brypto;
 			productReference = 361F4B3B2851AD0600FB9530 /* Brypto.app */;
 			productType = "com.apple.product-type.application";
@@ -447,6 +463,8 @@
 				Base,
 			);
 			mainGroup = 361F4B322851AD0500FB9530;
+			packageReferences = (
+			);
 			productRefGroup = 361F4B3C2851AD0600FB9530 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -500,6 +518,7 @@
 				361F4B7B285D59AC00FB9530 /* UIApplication.swift in Sources */,
 				36CE1E2E28BEDEA30065B98A /* LaunchView.swift in Sources */,
 				361F4B5828528E1000FB9530 /* CircleButtonView.swift in Sources */,
+				36DE56C428E5FE0A0026AA79 /* PieSliceView.swift in Sources */,
 				36F4FDDB28D2AAF50033829E /* TopMoversView.swift in Sources */,
 				361F4B4E2851B20A00FB9530 /* Color.swift in Sources */,
 				36766634286283FF0008CD85 /* DetailView.swift in Sources */,
@@ -507,6 +526,7 @@
 				360B5CD128D1464C0095DF66 /* CategoryView.swift in Sources */,
 				360B5CD328D198680095DF66 /* AllCoinsListView.swift in Sources */,
 				360948AC28C7BD7A00C92B96 /* SettingsView.swift in Sources */,
+				36DE56C528E5FE0A0026AA79 /* PieChartView.swift in Sources */,
 				3676662F28622FEE0008CD85 /* HapticManager.swift in Sources */,
 				361F4B79285D509400FB9530 /* SearchBarView.swift in Sources */,
 				3683699E28C96B2D002BE257 /* ChangeUserNameView.swift in Sources */,

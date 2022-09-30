@@ -96,7 +96,7 @@ struct CoinModel: Identifiable, Codable {
         case priceChangePercentage24HInCurrency = "price_change_percentage_24h_in_currency"
         case currentHoldings
     }
-        
+            
     var currentHoldingsValue: Double {
         (currentHoldings ?? 0) * (currentPrice ?? 0)
     }

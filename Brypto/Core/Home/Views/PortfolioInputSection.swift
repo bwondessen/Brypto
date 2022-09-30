@@ -12,7 +12,8 @@ struct PortfolioInputSection: View {
     @Environment(\.dismiss) var dismiss
     //@Environment(\.dismiss) var dismiss
     //@State private var selectedCoin: CoinModel? = nil
-    @State private var dollarAmount: String = ""
+//    @State private var dollarAmount: String = ""
+//    @State private var totalDollarAmount: Double = 0
     @State private var showCheckMark: Bool = false
     //@Binding var showPortfolioInput: Bool
     
@@ -46,7 +47,7 @@ struct PortfolioInputSection: View {
                 numberPad
                 buyOrSellButton
             }
-            .onChange(of: dollarAmount, perform: { _ in
+            .onChange(of: vm.dollarAmount, perform: { _ in
                 updateDollarAmount()
             })
             .toolbar {
@@ -97,7 +98,7 @@ extension PortfolioInputSection {
                 //.font(.title.bold())
                     .font(.system(.title, design: .rounded))
                     .fontWeight(.bold)
-                Text((dollarAmount.isEmpty ? "$0" : "$" + (Double(dollarAmount)?.commaSeperatedWith2Decimals() ?? "$0")) )
+                Text((vm.dollarAmount.isEmpty ? "$0" : "$" + (Double(vm.dollarAmount)?.commaSeperatedWith2Decimals() ?? "$0")) )
                 //                .font(.largeTitle.bold())
                     .font(.system(size: 75, weight: .bold, design: .rounded))
                     .padding(.bottom)
@@ -108,7 +109,7 @@ extension PortfolioInputSection {
                         Text(showSellView ? "-\(coin.currentHoldingsValue.asCurrencyWith2Decimals())-" : "")
                     }
                         .onTapGesture {
-                            dollarAmount = String(coin.currentHoldingsValue)
+                            vm.dollarAmount = String(coin.currentHoldingsValue)
                         }
                     Spacer()
                 }
@@ -157,7 +158,7 @@ extension PortfolioInputSection {
                                 animate1 = false
                             }
                         }
-                        dollarAmount.append("1")
+                        vm.dollarAmount.append("1")
                     }
                 Spacer()
                 Text("2")
@@ -173,7 +174,7 @@ extension PortfolioInputSection {
                                 animate2 = false
                             }
                         }
-                        dollarAmount.append("2")
+                        vm.dollarAmount.append("2")
                     }
                 Spacer()
                 Text("3")
@@ -189,7 +190,7 @@ extension PortfolioInputSection {
                                 animate3 = false
                             }
                         }
-                        dollarAmount.append("3")
+                        vm.dollarAmount.append("3")
                     }
             }
             .padding()
@@ -207,7 +208,7 @@ extension PortfolioInputSection {
                                 animate4 = false
                             }
                         }
-                        dollarAmount.append("4")
+                        vm.dollarAmount.append("4")
                     }
                 Spacer()
                 Text("5")
@@ -223,7 +224,7 @@ extension PortfolioInputSection {
                                 animate5 = false
                             }
                         }
-                        dollarAmount.append("5")
+                        vm.dollarAmount.append("5")
                     }
                 Spacer()
                 Text("6")
@@ -239,7 +240,7 @@ extension PortfolioInputSection {
                                 animate6 = false
                             }
                         }
-                        dollarAmount.append("6")
+                        vm.dollarAmount.append("6")
                     }
             }
             .padding()
@@ -257,7 +258,7 @@ extension PortfolioInputSection {
                                 animate7 = false
                             }
                         }
-                        dollarAmount.append("7")
+                        vm.dollarAmount.append("7")
                     }
                 Spacer()
                 Text("8")
@@ -273,7 +274,7 @@ extension PortfolioInputSection {
                                 animate8 = false
                             }
                         }
-                        dollarAmount.append("8")
+                        vm.dollarAmount.append("8")
                     }
                 Spacer()
                 Text("9")
@@ -289,7 +290,7 @@ extension PortfolioInputSection {
                                 animate9 = false
                             }
                         }
-                        dollarAmount.append("9")
+                        vm.dollarAmount.append("9")
                     }
             }
             .padding()
@@ -307,7 +308,7 @@ extension PortfolioInputSection {
                                 animateDot = false
                             }
                         }
-                        dollarAmount.append(".")
+                        vm.dollarAmount.append(".")
                     }
                 Spacer()
                 Text("0")
@@ -323,7 +324,7 @@ extension PortfolioInputSection {
                                 animate0 = false
                             }
                         }
-                        dollarAmount.append("0")
+                        vm.dollarAmount.append("0")
                     }
                 Spacer()
                 Image(systemName: "arrow.backward")
@@ -331,7 +332,7 @@ extension PortfolioInputSection {
                     .padding(.horizontal)
                     .scaleEffect(animateArrow ? 3 : 1)
                     .onTapGesture {
-                        if !dollarAmount.isEmpty {
+                        if !vm.dollarAmount.isEmpty {
                             withAnimation(.spring()) {
                                 animateArrow = true
                             }
@@ -341,7 +342,7 @@ extension PortfolioInputSection {
                                     animateArrow = false
                                 }
                             }
-                            dollarAmount.removeLast()
+                            vm.dollarAmount.removeLast()
                         }
                     }
             }
@@ -368,14 +369,16 @@ extension PortfolioInputSection {
                 .cornerRadius(10)
                 .padding(.horizontal)
         }
-        .disabled(dollarAmount.isEmpty || Double(dollarAmount) == 0)
-        .opacity(dollarAmount.isEmpty || Double(dollarAmount) == 0 ? 0.75 : 1)
+        .disabled(vm.dollarAmount.isEmpty || Double(vm.dollarAmount) == 0)
+        .opacity(vm.dollarAmount.isEmpty || Double(vm.dollarAmount) == 0 ? 0.75 : 1)
     }
     
     private func buyButtonPressed() {
         guard let currentPrice = coin.currentPrice else { return }
         
-        let amountOfShares = (Double(dollarAmount) ?? 0) / currentPrice
+        let amountOfShares = (Double(vm.dollarAmount) ?? 0) / currentPrice
+        
+        vm.totalDollarAmountInPortfolio += (Double(vm.dollarAmount) ?? 0)
         
         // save to portfolio
         //        vm.updatePortfolio(coin: coin, amount: amountOfShares)
@@ -395,7 +398,7 @@ extension PortfolioInputSection {
             withAnimation(.easeOut) {
                 showCheckMark = false
                 //showPortfolioInputSection = false
-                dollarAmount = ""
+                vm.dollarAmount = ""
             }
         }
     }
@@ -403,7 +406,7 @@ extension PortfolioInputSection {
     private func sellButtonPressed() {
         guard let currentPrice = coin.currentPrice else { return }
         
-        let amountOfShares = (Double(dollarAmount) ?? 0) / currentPrice
+        let amountOfShares = (Double(vm.dollarAmount) ?? 0) / currentPrice
         
         // save to portfolio
         //        vm.updatePortfolio(coin: coin, amount: amountOfShares)
@@ -423,21 +426,21 @@ extension PortfolioInputSection {
             withAnimation(.easeOut) {
                 showCheckMark = false
                 //showPortfolioInputSection = false
-                dollarAmount = ""
+                vm.dollarAmount = ""
             }
         }
     }
     
     private func getAmountOfShares() -> Double {
-        if let dollarAmount = Double(dollarAmount) {
+        if let dollarAmount = Double(vm.dollarAmount) {
             return dollarAmount / (coin.currentPrice ?? 0)
         }
         return 0
     }
     
     private func updateDollarAmount() {
-        if dollarAmount.count > 1 && dollarAmount.first == "0" && !dollarAmount.contains(".") {
-            dollarAmount.removeFirst()
+        if vm.dollarAmount.count > 1 && vm.dollarAmount.first == "0" && !vm.dollarAmount.contains(".") {
+            vm.dollarAmount.removeFirst()
         }
     }
     

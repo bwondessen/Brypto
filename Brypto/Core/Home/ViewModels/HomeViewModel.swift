@@ -23,6 +23,9 @@ class HomeViewModel: ObservableObject {
     @Published var sortOption: SortOption = .holdings
     //@Published var isBookmarked: Bool = false
     
+    @Published var dollarAmount: String = ""
+    @AppStorage("totalDollarAmountInPortfolio") var totalDollarAmountInPortfolio: Double = 0
+    
     private let coinDataService = CoinDataService()
     private let marketDataService = MarketDataService()
     let marketCategoryDataService = MarketCategoryDataService()
@@ -51,12 +54,46 @@ class HomeViewModel: ObservableObject {
     enum SortOption {
         case rank, rankReversed, holdings, holdingsReversed, price, priceReversed
     }
-    
+            
     var portfolioValue: Double {
        return purchasedCoins
             .map({ $0.currentHoldingsValue })
             .reduce(0, +)
     }
+        
+    var totalReturn: Double {
+        portfolioValue - totalDollarAmountInPortfolio
+    }
+    
+    var totalReturnPercentage: Double {
+        ((portfolioValue - totalDollarAmountInPortfolio) / totalDollarAmountInPortfolio) * 100
+    }
+    
+    func getTop3Coins(coins: [CoinModel]) -> [String] {
+        var top3CoinsNames: [String] = []
+        var newLink = ""
+        
+        for categories in marketCategories {
+            for link in categories.top3Coins {
+                newLink = link.replacingOccurrences(of: "-", with: "")
+                newLink = newLink.replacingOccurrences(of: "_", with: "")
+                for coin in coins {
+                    if newLink.contains(coin.name) {
+                        top3CoinsNames.append(coin.name)
+                    }
+                }
+            }
+        }
+        return top3CoinsNames
+    }
+    
+//    var portfolioDiversity: Double {
+//
+//    }
+    
+//    var percentageChange: Double {
+//        ((portfolioValue - previousValue) / previousValue) * 100
+//    }
         
 //    let previousValue =
 //        portfolioCoins
@@ -278,6 +315,27 @@ class HomeViewModel: ObservableObject {
         stats.append(contentsOf: [marketCap, volume, btcDominance, portfolio])
         
         return stats
+    }
+    
+    func getTotalPriceChange(portfolioCoins: [CoinModel]) -> Double {
+        let portfolioValue =
+            portfolioCoins
+                .map({ $0.currentHoldingsValue })
+                .reduce(0, +)
+        
+        let previousValue =
+            portfolioCoins
+            .map { coin -> Double in
+                let currentValue = coin.currentHoldingsValue
+                let percentChange = (coin.priceChangePercentage24H ?? 0) / 100
+                let previousValue = currentValue / (1 + percentChange)
+                return previousValue
+            }
+            .reduce(0, +)
+        
+        let percentageChange = ((portfolioValue - previousValue) / previousValue) * 100
+
+        return percentageChange
     }
     
 //    private func mapMarketCategoryData(marketCategoryDataModel: MarketCategoryDataModel?) -> [MarketCategoryDataModel] {

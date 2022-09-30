@@ -9,8 +9,7 @@ import Foundation
 import Combine
 
 class CoinDetailDataService {
-    @Published var coinDetails: CoinDetailModel? = nil
-    
+    @Published var coinDetails: CoinDetailModel? = nil    
     var coinDetailSubscription: AnyCancellable?
     var coin: CoinModel
     
