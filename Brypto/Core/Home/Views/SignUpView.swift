@@ -11,7 +11,7 @@ struct SignUpView: View {
     @EnvironmentObject private var vm: HomeViewModel
     
     @State private var enteredFullName: String = ""
-    @State private var enteredUserName: String = ""
+    @State private var enteredUserName: String = "".lowercased()
     @State private var enteredPassword: String = ""
     @State private var enteredEmail: String = ""
     
@@ -78,6 +78,8 @@ extension SignUpView {
                 DatePicker("Birthday 🎂", selection: $birthday, in: ...Date(), displayedComponents: [.date])
                 TextField("Full Name", text: $enteredFullName)
                 TextField("Username", text: $enteredUserName)
+                    .autocapitalization(.none)
+                    .disableAutocorrection(true)
                 SecureField("Password", text: $enteredPassword)
             }
             .disableAutocorrection(true)
@@ -96,7 +98,7 @@ extension SignUpView {
         Button {
             let user = UserModel(fullName: enteredFullName, userName: enteredUserName, password: enteredPassword, email: enteredEmail, birthday: birthday)
             fullName = user.fullName
-            userName = user.userName
+            userName = user.userName.lowercased()
             password = user.password
             email = user.email
             birthday = user.birthday

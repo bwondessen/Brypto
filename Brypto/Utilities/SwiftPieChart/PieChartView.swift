@@ -9,6 +9,8 @@ import SwiftUI
 
 @available(OSX 10.15, *)
 public struct PieChartView: View {
+    @EnvironmentObject private var vm: HomeViewModel
+    
     public let values: [Double]
     public let names: [String]
     public let formatter: (Double) -> String
@@ -98,7 +100,7 @@ public struct PieChartView: View {
                     }
                     
                 }
-                PieChartRows(colors: self.colors, names: self.names, values: self.values.map { self.formatter($0) }, percents: self.values.map { String(format: "%.0f%%", $0 * 100 / self.values.reduce(0, +)) })
+                PieChartRows(colors: self.colors, names: self.names, values: self.values.map { self.formatter($0) }, percents: self.values.map { String(format: "%.0f%%", $0 * 100 / self.values.reduce(0, +)) }, purchasedCoins: vm.purchasedCoins)
             }
             .background(self.backgroundColor)
             .font(.subheadline)
@@ -114,26 +116,48 @@ struct PieChartRows: View {
     var values: [String]
     var percents: [String]
     
+    let purchasedCoins: [CoinModel]
+    @State private var showDetailView: Bool = false
+    @State private var selectedCoin: CoinModel? = nil
+    
     var body: some View {
         VStack{
             ForEach(0..<self.values.count){ i in
                 HStack {
-                    RoundedRectangle(cornerRadius: 5.0)
-                        .fill(self.colors[i])
-                        .frame(width: 20, height: 20)
+                    CoinImageView(coin: purchasedCoins[i])
+                        .frame(width: 30, height: 30)
+//                    RoundedRectangle(cornerRadius: 5.0)
+//                        .fill(self.colors[i])
+//                        .frame(width: 20, height: 20)
                     Text(self.names[i])
+                        .font(.headline)
+                        .foregroundColor(Color.theme.accent)
                     Spacer()
                     VStack(alignment: .trailing) {
                         Text(self.values[i])
-                            .font(.headline.bold())
+                            .bold()
                             .foregroundColor(Color.theme.accent)
                         Text(self.percents[i])
                             .font(.headline)
                             .foregroundColor(Color.theme.secondaryText)
                     }
                 }
+                .onTapGesture {
+                    segue(coin: purchasedCoins[i])
+                }
             }
         }
+        .background(
+            NavigationLink(
+                isActive: $showDetailView,
+                destination: { DetailLoadingView(coin: $selectedCoin) },
+                label: { EmptyView() })
+        )
+    }
+    
+    private func segue(coin: CoinModel) {
+        selectedCoin = coin
+        showDetailView.toggle()
     }
 }
 

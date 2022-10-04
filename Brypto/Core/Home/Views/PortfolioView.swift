@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftUICharts
 
 struct PortfolioView: View {
     @EnvironmentObject private var vm: HomeViewModel
@@ -28,7 +29,6 @@ struct PortfolioView: View {
     let columns = [
         GridItem(.flexible()),
         GridItem(.flexible()),
-        GridItem(.flexible()),
         GridItem(.flexible())
     ]
     
@@ -36,7 +36,11 @@ struct PortfolioView: View {
         NavigationView {
             VStack {
                 homeHeader
+                Text("total return: \(vm.totalReturn.asCurrencyWith2Decimals())")
+                Text("portfolio value: \(vm.portfolioValue.asCurrencyWith2Decimals())")
+                Text("total dollar amount: \(vm.totalDollarAmountInPortfolio.asCurrencyWith2Decimals())")
                 //balanceView
+                    .padding()
                 //SearchBarView(searchText: $vm.searchText)
                 VStack {
                     purchasedAndBookmarkedCoinsRows
@@ -117,15 +121,17 @@ extension PortfolioView {
     
     private var balanceView: some View {
         VStack {
-            HStack {
-                HomeStatsView(showPortfolio: .constant(true))
-                Spacer()
-            }
-            .padding(.bottom)
-            PortfolioChartView(purchasedCoins: vm.purchasedCoins, showPortfoliInputSection: false)
-                //.frame(height: 100)
+            LineView(data: [4,7,10,5,18,40,28,61,47,84,77,103])
+//            LineView(data: coin.sparklineIn7D.pr, title: <#T##String?#>, legend: <#T##String?#>, style: <#T##ChartStyle#>, valueSpecifier: <#T##String?#>, legendSpecifier: <#T##String?#>)
+//            HStack {
+//                HomeStatsView(showPortfolio: .constant(true))
+//                //Spacer()
+//            }
+//            .padding(.bottom)
+            //PortfolioChartView(purchasedCoins: vm.purchasedCoins, showPortfoliInputSection: false)
+//                //.frame(height: 100)
         }
-        //.padding()
+//        //.padding()
     }
     
     private var purchasedAndBookmarkedCoinsRows: some View {
@@ -163,7 +169,7 @@ extension PortfolioView {
                 }
             } header: {
                 HStack {
-                    Text("Your coins:")
+                    Text("Purchased")
                         .font(.headline.bold())
                         .foregroundColor(Color.theme.accent)
                     Spacer()
@@ -184,13 +190,27 @@ extension PortfolioView {
                 LazyVGrid(columns: columns) {
                     ForEach(collapseBookmarkSection ? emptyArray : vm.bookmaredCoins) { coin in
                         //CoinRowView(coin: coin, showHoldingsColumn: false)
-                        VStack {
-                            CoinImageView(coin: coin)
-                                .frame(width: 30, height: 30)
-                            Text(coin.symbol.uppercased())
-                            
+                        HStack {
+                            VStack {
+                                CoinImageView(coin: coin)
+                                    .frame(width: 30, height: 30)
+                                Text(coin.symbol.uppercased())
+                            }
+                            VStack {
+                                Text("\(coin.currentPrice?.asCurrencyWith2Decimals() ?? "N/A")")
+                                    .font(.headline.bold())
+                                    .padding(.bottom, 2)
+                                Text((coin.priceChange24H?.asNumberString() ?? "N/A") + "%")
+                                    .font(.callout)
+                                    .foregroundColor((coin.priceChange24H ?? 0 >= 0) ? Color.theme.green : Color.theme.red)
+                            }
                         }
-                        .frame(width: 80, height: 80)
+                        .frame(width: 115, height: 100)
+                        .background(
+                            RoundedRectangle(cornerRadius: 10)
+                                .strokeBorder((coin.priceChange24H ?? 0 >= 0) ? Color.theme.green : Color.theme.red, lineWidth: 0.40)
+                        )
+                        .lineLimit(1)
                         //.padding(.bottom)
                             .listRowInsets(.init(top: 10, leading: 0, bottom: 10, trailing: 10))
                             .listRowSeparator(.hidden)
@@ -201,7 +221,7 @@ extension PortfolioView {
                 }
             } header: {
                 HStack {
-                    Text("Bookmarked:")
+                    Text("Bookmarked")
                         .font(.headline.bold())
                         .foregroundColor(Color.theme.accent)
                     Spacer()

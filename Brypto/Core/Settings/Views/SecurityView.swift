@@ -15,9 +15,10 @@ struct SecurityView: View {
     
     var body: some View {
         VStack {
-            securityTitle
-            
             List {
+                securityTitle
+                    .padding()
+                    .listRowSeparator(.hidden)
                 Toggle("Enable Face ID", isOn: $faceIDEnabled)
                     .onChange(of: faceIDEnabled) { newValue in
                         vm.enableFaceID(faceIDEnabled: newValue)
@@ -41,7 +42,7 @@ struct SecurityView_Previews: PreviewProvider {
 extension SecurityView {
     var securityTitle: some View {
         Text("Protect your Byrpto account with additional layers of security.")
-            .font(.body)
+            .font(.headline)
             .multilineTextAlignment(.center)
     }
 }

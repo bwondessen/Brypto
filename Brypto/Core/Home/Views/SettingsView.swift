@@ -13,6 +13,9 @@ struct SettingsView: View {
     
     @State private var showLogOutAlert: Bool = false
     
+    @AppStorage("faceIDEnabled") private var faceIDEnabled: Bool = false
+    @AppStorage("passcodeRequired") var passcodeRequired: Bool = false
+    
     var body: some View {
         NavigationView {
             List {
@@ -29,6 +32,10 @@ struct SettingsView: View {
                 .navigationBarTitle("Account")
                 .navigationBarTitleDisplayMode(.inline)
                 .foregroundColor(Color.theme.accent)
+                
+                Section {
+                    securitySection
+                }
                 
                 Section {
                     logOutSection
@@ -52,36 +59,71 @@ struct SettingsView_Previews: PreviewProvider {
 }
 
 extension SettingsView {
-    var infoSection: some View {
+    private var infoSection: some View {
         NavigationLink {
             InfoView()
         } label: {
             HStack {
                 Image(systemName: "info.circle")
-                Text("Info")
+                VStack(alignment: .leading) {
+                    Text("Info")
+                        .font(.headline)
+                    Text("About, contact, terms of service")
+                        .font(.footnote.italic())
+                }
             }
         }
     }
     
-    var accountSection: some View {
+    private var accountSection: some View {
         NavigationLink {
             EditAccountView()
         } label: {
             HStack {
                 Image(systemName: "person.crop.circle")
-                Text("Account")
+                VStack(alignment: .leading) {
+                    Text("Account")
+                        .font(.headline)
+                    Text("Change password & username")
+                        .font(.footnote.italic())
+                }
             }
         }
     }
     
-    var themeSection: some View {
+    private var securitySection: some View {
+        NavigationLink {
+            SecurityView()
+        } label: {
+            HStack {
+                Image(systemName: "lock")
+                VStack(alignment: .leading) {
+                    Text("Security")
+                        .font(.headline)
+                    Text("Enable Face ID & password")
+                        .font(.footnote.italic())
+                }
+            }
+        }
+    }
+    
+    private var themeSection: some View {
         Toggle("Alternative Theme", isOn: $vm.alternativeTheme)
     }
     
-    var logOutSection: some View {
-        Button("Log out \(vm.userName)") {
+    private var logOutSection: some View {
+        Button {
             showLogOutAlert = true
+        } label: {
+            Text("Log out")
+                .font(.headline.bold())
+                .foregroundColor(Color.theme.accent)
+                .padding()
+                .frame(maxWidth: .infinity)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .strokeBorder(Color.theme.accent, lineWidth: 0.55)
+                )
         }
-        .tint(.blue)
     }
 }

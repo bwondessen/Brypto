@@ -24,7 +24,7 @@ struct EditAccountView: View {
                     Section {
                         changeUserNameSection
                         changePasswordSection
-                        securitySection
+                        //securitySection
                     }
                     .foregroundColor(Color.theme.accent)
                     
@@ -74,20 +74,30 @@ extension EditAccountView {
         }
     }
     
-    var securitySection: some View {
-        NavigationLink {
-            SecurityView()
-                .navigationBarBackButtonHidden(true)
-        } label: {
-            Text("Security")
-        }
-        
-    }
+//    var securitySection: some View {
+//        NavigationLink {
+//            SecurityView()
+//                .navigationBarBackButtonHidden(true)
+//        } label: {
+//            Text("Security")
+//        }
+//
+//    }
     
     var deleteSection: some View {
-        Button("Delete \(vm.userName)") {
+        Button {
             showDeleteAccountAlert = true
+        } label: {
+            Text("Delete account")
+                .font(.headline.bold())
+                .foregroundColor(Color.theme.red)
+                .padding()
+                .frame(maxWidth: .infinity)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .strokeBorder(Color.theme.red, lineWidth: 0.55)
+                )
         }
-        .foregroundColor(.blue)
+
     }
 }

@@ -22,6 +22,8 @@ struct ChangeUserNameView: View {
                 Section("Enter new username") {
                     TextField("Username", text: $newUserName)
                         .textFieldStyle(.roundedBorder)
+                        .autocapitalization(.none)
+                        .disableAutocorrection(true)
                 }
                 
                 Section("Enter password to confirm change") {
@@ -31,7 +33,7 @@ struct ChangeUserNameView: View {
                 
                 Section("Confirm") {
                     Button {
-                        userName = newUserName
+                        userName = newUserName.lowercased()
                         changeSuccessful = true
                     } label: {
                         Text("Confirm")

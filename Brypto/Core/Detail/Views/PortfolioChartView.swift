@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct PortfolioChartView: View {
+    @EnvironmentObject private var vm: HomeViewModel
+    
     private let data: [Double]
     private let maxY: Double
     private let minY: Double
@@ -21,7 +23,8 @@ struct PortfolioChartView: View {
     init(purchasedCoins: [CoinModel], showPortfoliInputSection: Bool) {
         self.coins = purchasedCoins
         //data = coins.sparklineIn7D?.price ?? []
-        data = purchasedCoins.map { $0.currentHoldingsValue }
+        data = purchasedCoins.map { $0.currentHoldingsValue ?? 0 }
+        
         //let totalValue = data.reduce(0, +)
         maxY = data.max() ?? 0
         minY = data.min() ?? 0

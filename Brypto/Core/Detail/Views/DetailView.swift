@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftUICharts
 
 struct DetailLoadingView: View {
     @Binding var coin: CoinModel?
@@ -31,13 +32,13 @@ struct DetailView: View {
     //    @State private var selectedCoin: CoinModel? = nil
     @State private var quantityText: String = ""
     @State private var showCheckMark: Bool = false
-    @State private var showPortfolioInputSection: Bool = false
+    //@State private var showPortfolioInputSection: Bool = false
     
     let coin: CoinModel
     
     @State private var showBuyAndSellButtons: Bool = false
-    @State private var showBuyView: Bool = false
-    @State private var showSellView: Bool = false
+//    @State private var showBuyView: Bool = false
+//    @State private var showSellView: Bool = false
     
     private let columns: [GridItem] = [
         GridItem(.flexible()),
@@ -53,8 +54,10 @@ struct DetailView: View {
     var body: some View {
         VStack {
             ScrollView {
+                
                 VStack {
-                    ChartView(coin: vm.coin, showPortfoliInputSection: showPortfolioInputSection)
+//                    LineView(data: [5, 17, 11, 21, 39, 27, 44, 18, 52, 48, 71, 77, 59, 80, 87, 71, 99, 92, 105, 115, 97, 130, 122, 155, 137, 195])
+                    ChartView(coin: vm.coin, showPortfoliInputSection: false)
                     //.padding(.vertical)
                         .padding()
                     
@@ -87,9 +90,9 @@ struct DetailView: View {
         .overlay(
             VStack {
                 Spacer()
-                if showPortfolioInputSection {
-                    PortfolioInputSection(showBuyView: $showPortfolioInputSection, showSellView: $showPortfolioInputSection, coin: vm.coin)
-                }
+//                if showPortfolioInputSection {
+//                    PortfolioInputSection(showBuyView: $showPortfolioInputSection, showSellView: $showPortfolioInputSection, coin: vm.coin)
+//                }
                 if showBuyAndSellButtons {
                     withAnimation {
                         buyAndSellButtons
@@ -139,9 +142,16 @@ extension DetailView {
         }
     }
     
+    private var chartView: some View {
+            VStack {
+            LineView(data: coin.sparklineIn7D?.price ?? [], title: coin.name, legend: coin.symbol, style: ChartStyle(backgroundColor: .red, accentColor: .blue, gradientColor: GradientColor(start: .yellow, end: .orange), textColor: .green, legendTextColor: .gray, dropShadowColor: .purple))
+            }
+    }
+    
     private var tradeButton: some View {
         Button {
-            showPortfolioInputSection = true
+            showBuyAndSellButtons = true
+            //showPortfolioInputSection = true
             //saveButtonPressed()
         } label: {
             Text("Trade")
@@ -152,9 +162,9 @@ extension DetailView {
                 .background(Color.theme.accent)
                 .cornerRadius(10)
                 .padding(.horizontal)
-                .onTapGesture {
-                    showBuyAndSellButtons = true
-                }
+//                .onTapGesture {
+//                    showBuyAndSellButtons = true
+//                }
         }
     }
     
@@ -162,7 +172,7 @@ extension DetailView {
         VStack {
             if homeVM.purchasedCoins.contains(where: { $0.id == coin.id }) {
                 NavigationLink {
-                    PortfolioInputSection(showBuyView: $showBuyView, showSellView: .constant(true), coin: coin)
+                    SellInputSection(coin: coin)
                         .navigationBarBackButtonHidden(true)
                         .navigationBarHidden(true)
                 } label: {
@@ -174,15 +184,11 @@ extension DetailView {
                         .background(Color.theme.accent)
                         .cornerRadius(10)
                         .padding(.horizontal)
-                    //                        .onTapGesture {
-                    //                            showSellView = true
-                    //                            //showBuyView = false
-                    //                        }
                 }
             }
             
             NavigationLink {
-                PortfolioInputSection(showBuyView: .constant(true), showSellView: $showSellView, coin: coin)
+                BuyInputSection(coin: coin)
                     .navigationBarBackButtonHidden(true)
                     .navigationBarHidden(true)
             } label: {
@@ -194,13 +200,55 @@ extension DetailView {
                     .background(Color.theme.accent)
                     .cornerRadius(10)
                     .padding(.horizontal)
-                //                    .onTapGesture {
-                //                        //showSellView = false
-                //                        showBuyView = true
-                //                    }
             }
         }
     }
+    
+//    private var buyAndSellButtons: some View {
+//        VStack {
+//            if homeVM.purchasedCoins.contains(where: { $0.id == coin.id }) {
+//                NavigationLink {
+//                    PortfolioInputSection(showBuyView: .constant(true), showSellView: .constant(true), coin: coin)
+//                        .navigationBarBackButtonHidden(true)
+//                        .navigationBarHidden(true)
+//                } label: {
+//                    Text("Sell")
+//                        .font(.headline.bold())
+//                        .foregroundColor(Color("AccentColorReversed"))
+//                        .padding()
+//                        .frame(maxWidth: .infinity)
+//                        .background(Color.theme.accent)
+//                        .cornerRadius(10)
+//                        .padding(.horizontal)
+////                                            .onTapGesture {
+////                                                showSellView = true
+////                                                showBuyView = false
+////                                            }
+//                }
+//            }
+//
+//            if !homeVM.purchasedCoins.contains(where: { $0.id == coin.id }) {
+//                NavigationLink {
+//                    PortfolioInputSection(showBuyView: .constant(true), showSellView: .constant(false), coin: coin)
+//                        .navigationBarBackButtonHidden(true)
+//                        .navigationBarHidden(true)
+//                } label: {
+//                    Text("Buy")
+//                        .font(.headline.bold())
+//                        .foregroundColor(Color("AccentColorReversed"))
+//                        .padding()
+//                        .frame(maxWidth: .infinity)
+//                        .background(Color.theme.accent)
+//                        .cornerRadius(10)
+//                        .padding(.horizontal)
+//    //                                    .onTapGesture {
+//    //                                        showSellView = false
+//    //                                        showBuyView = true
+//    //                                    }
+//                }
+//            }
+//        }
+//    }
     
     private var overviewTitle: some View {
         HStack {

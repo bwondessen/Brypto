@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import SwiftPieChart
+//import SwiftPieChart
 
 struct AccountDetailsView: View {
     @EnvironmentObject private var vm: HomeViewModel

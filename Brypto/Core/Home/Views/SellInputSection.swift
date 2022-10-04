@@ -1,13 +1,13 @@
 //
-//  PortfolioInputSection.swift
+//  SellInputSection.swift
 //  Brypto
 //
-//  Created by Bruke on 9/5/22.
+//  Created by Bruke on 10/1/22.
 //
 
 import SwiftUI
 
-struct PortfolioInputSection: View {
+struct SellInputSection: View {
     @EnvironmentObject private var vm: HomeViewModel
     @Environment(\.dismiss) var dismiss
     //@Environment(\.dismiss) var dismiss
@@ -19,9 +19,10 @@ struct PortfolioInputSection: View {
     
     //@Binding var buyButtonPressed: Bool
     //@Binding var showPortfolioInputSection: Bool
+    @AppStorage("totalDollarAmountInPortfolio") var totalDollarAmountInPortfolio: Double = 0
     
-    @Binding var showBuyView: Bool
-    @Binding var showSellView: Bool
+//    @Binding var showBuyView: Bool
+//    @Binding var showSellView: Bool
     
     @State private var animate1: Bool = false
     @State private var animate2: Bool = false
@@ -45,7 +46,7 @@ struct PortfolioInputSection: View {
             VStack {
                 inputSection
                 numberPad
-                buyOrSellButton
+                sellButton
             }
             .onChange(of: vm.dollarAmount, perform: { _ in
                 updateDollarAmount()
@@ -59,6 +60,9 @@ struct PortfolioInputSection: View {
                         }
                 }
             }
+            .onAppear {
+                vm.dollarAmount = ""
+            }
         }
         //        .background(
         //            RoundedRectangle(cornerRadius: 10)
@@ -68,13 +72,13 @@ struct PortfolioInputSection: View {
 }
 
 
-struct PortfolioInputSection_Previews: PreviewProvider {
-    static var previews: some View {
-        PortfolioInputSection(showBuyView: .constant(true), showSellView: .constant(false), coin: dev.coin)
-    }
-}
+//struct BuyInputSection_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SellInputSection(coin: dev.coin)
+//    }
+//}
 
-extension PortfolioInputSection {
+extension SellInputSection {
     //    private var trailingNavBarButtons: some View {
     //        VStack {
     ////            Rectangle()
@@ -94,7 +98,7 @@ extension PortfolioInputSection {
     private var inputSection: some View {
         VStack {
             VStack {
-                Text(showBuyView ? "Buy" : "Sell")
+                Text("Sell")
                 //.font(.title.bold())
                     .font(.system(.title, design: .rounded))
                     .fontWeight(.bold)
@@ -105,8 +109,8 @@ extension PortfolioInputSection {
                 //Divider()
                 HStack {
                     VStack {
-                        Text(showSellView ? "Sell all" : "")
-                        Text(showSellView ? "-\(coin.currentHoldingsValue.asCurrencyWith2Decimals())-" : "")
+                        Text("Sell all")
+                        Text("\(coin.currentHoldingsValue.asCurrencyWith2Decimals())")
                     }
                         .onTapGesture {
                             vm.dollarAmount = String(coin.currentHoldingsValue)
@@ -352,15 +356,12 @@ extension PortfolioInputSection {
         .padding()
     }
     
-    private var buyOrSellButton: some View {
+    private var sellButton: some View {
         Button {
-            if showBuyView {
-                buyButtonPressed()
-            } else {
-                sellButtonPressed()
-            }
+            sellButtonPressed()
+            vm.totalDollarAmountInPortfolio = 0
         } label: {
-            Text(showBuyView ? "Buy" : "Sell")
+            Text("Sell")
                 .font(.headline.bold())
                 .foregroundColor(Color("AccentColorReversed"))
                 .padding()
@@ -373,54 +374,55 @@ extension PortfolioInputSection {
         .opacity(vm.dollarAmount.isEmpty || Double(vm.dollarAmount) == 0 ? 0.75 : 1)
     }
     
-    private func buyButtonPressed() {
-        guard let currentPrice = coin.currentPrice else { return }
-        
-        let amountOfShares = (Double(vm.dollarAmount) ?? 0) / currentPrice
-        
-        vm.totalDollarAmountInPortfolio += (Double(vm.dollarAmount) ?? 0)
-        
-        // save to portfolio
-        //        vm.updatePortfolio(coin: coin, amount: amountOfShares)
-        vm.buyCoin(coin: coin, amount: amountOfShares)
-        
-        // show the checkmart
-        withAnimation(.easeIn) {
-            showCheckMark = true
-            //removeSelectedCoin()
-        }
-        
-        // hdie keyboard
-        UIApplication.shared.endEditing()
-        
-        // hide checkmark
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-            withAnimation(.easeOut) {
-                showCheckMark = false
-                //showPortfolioInputSection = false
-                vm.dollarAmount = ""
-            }
-        }
-    }
+//    private func buyButtonPressed() {
+//        guard let currentPrice = coin.currentPrice else { return }
+//
+//        let amountOfShares = (Double(vm.dollarAmount) ?? 0) / currentPrice
+//
+//        vm.totalDollarAmountInPortfolio += (Double(vm.dollarAmount) ?? 0)
+//
+//        // save to portfolio
+//        //        vm.updatePortfolio(coin: coin, amount: amountOfShares)
+//        vm.buyCoin(coin: coin, amount: amountOfShares)
+//
+//        // show the checkmart
+//        withAnimation(.easeIn) {
+//            showCheckMark = true
+//            //removeSelectedCoin()
+//        }
+//
+//        // hdie keyboard
+//        UIApplication.shared.endEditing()
+//
+//        // hide checkmark
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+//            withAnimation(.easeOut) {
+//                showCheckMark = false
+//                //showPortfolioInputSection = false
+//                vm.dollarAmount = ""
+//            }
+//        }
+//    }
     
     private func sellButtonPressed() {
         guard let currentPrice = coin.currentPrice else { return }
-        
+
         let amountOfShares = (Double(vm.dollarAmount) ?? 0) / currentPrice
-        
+        totalDollarAmountInPortfolio -= Double(vm.dollarAmount) ?? 0
+
         // save to portfolio
         //        vm.updatePortfolio(coin: coin, amount: amountOfShares)
         vm.sellCoin(coin: coin, amount: amountOfShares)
-        
+
         // show the checkmart
         withAnimation(.easeIn) {
             showCheckMark = true
             //removeSelectedCoin()
         }
-        
+
         // hdie keyboard
         UIApplication.shared.endEditing()
-        
+
         // hide checkmark
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
             withAnimation(.easeOut) {
