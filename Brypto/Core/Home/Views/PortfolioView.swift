@@ -139,11 +139,11 @@ extension PortfolioView {
     
     private var purchasedAndBookmarkedCoinsRows: some View {
         List {
-//            Section {
-//                balanceView
-//                    .padding(.bottom)
-//            }
-            //.listRowSeparator(.hidden)
+            Section {
+                balanceView
+                    .padding(.bottom)
+            }
+            .listRowSeparator(.hidden)
             
             columnTitles
                 .listRowSeparator(.hidden)
