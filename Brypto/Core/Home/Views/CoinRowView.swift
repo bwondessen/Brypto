@@ -30,9 +30,10 @@ struct CoinRowView: View {
 //                    .padding(.horizontal)
 //                    //.padding(.horizontal)
 //            }
-            if !showChart {
-                Spacer()
-            }
+//            if !showChart {
+//                Spacer()
+//            }
+            Spacer()
 //            if showHoldingsColumn {
 //                centerColumn
 //                Spacer()
