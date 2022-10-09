@@ -51,6 +51,12 @@ class HomeViewModel: ObservableObject {
         
     let icons: [String] = ["bonjour", "antenna.radiowaves.left.and.right", "wifi", "icloud.and.arrow.down", "lock.icloud", "key.icloud", "bolt.horizontal", "network.badge.shield.half.filled", "personalhotspot", "externaldrive.connected.to.line.below", "lock.iphone", "pencil.slash", "square.and.pencil", "folder", "square.grid.3x1.folder.badge.plus", "paperplane", "tray.and.arrow.down", "externaldrive", "doc", "doc.text.magnifyingglass", "note.text", "calendar.badge.clock", "text.book.closed", "newspaper", "link", "umbrella", "bolt.shield", "wand.and.stars", "speedometer", "amplifier", "dice", "theatermasks", "puzzlepiece", "lock", "testtube.2", "checkerboard.shield", "chart.xyaxis.line", "chart.pie", "sdcard", "esim", "camera.filters", "lightbulb", "person.wave.2", "person.crop.circle.fill.badge.plus", "brain.head.profile", "face.smiling", "globe.americas", "flame", "bolt", "scale.3d", "bag", "cart", "creditcard", "banknote", "dollarsign.square", "centsign.square"]
     
+    //@Published var priceChanges: [Double] = []
+    let defaults = UserDefaults.standard
+    var priceChanges: [String] = UserDefaults.standard.stringArray(forKey: "priceChanges") ?? []
+    //defaults.set(priceChanges, forKey: "priceChanges")
+    
+    
     enum SortOption {
         case rank, rankReversed, holdings, holdingsReversed, price, priceReversed
     }
@@ -60,9 +66,49 @@ class HomeViewModel: ObservableObject {
             .map({ $0.currentHoldingsValue })
             .reduce(0, +)
     }
-        
+    
     var totalReturn: Double {
-        return portfolioValue - totalDollarAmountInPortfolio
+        portfolioValue - totalDollarAmountInPortfolio
+    }
+        
+//    var priceHistory: [Double] {
+//
+//    }
+    
+//    var sparklinePrices: [Double] {
+//
+//    }
+    
+//    let combined = purchasedCoins.map { $0.sparklineIn7D?.price }
+//
+//    if let averages = averageByIndex(elms: elms) {
+//        print(averages) // [4.0, 4.0, 6.666666666666667]
+//    }
+    
+//    var avgPrices: [Double] {
+//        let combined = purchasedCoins.map { $0.sparklineIn7D?.price ?? [0] }
+//
+//        //averageByIndex(elms: combined)
+//
+//        guard let averages = averageByIndex(elms: combined) else {
+//            //print(averages) // [4.0, 4.0, 6.666666666666667]
+//            //return averages
+//            return []
+//        }
+//
+//        return averages
+//    }
+    
+    func averageByIndex(elms:[[Double]]) -> [Double]? {
+        guard let length = elms.first?.count else { return []}
+
+        // check all the elements have the same length, otherwise returns nil
+        guard !elms.contains(where:{ $0.count != length }) else { return nil }
+
+        return (0..<length).map { index in
+            let sum = elms.map { $0[index] }.reduce(0, +)
+            return sum / Double(elms.count)
+        }
     }
     
     var totalReturnPercentage: Double {
@@ -118,7 +164,7 @@ class HomeViewModel: ObservableObject {
 //                self?.allCoins = returnedCoins
 //            }
 //            .store(in: &cancellables)
-        
+                
         // updates allCoins
         $searchText
             .combineLatest(coinDataService.$allCoins, $sortOption)
@@ -310,7 +356,7 @@ class HomeViewModel: ObservableObject {
         
         let percentageChange = ((portfolioValue - previousValue) / previousValue) * 100
         
-        let portfolio = StatisticModel(title: "Your balance", value: (portfolioValue - totalDollarAmountInPortfolio).asCurrencyWith2Decimals(), percentageChange: ((portfolioValue - totalDollarAmountInPortfolio) / totalDollarAmountInPortfolio) * 100)
+        let portfolio = StatisticModel(title: "Balance", value: portfolioValue.asCurrencyWith2Decimals(), percentageChange: ((portfolioValue - totalDollarAmountInPortfolio) / totalDollarAmountInPortfolio) * 100)
                 
         stats.append(contentsOf: [marketCap, volume, btcDominance, portfolio])
         

@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct PortfolioChartView: View {
-    @EnvironmentObject private var vm: HomeViewModel
+    private var vm: HomeViewModel = HomeViewModel()
     
-    private let data: [Double]
+    //private let data: [Double]
+    private var data: [Double]
     private let maxY: Double
     private let minY: Double
     private let lineColor: Color
@@ -23,7 +24,34 @@ struct PortfolioChartView: View {
     init(purchasedCoins: [CoinModel], showPortfoliInputSection: Bool) {
         self.coins = purchasedCoins
         //data = coins.sparklineIn7D?.price ?? []
-        data = purchasedCoins.map { $0.currentHoldingsValue ?? 0 }
+        //data = purchasedCoins.map { $0.currentHoldingsValue ?? 0 }
+//        data = [10, 5, 18, 13, 27, 40, 31, 55, 73, 67, 81, 90, 72, 103, 95, 103, 99, 115, 107, 155]
+        data = vm.priceChanges.map { Double($0) ?? 0 }
+//        let combined = purchasedCoins.map { $0.sparklineIn7D?.price ?? [0] }
+//        let combined = purchasedCoins.map { $0.priceChanges }
+////
+//        func averageByIndex(elms:[[Double]]) -> [Double]? {
+//            guard let length = elms.first?.count else { return []}
+//
+//            // check all the elements have the same length, otherwise returns nil
+//            guard !elms.contains(where:{ $0.count != length }) else { return nil }
+//
+//            return (0..<length).map { index in
+//                let sum = elms.map { $0[index] }.reduce(0, +)
+//                return sum / Double(elms.count)
+//            }
+//        }
+//
+//        data = averageByIndex(elms: combined) ?? []
+        
+//        let combined = purchasedCoins.map { $0.sparklineIn7D?.price ?? [0] }
+//
+//        //vm.averageByIndex(elms: combined)
+//
+//        if let averages = vm.averageByIndex(elms: combined) {
+//            //print(averages) // [4.0, 4.0, 6.666666666666667]
+//            data = averages
+//        }
         
         //let totalValue = data.reduce(0, +)
         maxY = data.max() ?? 0

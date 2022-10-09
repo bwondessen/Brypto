@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		36090F1228CD2BB00036A389 /* ChartViewMinimal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36090F1128CD2BB00036A389 /* ChartViewMinimal.swift */; };
 		36090F1428CE4AA20036A389 /* MarketCategoryDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36090F1328CE4AA10036A389 /* MarketCategoryDataService.swift */; };
 		36090F1628CE4B470036A389 /* MarketCategoryDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36090F1528CE4B470036A389 /* MarketCategoryDataModel.swift */; };
 		360948AC28C7BD7A00C92B96 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360948AB28C7BD7A00C92B96 /* SettingsView.swift */; };
@@ -495,12 +496,14 @@
 				36F016F128C0346800578CF3 /* MainView.swift in Sources */,
 				367CE7BD285E7A0F00EFCB09 /* StatisticModel.swift in Sources */,
 				361F4B692856CB0B00FB9530 /* CoinDataService.swift in Sources */,
+				369ADA6128BD8336004E7104 /* ChartView.swift in Sources */,
 				3664AE9128E955CB00C58E04 /* BuyInputSection.swift in Sources */,
 				361F4B602855743E00FB9530 /* CoinRowView.swift in Sources */,
 				36E09CDC28600A8A00FFEA59 /* XMarkButton.swift in Sources */,
 				368369A028C973C0002BE257 /* ChangePasswordView.swift in Sources */,
 				361F4B662856BBB700FB9530 /* HomeViewModel.swift in Sources */,
 				36443FE428CD1B49002BB8F6 /* BookmarkDataService.swift in Sources */,
+				36090F1228CD2BB00036A389 /* ChartViewMinimal.swift in Sources */,
 				369ADA6328BD8FC9004E7104 /* Date.swift in Sources */,
 				361F4B75285BFE4100FB9530 /* LocalFileManager.swift in Sources */,
 				36E09CD6285FDDF500FFEA59 /* MarketDataModel.swift in Sources */,
@@ -534,6 +537,7 @@
 				36E09CD8285FE70000FFEA59 /* MarketDataService.swift in Sources */,
 				361F4B5A2852947F00FB9530 /* CircleButtonAnimationView.swift in Sources */,
 				36C928E028CA5E7C0080A6AD /* SecurityView.swift in Sources */,
+				36F4FDD928D285FC0033829E /* PortfolioChartView.swift in Sources */,
 				36DE56BD28E500800026AA79 /* AccountDetailsView.swift in Sources */,
 				361F4B73285A973B00FB9530 /* CoinImageViewModel.swift in Sources */,
 				36A0689C28C80AC100985210 /* LoginView.swift in Sources */,

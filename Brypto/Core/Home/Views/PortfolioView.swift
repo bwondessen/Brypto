@@ -35,11 +35,13 @@ struct PortfolioView: View {
         NavigationView {
             VStack {
                 homeHeader
+                // testing
+                Text("price count: \(vm.priceChanges.count)")
                 Text("total return: \(vm.totalReturn.asCurrencyWith2Decimals())")
                 Text("portfolio value: \(vm.portfolioValue.asCurrencyWith2Decimals())")
                 Text("total dollar amount: \(vm.totalDollarAmountInPortfolio.asCurrencyWith2Decimals())")
-                //balanceView
-                    .padding()
+//                balanceView
+//                    .padding()
                 //SearchBarView(searchText: $vm.searchText)
                 VStack {
                     purchasedAndBookmarkedCoinsRows
@@ -51,6 +53,10 @@ struct PortfolioView: View {
                 //            }
                 
             }
+            .onChange(of: vm.portfolioValue, perform: { newValue in
+                vm.priceChanges.append(String(newValue))
+                UserDefaults.standard.set(vm.priceChanges, forKey: "priceChanges")
+            })
             .navigationBarHidden(true)
             .background(
                 Color.theme.background
@@ -118,20 +124,18 @@ extension PortfolioView {
         .frame(height: 55)
     }
     
-//    private var balanceView: some View {
-//        VStack {
-//            LineView(data: [4,7,10,5,18,40,28,61,47,84,77,103])
-////            LineView(data: coin.sparklineIn7D.pr, title: <#T##String?#>, legend: <#T##String?#>, style: <#T##ChartStyle#>, valueSpecifier: <#T##String?#>, legendSpecifier: <#T##String?#>)
-////            HStack {
-////                HomeStatsView(showPortfolio: .constant(true))
-////                //Spacer()
-////            }
-////            .padding(.bottom)
-//            //PortfolioChartView(purchasedCoins: vm.purchasedCoins, showPortfoliInputSection: false)
-////                //.frame(height: 100)
-//        }
-////        //.padding()
-//    }
+    private var balanceView: some View {
+        VStack {
+            HStack {
+                HomeStatsView(showPortfolio: .constant(true))
+                //Spacer()
+            }
+            .padding(.bottom)
+            PortfolioChartView(purchasedCoins: vm.purchasedCoins, showPortfoliInputSection: false)
+                //.frame(height: 100)
+        }
+//        //.padding()
+    }
     
     private var purchasedAndBookmarkedCoinsRows: some View {
         List {
