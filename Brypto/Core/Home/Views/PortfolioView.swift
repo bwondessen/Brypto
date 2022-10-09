@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SwiftUICharts
 
 struct PortfolioView: View {
     @EnvironmentObject private var vm: HomeViewModel
@@ -119,28 +118,28 @@ extension PortfolioView {
         .frame(height: 55)
     }
     
-    private var balanceView: some View {
-        VStack {
-            LineView(data: [4,7,10,5,18,40,28,61,47,84,77,103])
-//            LineView(data: coin.sparklineIn7D.pr, title: <#T##String?#>, legend: <#T##String?#>, style: <#T##ChartStyle#>, valueSpecifier: <#T##String?#>, legendSpecifier: <#T##String?#>)
-//            HStack {
-//                HomeStatsView(showPortfolio: .constant(true))
-//                //Spacer()
-//            }
-//            .padding(.bottom)
-            //PortfolioChartView(purchasedCoins: vm.purchasedCoins, showPortfoliInputSection: false)
-//                //.frame(height: 100)
-        }
-//        //.padding()
-    }
+//    private var balanceView: some View {
+//        VStack {
+//            LineView(data: [4,7,10,5,18,40,28,61,47,84,77,103])
+////            LineView(data: coin.sparklineIn7D.pr, title: <#T##String?#>, legend: <#T##String?#>, style: <#T##ChartStyle#>, valueSpecifier: <#T##String?#>, legendSpecifier: <#T##String?#>)
+////            HStack {
+////                HomeStatsView(showPortfolio: .constant(true))
+////                //Spacer()
+////            }
+////            .padding(.bottom)
+//            //PortfolioChartView(purchasedCoins: vm.purchasedCoins, showPortfoliInputSection: false)
+////                //.frame(height: 100)
+//        }
+////        //.padding()
+//    }
     
     private var purchasedAndBookmarkedCoinsRows: some View {
         List {
-            Section {
-                balanceView
-                    .padding(.bottom)
-            }
-            .listRowSeparator(.hidden)
+//            Section {
+//                balanceView
+//                    .padding(.bottom)
+//            }
+            //.listRowSeparator(.hidden)
             
             columnTitles
                 .listRowSeparator(.hidden)

@@ -23,13 +23,13 @@ struct CoinRowView: View {
     var body: some View {
         HStack(spacing: 0) {
             leftColumn
-            if showChart {
-                chartView
-                    //.padding(.leading)
-                    .padding(.horizontal)
-                    .padding(.horizontal)
-                    //.padding(.horizontal)
-            }
+//            if showChart {
+//                chartView
+//                    //.padding(.leading)
+//                    .padding(.horizontal)
+//                    .padding(.horizontal)
+//                    //.padding(.horizontal)
+//            }
             if !showChart {
                 Spacer()
             }
@@ -93,9 +93,9 @@ extension CoinRowView {
         .frame(width: showHoldingsColumn ? UIScreen.main.bounds.width / 2.5 : UIScreen.main.bounds.width / 2.5, alignment: .leading)
     }
     
-    private var chartView: some View {
-        ChartViewMinimal(coin: coin)
-    }
+//    private var chartView: some View {
+//        ChartViewMinimal(coin: coin)
+//    }
     
 //    private var centerColumn: some View {
 //        VStack {

@@ -36,7 +36,7 @@ struct AccountDetailsView: View {
                 investingInfoSection
                 portfolioBreakdownHeader
                 portfolioBreakdownCategoriesHeader
-                portfolioBreakdownSection
+                //portfolioBreakdownSection
             }
         }
     }
@@ -146,23 +146,23 @@ extension AccountDetailsView {
     
 //    diversitySelected ? $0.currentHoldingsValue : (returnSelected ? vm.getTotalPriceChange(portfolioCoins: vm.purchasedCoins) : $0.currentPrice))
     
-    private var portfolioBreakdownSection: some View {
-        VStack {
-            PieChartView(
-                values: vm.purchasedCoins.map({diversitySelected ? $0.currentHoldingsValue : vm.getTotalPriceChange(portfolioCoins: vm.purchasedCoins)}),
-                names: vm.purchasedCoins.map({$0.name}),
-                formatter: {value in
-                    //String(format: "$%.2f", value)
-                    String(value.asCurrencyWith2Decimals())
-                },
-                colors: randomColor,
-                backgroundColor: Color.theme.background,
-                widthFraction: 0.70,
-                innerRadiusFraction: 0.55
-            )
-            //                    PieChartView(values: T##[Double], names: T##[String], formatter: T##(Double) -> String, colors: T##[Color], backgroundColor: T##Color, widthFraction: T##CGFloat, innerRadiusFraction: T##CGFloat)
-        }
-        .padding()
-        .padding(.bottom)
-    }
+//    private var portfolioBreakdownSection: some View {
+//        VStack {
+//            PieChartView(
+//                values: vm.purchasedCoins.map({diversitySelected ? $0.currentHoldingsValue : vm.getTotalPriceChange(portfolioCoins: vm.purchasedCoins)}),
+//                names: vm.purchasedCoins.map({$0.name}),
+//                formatter: {value in
+//                    //String(format: "$%.2f", value)
+//                    String(value.asCurrencyWith2Decimals())
+//                },
+//                colors: randomColor,
+//                backgroundColor: Color.theme.background,
+//                widthFraction: 0.70,
+//                innerRadiusFraction: 0.55
+//            )
+//            //                    PieChartView(values: T##[Double], names: T##[String], formatter: T##(Double) -> String, colors: T##[Color], backgroundColor: T##Color, widthFraction: T##CGFloat, innerRadiusFraction: T##CGFloat)
+//        }
+//        .padding()
+//        .padding(.bottom)
+//    }
 }
