@@ -37,6 +37,7 @@
 		3661444E28DBD9FE00A26320 /* CryptoNewsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3661444D28DBD9FE00A26320 /* CryptoNewsView.swift */; };
 		3664AE8F28E9516400C58E04 /* SellInputSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3664AE8E28E9516400C58E04 /* SellInputSection.swift */; };
 		3664AE9128E955CB00C58E04 /* BuyInputSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3664AE9028E955CB00C58E04 /* BuyInputSection.swift */; };
+		3667A1F128F376FA005908CA /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3667A1F028F376F9005908CA /* ChartView.swift */; };
 		36766628286105810008CD85 /* CoinLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36766627286105810008CD85 /* CoinLogoView.swift */; };
 		3676662B28611FA40008CD85 /* PortfolioContainer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3676662928611FA40008CD85 /* PortfolioContainer.xcdatamodeld */; };
 		3676662D286120E10008CD85 /* PortfolioDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3676662C286120E10008CD85 /* PortfolioDataService.swift */; };
@@ -111,6 +112,7 @@
 		3661444D28DBD9FE00A26320 /* CryptoNewsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoNewsView.swift; sourceTree = "<group>"; };
 		3664AE8E28E9516400C58E04 /* SellInputSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellInputSection.swift; sourceTree = "<group>"; };
 		3664AE9028E955CB00C58E04 /* BuyInputSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyInputSection.swift; sourceTree = "<group>"; };
+		3667A1F028F376F9005908CA /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 		36766627286105810008CD85 /* CoinLogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinLogoView.swift; sourceTree = "<group>"; };
 		3676662A28611FA40008CD85 /* PortfolioContainer.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PortfolioContainer.xcdatamodel; sourceTree = "<group>"; };
 		3676662C286120E10008CD85 /* PortfolioDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioDataService.swift; sourceTree = "<group>"; };
@@ -122,7 +124,6 @@
 		3683699928C968AD002BE257 /* EditAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountView.swift; sourceTree = "<group>"; };
 		3683699D28C96B2D002BE257 /* ChangeUserNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeUserNameView.swift; sourceTree = "<group>"; };
 		3683699F28C973C0002BE257 /* ChangePasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordView.swift; sourceTree = "<group>"; };
-		369ADA6028BD8336004E7104 /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 		369ADA6228BD8FC9004E7104 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		369ADA6428BE8948004E7104 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		369ADA6828BEABC4004E7104 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
@@ -366,7 +367,7 @@
 			isa = PBXGroup;
 			children = (
 				36766633286283FF0008CD85 /* DetailView.swift */,
-				369ADA6028BD8336004E7104 /* ChartView.swift */,
+				3667A1F028F376F9005908CA /* ChartView.swift */,
 				36AF769128F359AB00480EED /* PortfolioChartView.swift */,
 				36090F1128CD2BB00036A389 /* ChartViewMinimal.swift */,
 			);
@@ -521,6 +522,7 @@
 				36CE1E2E28BEDEA30065B98A /* LaunchView.swift in Sources */,
 				361F4B5828528E1000FB9530 /* CircleButtonView.swift in Sources */,
 				36AF769228F359AB00480EED /* PortfolioChartView.swift in Sources */,
+				3667A1F128F376FA005908CA /* ChartView.swift in Sources */,
 				36DE56C428E5FE0A0026AA79 /* PieSliceView.swift in Sources */,
 				36F4FDDB28D2AAF50033829E /* TopMoversView.swift in Sources */,
 				361F4B4E2851B20A00FB9530 /* Color.swift in Sources */,

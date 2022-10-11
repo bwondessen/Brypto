@@ -56,9 +56,9 @@ struct DetailView: View {
                 
                 VStack {
 //                    LineView(data: [5, 17, 11, 21, 39, 27, 44, 18, 52, 48, 71, 77, 59, 80, 87, 71, 99, 92, 105, 115, 97, 130, 122, 155, 137, 195])
-//                    ChartView(coin: vm.coin, showPortfoliInputSection: false)
+                    ChartView(coin: vm.coin, showPortfoliInputSection: false)
                     //.padding(.vertical)
-                       //.padding()
+                       .padding()
                     
                     VStack(spacing: 20) {
                         Group {

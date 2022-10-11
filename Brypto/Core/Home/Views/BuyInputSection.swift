@@ -22,7 +22,7 @@ struct BuyInputSection: View {
     
 //    @Binding var showBuyView: Bool
 //    @Binding var showSellView: Bool
-    
+        
     @State private var animate1: Bool = false
     @State private var animate2: Bool = false
     @State private var animate3: Bool = false
@@ -35,9 +35,7 @@ struct BuyInputSection: View {
     @State private var animateDot: Bool = false
     @State private var animate0: Bool = false
     @State private var animateArrow: Bool = false
-    
-    //    @State private var buyButtonPressed: Bool = false
-    
+        
     let coin: CoinModel
     
     var body: some View {

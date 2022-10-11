@@ -60,7 +60,13 @@ extension AccountDetailsView {
             //                .frame(width: 60, height: 60)
             Text("@\(vm.userName)")
                 .font(.headline.bold())
-            VStack(alignment: .leading, spacing: 5) {
+        }
+        .padding(.vertical)
+    }
+    
+    private var investingInfoSection: some View {
+        VStack {
+            VStack(spacing: 7.5) {
                 HStack {
                     Text("Portfolio Value:")
                         .font(.headline)
@@ -79,22 +85,13 @@ extension AccountDetailsView {
                         .foregroundColor(Color.theme.accent)
                         .frame(maxWidth: .infinity, alignment: .trailing)
                 }
-            }
-            .frame(width: UIScreen.main.bounds.width / 1.55)
-        }
-        .padding(.vertical)
-    }
-    
-    private var investingInfoSection: some View {
-        VStack {
-            VStack {
                 HStack {
                     Text("Total Return")
                         .font(.headline)
                         .foregroundColor(Color.theme.secondaryText)
                     Spacer()
                     HStack {
-                        Text("\(vm.totalReturn.asCurrencyWith2Decimals())")
+                        Text(vm.totalReturn.asCurrencyWith2Decimals())
                             .font(.headline.bold())
                             .foregroundColor(Color.theme.accent)
                         Text("(\(vm.totalReturnPercentage.asPercentString()))")

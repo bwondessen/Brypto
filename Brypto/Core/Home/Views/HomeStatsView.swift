@@ -16,11 +16,11 @@ struct HomeStatsView: View {
         //HStack {
             ForEach(vm.statistics) { stat in
                 if showPortfolio {
-                    if stat.title == "Your balance" {
+                    if stat.title == "Balance" {
                         StatisticView(stat: stat)
                     }
                 } else {
-                    if stat.title != "Your balance" {
+                    if stat.title != "Balance" {
                         StatisticView(stat: stat)
                             //.frame(width: UIScreen.main.bounds.width / 3)
                     }

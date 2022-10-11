@@ -121,11 +121,13 @@ struct PieChartRows: View {
     @State private var selectedCoin: CoinModel? = nil
     
     var body: some View {
-        VStack{
+        VStack(spacing: 20) {
             ForEach(0..<self.values.count){ i in
                 HStack {
+                    if !purchasedCoins.isEmpty {
                     CoinImageView(coin: purchasedCoins[i])
                         .frame(width: 30, height: 30)
+                    }
 //                    RoundedRectangle(cornerRadius: 5.0)
 //                        .fill(self.colors[i])
 //                        .frame(width: 20, height: 20)

@@ -8,24 +8,29 @@
 import SwiftUI
 
 struct StatisticView: View {
+    @EnvironmentObject private var vm: HomeViewModel
+    
     let stat: StatisticModel
     
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             Text(stat.title)
-                .font(.callout)
-                .foregroundColor(stat.title == "Your balance" ? .primary : Color.theme.secondaryText)
+                .font(.title3)
+                .fontWeight(.medium)
+                .foregroundColor(stat.title == "Balance" ? .primary : Color.theme.secondaryText)
             Text(stat.value)
-                .font(stat.title == "Your balance" ? .headline.bold() : .headline.bold())
-                .foregroundColor(Color.theme.accent)
+                .font(stat.title == "Balance" ? .title : .headline.bold())
+                .fontWeight(.semibold)
             
             HStack(spacing: 4) {
                 Image(systemName: "triangle.fill")
-                    .font(.caption2)
+                    .font(.footnote)
                     .rotationEffect(Angle(degrees: (stat.percentageChange ?? 0) >= 0 ? 0 : 180))
-                Text(stat.percentageChange?.asPercentString() ?? "")
-                    .font(.caption)
+//                Text(stat.percentageChange?.asPercentString() ?? "")
+                Text(vm.totalReturnPercentage.asPercentString())
+                    .font(.subheadline)
                 .bold()
+                Spacer()
             }
             .foregroundColor((stat.percentageChange ?? 0) >= 0 ? Color.theme.green : Color.theme.red)
             .opacity(stat.percentageChange == nil ? 0.0 : 1.0)
