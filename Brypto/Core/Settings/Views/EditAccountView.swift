@@ -13,38 +13,36 @@ struct EditAccountView: View {
     @State private var showDeleteAccountAlert: Bool = false
     
     var body: some View {
-        NavigationView {
-            ZStack {
-                // background layer
-                Color.theme.background
-                    .ignoresSafeArea()
+        ZStack {
+            // background layer
+            Color.theme.background
+                .ignoresSafeArea()
+            
+            // content layer
+            List {
+                Section {
+                    changeUserNameSection
+                    changePasswordSection
+                    //securitySection
+                }
+                .foregroundColor(Color.theme.accent)
                 
-                // content layer
-                List {
-                    Section {
-                        changeUserNameSection
-                        changePasswordSection
-                        //securitySection
-                    }
-                    .foregroundColor(Color.theme.accent)
-                    
-                    Section {
-                        deleteSection
-                    }
+                Section {
+                    deleteSection
                 }
-                .listStyle(.insetGrouped)
             }
-            .navigationBarTitleDisplayMode(.inline)
-            .font(.headline)
-            .tint(.blue)
-            .navigationTitle("Account")
-            .alert("Confirm account deletion", isPresented: $showDeleteAccountAlert) {
-                Button("Delete", role: .destructive) {
-                    vm.deleteAccount()
-                }
-            } message: {
-                Text("Are you sure you want to delete your account? This action is permanent.")
+            .listStyle(.insetGrouped)
+        }
+        .navigationBarTitleDisplayMode(.inline)
+        .font(.headline)
+        .tint(.blue)
+        .navigationTitle("Account")
+        .alert("Confirm account deletion", isPresented: $showDeleteAccountAlert) {
+            Button("Delete", role: .destructive) {
+                vm.deleteAccount()
             }
+        } message: {
+            Text("Are you sure you want to delete your account? This action is permanent.")
         }
     }
 }
@@ -59,7 +57,6 @@ extension EditAccountView {
     var changeUserNameSection: some View {
         NavigationLink {
             ChangeUserNameView()
-                .navigationBarBackButtonHidden(true)
         } label: {
             Text("Change username")
         }
@@ -68,21 +65,20 @@ extension EditAccountView {
     var changePasswordSection: some View {
         NavigationLink {
             ChangePasswordView()
-                .navigationBarBackButtonHidden(true)
         } label: {
             Text("Change password")
         }
     }
     
-//    var securitySection: some View {
-//        NavigationLink {
-//            SecurityView()
-//                .navigationBarBackButtonHidden(true)
-//        } label: {
-//            Text("Security")
-//        }
-//
-//    }
+    //    var securitySection: some View {
+    //        NavigationLink {
+    //            SecurityView()
+    //                .navigationBarBackButtonHidden(true)
+    //        } label: {
+    //            Text("Security")
+    //        }
+    //
+    //    }
     
     var deleteSection: some View {
         Button {
@@ -98,6 +94,6 @@ extension EditAccountView {
                         .strokeBorder(Color.theme.red, lineWidth: 0.55)
                 )
         }
-
+        
     }
 }

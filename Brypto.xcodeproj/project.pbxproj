@@ -49,6 +49,10 @@
 		3683699A28C968AE002BE257 /* EditAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3683699928C968AD002BE257 /* EditAccountView.swift */; };
 		3683699E28C96B2D002BE257 /* ChangeUserNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3683699D28C96B2D002BE257 /* ChangeUserNameView.swift */; };
 		368369A028C973C0002BE257 /* ChangePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3683699F28C973C0002BE257 /* ChangePasswordView.swift */; };
+		3686B76928F6252300E3B56C /* TermsOfConditionsHTML.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3686B76828F6252300E3B56C /* TermsOfConditionsHTML.swift */; };
+		3686B76B28F626B500E3B56C /* TermsOfConditionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3686B76A28F626B500E3B56C /* TermsOfConditionsView.swift */; };
+		3686B76D28F62AA500E3B56C /* PrivacyPolicyHTML.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3686B76C28F62AA500E3B56C /* PrivacyPolicyHTML.swift */; };
+		3686B76F28F62B1400E3B56C /* PrivacyPolicyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3686B76E28F62B1400E3B56C /* PrivacyPolicyView.swift */; };
 		369ADA6328BD8FC9004E7104 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 369ADA6228BD8FC9004E7104 /* Date.swift */; };
 		369ADA6528BE8948004E7104 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 369ADA6428BE8948004E7104 /* String.swift */; };
 		369ADA6928BEABC4004E7104 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 369ADA6828BEABC4004E7104 /* InfoView.swift */; };
@@ -124,6 +128,10 @@
 		3683699928C968AD002BE257 /* EditAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountView.swift; sourceTree = "<group>"; };
 		3683699D28C96B2D002BE257 /* ChangeUserNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeUserNameView.swift; sourceTree = "<group>"; };
 		3683699F28C973C0002BE257 /* ChangePasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordView.swift; sourceTree = "<group>"; };
+		3686B76828F6252300E3B56C /* TermsOfConditionsHTML.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsOfConditionsHTML.swift; sourceTree = "<group>"; };
+		3686B76A28F626B500E3B56C /* TermsOfConditionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsOfConditionsView.swift; sourceTree = "<group>"; };
+		3686B76C28F62AA500E3B56C /* PrivacyPolicyHTML.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyHTML.swift; sourceTree = "<group>"; };
+		3686B76E28F62B1400E3B56C /* PrivacyPolicyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyView.swift; sourceTree = "<group>"; };
 		369ADA6228BD8FC9004E7104 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		369ADA6428BE8948004E7104 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		369ADA6828BEABC4004E7104 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
@@ -332,6 +340,8 @@
 				361F4B74285BFE4000FB9530 /* LocalFileManager.swift */,
 				3676662E28622FEE0008CD85 /* HapticManager.swift */,
 				36DE56C128E5FE090026AA79 /* SwiftPieChart */,
+				3686B76828F6252300E3B56C /* TermsOfConditionsHTML.swift */,
+				3686B76C28F62AA500E3B56C /* PrivacyPolicyHTML.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -386,6 +396,8 @@
 			isa = PBXGroup;
 			children = (
 				369ADA6828BEABC4004E7104 /* InfoView.swift */,
+				3686B76A28F626B500E3B56C /* TermsOfConditionsView.swift */,
+				3686B76E28F62B1400E3B56C /* PrivacyPolicyView.swift */,
 				3683699928C968AD002BE257 /* EditAccountView.swift */,
 				3683699D28C96B2D002BE257 /* ChangeUserNameView.swift */,
 				3683699F28C973C0002BE257 /* ChangePasswordView.swift */,
@@ -498,6 +510,7 @@
 				3676662B28611FA40008CD85 /* PortfolioContainer.xcdatamodeld in Sources */,
 				36F016F128C0346800578CF3 /* MainView.swift in Sources */,
 				367CE7BD285E7A0F00EFCB09 /* StatisticModel.swift in Sources */,
+				3686B76F28F62B1400E3B56C /* PrivacyPolicyView.swift in Sources */,
 				361F4B692856CB0B00FB9530 /* CoinDataService.swift in Sources */,
 				3664AE9128E955CB00C58E04 /* BuyInputSection.swift in Sources */,
 				361F4B602855743E00FB9530 /* CoinRowView.swift in Sources */,
@@ -514,10 +527,12 @@
 				367CE7BF285E7D1F00EFCB09 /* StatisticView.swift in Sources */,
 				361F4B6F285A85E200FB9530 /* CoinImageView.swift in Sources */,
 				36090F1628CE4B470036A389 /* MarketCategoryDataModel.swift in Sources */,
+				3686B76B28F626B500E3B56C /* TermsOfConditionsView.swift in Sources */,
 				361F4B3F2851AD0600FB9530 /* BryptoApp.swift in Sources */,
 				36FCBBD828DBBAD60002621D /* MarketNewsDataService.swift in Sources */,
 				36F4FDDF28D3B9000033829E /* CategoriesListView.swift in Sources */,
 				36090F1428CE4AA20036A389 /* MarketCategoryDataService.swift in Sources */,
+				3686B76D28F62AA500E3B56C /* PrivacyPolicyHTML.swift in Sources */,
 				361F4B7B285D59AC00FB9530 /* UIApplication.swift in Sources */,
 				36CE1E2E28BEDEA30065B98A /* LaunchView.swift in Sources */,
 				361F4B5828528E1000FB9530 /* CircleButtonView.swift in Sources */,
@@ -541,6 +556,7 @@
 				367CE7C1285E88C200EFCB09 /* HomeStatsView.swift in Sources */,
 				36E09CD8285FE70000FFEA59 /* MarketDataService.swift in Sources */,
 				361F4B5A2852947F00FB9530 /* CircleButtonAnimationView.swift in Sources */,
+				3686B76928F6252300E3B56C /* TermsOfConditionsHTML.swift in Sources */,
 				36C928E028CA5E7C0080A6AD /* SecurityView.swift in Sources */,
 				36DE56BD28E500800026AA79 /* AccountDetailsView.swift in Sources */,
 				361F4B73285A973B00FB9530 /* CoinImageViewModel.swift in Sources */,
