@@ -31,7 +31,7 @@ struct ChangeUserNameView: View {
                         .textFieldStyle(.roundedBorder)
                 }
                 
-                Section("Confirm") {
+                Section {
                     Button {
                         userName = newUserName.lowercased()
                         changeSuccessful = true
