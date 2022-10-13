@@ -408,7 +408,10 @@ extension SellInputSection {
         guard let currentPrice = coin.currentPrice else { return }
 
         let amountOfShares = (Double(vm.dollarAmount) ?? 0) / currentPrice
+        
         totalDollarAmountInPortfolio -= Double(vm.dollarAmount) ?? 0
+        vm.buyingPower += Double(vm.dollarAmount) ?? 0
+        
 
         // save to portfolio
         //        vm.updatePortfolio(coin: coin, amount: amountOfShares)

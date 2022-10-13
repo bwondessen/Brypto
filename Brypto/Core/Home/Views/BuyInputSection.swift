@@ -366,16 +366,20 @@ extension BuyInputSection {
                 .cornerRadius(10)
                 .padding(.horizontal)
         }
-        .disabled(vm.dollarAmount.isEmpty || Double(vm.dollarAmount) == 0)
-        .opacity(vm.dollarAmount.isEmpty || Double(vm.dollarAmount) == 0 ? 0.75 : 1)
+        .disabled(vm.dollarAmount.isEmpty || Double(vm.dollarAmount) == 0 || (Double(vm.dollarAmount) ?? 0 > vm.buyingPower))
+        .opacity(vm.dollarAmount.isEmpty || Double(vm.dollarAmount) == 0 || (Double(vm.dollarAmount) ?? 0 > vm.buyingPower) ? 0.75 : 1)
     }
     
     private func buyButtonPressed() {
-        guard let currentPrice = coin.currentPrice else { return }
+        guard let
+                currentPrice = coin.currentPrice//,
+                //(Double(vm.buyingAmount) ?? 0) >= (Double(vm.dollarAmount) ?? 0)
+        else { return }
 
         let amountOfShares = (Double(vm.dollarAmount) ?? 0) / currentPrice
 
         vm.totalDollarAmountInPortfolio += (Double(vm.dollarAmount) ?? 0)
+        vm.buyingPower -= (Double(vm.dollarAmount) ?? 0)
 
         // save to portfolio
         //        vm.updatePortfolio(coin: coin, amount: amountOfShares)
