@@ -80,7 +80,7 @@ extension AccountDetailsView {
                     Text("Buying Power")
                         .font(.headline)
                         .foregroundColor(Color.theme.secondaryText)
-                    Text("-$buyingPower-")
+                    Text(vm.buyingPower.asCurrencyWith2Decimals())
                         .font(.headline.bold())
                         .foregroundColor(Color.theme.accent)
                         .frame(maxWidth: .infinity, alignment: .trailing)

@@ -25,6 +25,8 @@ class HomeViewModel: ObservableObject {
     
     @Published var dollarAmount: String = ""
     @AppStorage("totalDollarAmountInPortfolio") var totalDollarAmountInPortfolio: Double = 0
+    @Published var buyingAmount: String = ""
+    @AppStorage("buyingPower") var buyingPower: Double = 0
     
     private let coinDataService = CoinDataService()
     private let marketDataService = MarketDataService()

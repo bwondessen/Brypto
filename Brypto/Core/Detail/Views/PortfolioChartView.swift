@@ -78,6 +78,17 @@ struct PortfolioChartView: View {
                 portflioChartDateLabels
                     .padding(.horizontal, 4)
             }
+            .padding(.bottom)
+            
+            HStack {
+                Text("Buying Power")
+                    .font(.headline)
+                    .foregroundColor(Color.theme.secondaryText)
+                Spacer()
+                Text(vm.buyingPower.asCurrencyWith2Decimals())
+                    .font(.headline)
+                    .foregroundColor(Color.theme.accent)
+            }
         }
 //        .sheet(isPresented: $showPortfolioInputSection) {
 //            PortfolioInputSection()

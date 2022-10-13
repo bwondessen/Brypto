@@ -22,16 +22,14 @@ struct SettingsView: View {
                 Section {
                     infoSection
                 }
-                .navigationBarTitle("Settings")
-                .navigationBarTitleDisplayMode(.inline)
-                .foregroundColor(Color.theme.accent)
                 
                 Section {
                     accountSection
                 }
-                .navigationBarTitle("Account")
-                .navigationBarTitleDisplayMode(.inline)
-                .foregroundColor(Color.theme.accent)
+                
+                Section {
+                    investingSection
+                }
                 
                 Section {
                     securitySection
@@ -43,6 +41,7 @@ struct SettingsView: View {
             }
             .listStyle(.insetGrouped)
         }
+        .navigationViewStyle(StackNavigationViewStyle())
         .alert("Confirm log out", isPresented: $showLogOutAlert) {
             Button("Cancel", role: .cancel) { }
             Button("Log out", role: .destructive) {
@@ -89,6 +88,23 @@ extension SettingsView {
                 }
             }
         }
+    }
+    
+    private var investingSection: some View {
+        NavigationLink {
+            InvestingView()
+        } label: {
+            HStack {
+                Image(systemName: "chart.line.uptrend.xyaxis")
+                VStack(alignment: .leading) {
+                    Text("Investing")
+                        .font(.headline)
+                    Text("Edit buying power")
+                        .font(.footnote.italic())
+                }
+            }
+        }
+
     }
     
     private var securitySection: some View {

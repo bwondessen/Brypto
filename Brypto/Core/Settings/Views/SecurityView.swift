@@ -23,7 +23,7 @@ struct SecurityView: View {
                     .onChange(of: faceIDEnabled) { newValue in
                         vm.enableFaceID(faceIDEnabled: newValue)
                     }
-                Toggle("Enable passcode", isOn: $passcodeRequired) 
+                Toggle("Enable passcode", isOn: $passcodeRequired)
             }
         }
         .navigationBarTitle("Security")

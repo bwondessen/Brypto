@@ -80,6 +80,7 @@ extension EditAccountView {
     //
     //    }
     
+    
     var deleteSection: some View {
         Button {
             showDeleteAccountAlert = true

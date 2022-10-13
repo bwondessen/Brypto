@@ -36,6 +36,7 @@ struct PortfolioView: View {
             VStack {
                 homeHeader
                 // testing
+                Text("buying power: \(vm.buyingPower.asCurrencyWith2Decimals())")
                 Text("price count: \(vm.priceChanges.count)")
                 Text("total return: \(vm.totalReturn.asCurrencyWith2Decimals())")
                 Text("portfolio value: \(vm.portfolioValue.asCurrencyWith2Decimals())")
@@ -142,11 +143,10 @@ extension PortfolioView {
             Section {
                 balanceView
                     .padding(.bottom)
+                columnTitles
+                    .listRowSeparator(.hidden)
             }
             .listRowSeparator(.hidden)
-            
-            columnTitles
-                .listRowSeparator(.hidden)
             
             Section {
 //                ForEach(vm.searchText.isEmpty ? vm.purchasedCoins : vm.allCoins) { coin in
