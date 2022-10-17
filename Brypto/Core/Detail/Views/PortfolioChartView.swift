@@ -21,6 +21,99 @@ struct PortfolioChartView: View {
 
     let coins: [CoinModel]
     
+    @State private var pastDaySelected: Bool = true
+    @State private var pastWeekSelected: Bool = false
+    @State private var pastMonthSelected: Bool = false
+    @State private var past3MonthsSelected: Bool = false
+    @State private var pastYearSelected: Bool = false
+    @State private var pastTotalSelected: Bool = false
+    
+//    var past24hrs: [String] {
+//        var pastDayData: [String] = []
+//
+//        for i in 0..<(vm.priceDates?.count ?? 0) {
+//            if (vm.priceDates?[i].timeIntervalSinceNow ?? 0) <= 3_600 {
+//                pastDayData.append(vm.priceChanges[i])
+//            }
+//        }
+//
+//        return pastDayData
+//    }
+    
+    func pastDayData(priceDates: [Date]) -> [Double] {
+        var pastDay: [Double] = []
+        
+        for i in 0..<priceDates.count {
+            if abs(priceDates[i].timeIntervalSinceNow) <= 86_400 {
+                let price: Double = Double(vm.priceChanges[i]) ?? 0
+                pastDay.append(price)
+            }
+        }
+        return pastDay
+    }
+    
+    func pastWeekData(priceDates: [Date]) -> [Double] {
+        var pastWeek: [Double] = []
+        
+        for i in 0..<priceDates.count {
+            if abs(priceDates[i].timeIntervalSinceNow) <= 86_400 * 7 {
+                let price: Double = Double(vm.priceChanges[i]) ?? 0
+                pastWeek.append(price)
+            }
+        }
+        return pastWeek
+    }
+    
+    func pastMonthData(priceDates: [Date]) -> [Double] {
+        var pastMonth: [Double] = []
+        
+        for i in 0..<priceDates.count {
+            if abs(priceDates[i].timeIntervalSinceNow) <= (86_400 * 7) * 4 {
+                let price: Double = Double(vm.priceChanges[i]) ?? 0
+                pastMonth.append(price)
+            }
+        }
+        return pastMonth
+    }
+    
+    func past3MonthsData(priceDates: [Date]) -> [Double] {
+        var past3Months: [Double] = []
+        
+        for i in 0..<priceDates.count {
+            if abs(priceDates[i].timeIntervalSinceNow) <= ((86_400 * 7) * 4) * 3 {
+                let price: Double = Double(vm.priceChanges[i]) ?? 0
+                past3Months.append(price)
+            }
+        }
+        return past3Months
+    }
+    
+    func pastYearData(priceDates: [Date]) -> [Double] {
+        var pastYear: [Double] = []
+        
+        for i in 0..<priceDates.count {
+            if abs(priceDates[i].timeIntervalSinceNow) <= ((86_400 * 7) * 4) * 12 {
+                let price: Double = Double(vm.priceChanges[i]) ?? 0
+                pastYear.append(price)
+            }
+        }
+        return pastYear
+    }
+    
+    func pastTotalData(priceDates: [Date]) -> [Double] {
+//        var pastTotal: [Double] = []
+//
+//        for i in 0..<priceDates.count {
+//            if abs(priceDates[i].timeIntervalSinceNow) <= 86_400 * 7 {
+//                let price: Double = Double(vm.priceChanges[i]) ?? 0
+//                pastTotal.append(price)
+//            }
+//        }
+        let totalData = vm.priceChanges.map { Double($0) ?? 0 }
+        
+        return totalData
+    }
+    
     init(purchasedCoins: [CoinModel], showPortfoliInputSection: Bool) {
         self.coins = purchasedCoins
         //data = coins.sparklineIn7D?.price ?? []
@@ -57,9 +150,34 @@ struct PortfolioChartView: View {
         maxY = data.max() ?? 0
         minY = data.min() ?? 0
         
-        let priceChange = (data.last ?? 0) - (data.first ?? 0)
+        let totalPriceChange = (data.last ?? 0) - (data.first ?? 0)
+//        let pastDayPriceChange = pastHour(priceDates: vm.priceDates ?? []).last ?? 0
+        var pastDayPriceChange: Double {
+            (pastDayData(priceDates: vm.priceDates ?? []).last ?? 0) - (pastDayData(priceDates: vm.priceDates ?? []).first ?? 0)
+        }
+        
+        var pastWeekPriceChange: Double {
+            (pastWeekData(priceDates: vm.priceDates ?? []).last ?? 0) - (pastWeekData(priceDates: vm.priceDates ?? []).first ?? 0)
+        }
+        
+        var pastMonthPriceChange: Double {
+            (pastMonthData(priceDates: vm.priceDates ?? []).last ?? 0) - (pastMonthData(priceDates: vm.priceDates ?? []).first ?? 0)
+        }
+        
+        var past3MonthsPriceChange: Double {
+            (past3MonthsData(priceDates: vm.priceDates ?? []).last ?? 0) - (past3MonthsData(priceDates: vm.priceDates ?? []).first ?? 0)
+        }
+        
+        var pastYearPriceChange: Double {
+            (pastYearData(priceDates: vm.priceDates ?? []).last ?? 0) - (pastYearData(priceDates: vm.priceDates ?? []).first ?? 0)
+        }
+        
+        var pastTotalPriceChange: Double {
+            (pastTotalData(priceDates: vm.priceDates ?? []).last ?? 0) - (pastTotalData(priceDates: vm.priceDates ?? []).first ?? 0)
+        }
+        
         //let priceChange = (totalValue) - (totalValue - (data.last ?? 0))
-        lineColor = priceChange > 0 ? Color.theme.green : Color.theme.red
+        lineColor = totalPriceChange > 0 ? Color.theme.green : Color.theme.red
         
         //endingDate = Date(coinGeckoString: coins.lastUpdated ?? "")
         endingDate = Date()
@@ -74,14 +192,116 @@ struct PortfolioChartView: View {
                 .overlay(porftolioChartYAxis.padding(.horizontal, 4)
                          ,alignment: .leading)
             
-            VStack(alignment: .trailing) {
-                portflioChartDateLabels
-                    .padding(.horizontal, 4)
+            VStack {
+//                portflioChartDateLabels
+//                    .padding(.horizontal, 4)
+                
+                HStack(spacing: 10) {
+                    Text("1D")
+                        .padding(3)
+                        .foregroundColor(pastDaySelected ? .white : Color.theme.accent)
+                        .background(
+                            RoundedRectangle(cornerRadius: 5)
+                                .fill(pastDaySelected ? Color.theme.green : .clear)
+                        )
+                        .onTapGesture {
+                            pastDaySelected = true
+                            pastWeekSelected = false
+                            pastMonthSelected = false
+                            past3MonthsSelected = false
+                            pastYearSelected = false
+                            pastTotalSelected = false
+                        }
+                    Spacer()
+                    Text("1W")
+                        .padding(3)
+                        .foregroundColor(pastWeekSelected ? .white : Color.theme.accent)
+                        .background(
+                            RoundedRectangle(cornerRadius: 5)
+                                .fill(pastWeekSelected ? Color.theme.green : .clear)
+                        )
+                        .onTapGesture {
+                            pastDaySelected = false
+                            pastWeekSelected = true
+                            pastMonthSelected = false
+                            past3MonthsSelected = false
+                            pastYearSelected = false
+                            pastTotalSelected = false
+                        }
+                    Spacer()
+                    Group {
+                    Text("1M")
+                            .padding(3)
+                            .foregroundColor(pastMonthSelected ? .white : Color.theme.accent)
+                            .background(
+                                RoundedRectangle(cornerRadius: 5)
+                                    .fill(pastMonthSelected ? Color.theme.green : .clear)
+                            )
+                        .onTapGesture {
+                            pastDaySelected = false
+                            pastWeekSelected = false
+                            pastMonthSelected = true
+                            past3MonthsSelected = false
+                            pastYearSelected = false
+                            pastTotalSelected = false
+                        }
+                    Spacer()
+                    Text("3M")
+                            .padding(3)
+                            .foregroundColor(past3MonthsSelected ? .white : Color.theme.accent)
+                            .background(
+                                RoundedRectangle(cornerRadius: 5)
+                                    .fill(past3MonthsSelected ? Color.theme.green : .clear)
+                            )
+                        .onTapGesture {
+                            pastDaySelected = false
+                            pastWeekSelected = false
+                            pastMonthSelected = false
+                            past3MonthsSelected = true
+                            pastYearSelected = false
+                            pastTotalSelected = false
+                        }
+                    Spacer()
+                    Text("1Y")
+                        .padding(3)
+                        .foregroundColor(pastYearSelected ? .white : Color.theme.accent)
+                        .background(
+                            RoundedRectangle(cornerRadius: 5)
+                                .fill(pastYearSelected ? Color.theme.green : .clear)
+                        )
+                        .onTapGesture {
+                            pastDaySelected = false
+                            pastWeekSelected = false
+                            pastMonthSelected = false
+                            past3MonthsSelected = false
+                            pastYearSelected = true
+                            pastTotalSelected = false
+                        }
+                    Spacer()
+                    Text("All")
+                        .padding(3)
+                        .foregroundColor(pastTotalSelected ? .white : Color.theme.accent)
+                        .background(
+                            RoundedRectangle(cornerRadius: 5)
+                                .fill(pastTotalSelected ? Color.theme.green : .clear)
+                        )
+                        .onTapGesture {
+                            pastDaySelected = false
+                            pastWeekSelected = false
+                            pastMonthSelected = false
+                            past3MonthsSelected = false
+                            pastYearSelected = false
+                            pastTotalSelected = true
+                        }
+                }
+                }
+                .font(.footnote.bold())
             }
-            .padding(.bottom)
+            .padding(.vertical)
             
             HStack {
                 Text("Buying Power")
+                Text("2hrs cunt: \(pastDayData(priceDates: vm.priceDates ?? []).count)")
                     .font(.headline)
                     .foregroundColor(Color.theme.secondaryText)
                 Spacer()
@@ -117,7 +337,9 @@ extension PortfolioChartView {
         GeometryReader { geo in
             Path { path in
                 for index in data.indices {
-                    let xPosition = geo.size.width / CGFloat(data.count) * CGFloat(index + 1)
+                    //let xPosition = geo.size.width / CGFloat(data.count) * CGFloat(index + 1)
+                    let xPosition = geo.size.width / CGFloat(pastDaySelected ? pastDayData(priceDates: vm.priceDates ?? []).count : (pastWeekSelected ? pastWeekData(priceDates: vm.priceDates ?? []).count : (pastMonthSelected ? pastMonthData(priceDates: vm.priceDates ?? []).count : (past3MonthsSelected ? past3MonthsData(priceDates: vm.priceDates ?? []).count : (pastYearSelected ? pastYearData(priceDates: vm.priceDates ?? []).count : pastYearData(priceDates: vm.priceDates ?? []).count))))) * CGFloat(index + 1)
+//                    let xPosition = geo.size.width / CGFloat(pastHourData(priceDates: vm.priceDates ?? []).count) * CGFloat(index + 1)
                     
                     let yAxis = maxY - minY
                     

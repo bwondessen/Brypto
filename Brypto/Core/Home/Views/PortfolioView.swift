@@ -25,6 +25,7 @@ struct PortfolioView: View {
     
     @State private var emptyArray: [CoinModel] = []
     
+    
     let columns = [
         GridItem(.flexible()),
         GridItem(.flexible()),
@@ -36,8 +37,10 @@ struct PortfolioView: View {
             VStack {
                 homeHeader
                 // testing
+                Text("\(vm.priceDates?[0] ?? Date())")
                 Text("buying power: \(vm.buyingPower.asCurrencyWith2Decimals())")
                 Text("price count: \(vm.priceChanges.count)")
+                Text("date count: \(vm.priceDates?.count ?? 0)")
                 Text("total return: \(vm.totalReturn.asCurrencyWith2Decimals())")
                 Text("portfolio value: \(vm.portfolioValue.asCurrencyWith2Decimals())")
                 Text("total dollar amount: \(vm.totalDollarAmountInPortfolio.asCurrencyWith2Decimals())")
@@ -57,6 +60,9 @@ struct PortfolioView: View {
             .onChange(of: vm.portfolioValue, perform: { newValue in
                 vm.priceChanges.append(String(newValue))
                 UserDefaults.standard.set(vm.priceChanges, forKey: "priceChanges")
+                
+                vm.priceDates?.append(Date())
+                UserDefaults.standard.set(vm.priceDates, forKey: "priceDates")
             })
             .navigationBarHidden(true)
             .background(
