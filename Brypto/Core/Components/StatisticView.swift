@@ -27,13 +27,17 @@ struct StatisticView: View {
                     .font(.footnote)
                     .rotationEffect(Angle(degrees: (stat.percentageChange ?? 0) >= 0 ? 0 : 180))
 //                Text(stat.percentageChange?.asPercentString() ?? "")
-                Text(vm.totalReturnPercentage.asPercentString())
-                    .font(.subheadline)
-                .bold()
+                Text((vm.pastDaySelected ? vm.pastDayReturn : (vm.pastWeekSelected ? vm.pastWeekReturn : (vm.pastMonthSelected ? vm.pastMonthReturn : (vm.past3MonthsSelected ? vm.past3MonthsReturn : (vm.pastYearSelected ? vm.pastYearReturn : vm.totalReturn))))).asCurrencyWith2Decimals())
+                    .font(.subheadline.bold())
+                Text("(\((vm.pastDaySelected ? vm.pastDayReturnPercentage : (vm.pastWeekSelected ? vm.pastWeekReturnPercentage : (vm.pastMonthSelected ? vm.pastMonthReturnPercentage : (vm.past3MonthsSelected ? vm.past3MonthsReturnPercentage : (vm.pastYearSelected ? vm.pastYearReturnPercentage : vm.totalReturn))))).asPercentString()))")
+                    .font(.footnote.bold())
+                Text(vm.pastDaySelected ? "Today" : (vm.pastWeekSelected ? "Past Week" : (vm.pastMonthSelected ? "Past Month" : (vm.past3MonthsSelected ? "Past 3 Months" : (vm.pastYearSelected ? "Past Year" : "All Time")))))
+                    .font(.footnote.bold())
+                    .foregroundColor(Color.theme.accent)
                 Spacer()
             }
-            .foregroundColor((stat.percentageChange ?? 0) >= 0 ? Color.theme.green : Color.theme.red)
-            .opacity(stat.percentageChange == nil ? 0.0 : 1.0)
+            .foregroundColor((vm.pastDayReturnPercentage > 0 || vm.pastDayReturnPercentage > 0 || vm.pastWeekReturnPercentage > 0 || vm.pastMonthReturnPercentage > 0 || vm.past3MonthsReturnPercentage > 0 || vm.pastYearReturnPercentage > 0 || vm.totalReturnPercentage > 0) ? Color.theme.green : Color.theme.red)
+//            .opacity((vm.pastDayReturnPercentage == nil || vm.pastDayReturnPercentage == nil || vm.pastWeekReturnPercentage == nil || vm.pastMonthReturnPercentage == nil || vm.past3MonthsReturnPercentage == nil || vm.pastYearReturnPercentage == nil || vm.totalReturnPercentage == nil) ? 0.0 : 1.0)
         }
     }
 }

@@ -57,6 +57,14 @@ class HomeViewModel: ObservableObject {
 //    let defaults = UserDefaults.standard
     var priceChanges: [String] = UserDefaults.standard.stringArray(forKey: "priceChanges") ?? []    
     var priceDates = (UserDefaults.standard.array(forKey: "priceDates") ?? []) as? [Date]
+    var totalReturns: [Double] = UserDefaults.standard.array(forKey: "totalReturns") as? [Double] ?? []
+    
+    @Published var pastDaySelected: Bool = true
+    @Published var pastWeekSelected: Bool = false
+    @Published var pastMonthSelected: Bool = false
+    @Published var past3MonthsSelected: Bool = false
+    @Published var pastYearSelected: Bool = false
+    @Published var pastTotalSelected: Bool = false
     
     func pastDayData(priceDates: [Date]) -> [Double] {
         var pastDay: [Double] = []
@@ -123,6 +131,30 @@ class HomeViewModel: ObservableObject {
         return data
     }
     
+    var pastDayPriceChange: Double {
+        (pastDayData(priceDates: priceDates ?? []).last ?? 0) - (pastDayData(priceDates: priceDates ?? []).first ?? 0)
+    }
+    
+    var pastWeekPriceChange: Double {
+        (pastWeekData(priceDates: priceDates ?? []).last ?? 0) - (pastWeekData(priceDates: priceDates ?? []).first ?? 0)
+    }
+    
+    var pastMonthPriceChange: Double {
+        (pastMonthData(priceDates: priceDates ?? []).last ?? 0) - (pastMonthData(priceDates: priceDates ?? []).first ?? 0)
+    }
+    
+    var past3MonthsPriceChange: Double {
+        (past3MonthsData(priceDates: priceDates ?? []).last ?? 0) - (past3MonthsData(priceDates: priceDates ?? []).first ?? 0)
+    }
+    
+    var pastYearPriceChange: Double {
+        (pastYearData(priceDates: priceDates ?? []).last ?? 0) - (pastYearData(priceDates: priceDates ?? []).first ?? 0)
+    }
+    
+    var pastTotalPriceChange: Double {
+        (pastTotalData(priceDates: priceDates ?? []).last ?? 0) - (pastTotalData(priceDates: priceDates ?? []).first ?? 0)
+    }
+    
     enum SortOption {
         case rank, rankReversed, holdings, holdingsReversed, price, priceReversed
     }
@@ -133,8 +165,62 @@ class HomeViewModel: ObservableObject {
             .reduce(0, +)
     }
     
+    var pastDayReturn: Double {
+//        (totalReturns.first ?? 0) - (totalReturns.last ?? 0)
+        let firstIndex = pastDayData(priceDates: priceDates ?? []).startIndex
+        let lastIndex = firstIndex + (pastDayData(priceDates: priceDates ?? []).count - 1)
+        
+        return totalReturns[lastIndex] - totalReturns[firstIndex]
+    }
+    
+    var pastWeekReturn: Double {
+        let firstIndex = pastWeekData(priceDates: priceDates ?? []).startIndex
+        let lastIndex = firstIndex + (pastWeekData(priceDates: priceDates ?? []).count - 1)
+        
+        return totalReturns[lastIndex] - totalReturns[firstIndex]
+    }
+    
+    var pastMonthReturn: Double {
+        let firstIndex = pastMonthData(priceDates: priceDates ?? []).startIndex
+        let lastIndex = firstIndex + (pastMonthData(priceDates: priceDates ?? []).count - 1)
+        
+        return totalReturns[lastIndex] - totalReturns[firstIndex]
+    }
+    
+    var past3MonthsReturn: Double {
+        let firstIndex = past3MonthsData(priceDates: priceDates ?? []).startIndex
+        let lastIndex = firstIndex + (past3MonthsData(priceDates: priceDates ?? []).count - 1)
+        
+        return totalReturns[lastIndex] - totalReturns[firstIndex]
+    }
+    
+    var pastYearReturn: Double {
+        let firstIndex = pastYearData(priceDates: priceDates ?? []).startIndex
+        let lastIndex = firstIndex + (pastYearData(priceDates: priceDates ?? []).count - 1)
+        
+        return totalReturns[lastIndex] - totalReturns[firstIndex]
+    }
+    
     var totalReturn: Double {
         portfolioValue - totalDollarAmountInPortfolio
+    }
+    
+    var returnPrice: Double {
+        if pastDaySelected {
+            return (pastDayData(priceDates: priceDates ?? []).max() ?? 0) - (pastDayData(priceDates: priceDates ?? []).min() ?? 0)
+        } else if pastWeekSelected {
+            return (pastWeekData(priceDates: priceDates ?? []).max() ?? 0) - (pastWeekData(priceDates: priceDates ?? []).min() ?? 0)
+        } else if pastMonthSelected {
+            return (pastMonthData(priceDates: priceDates ?? []).last ?? 0) - (pastMonthData(priceDates: priceDates ?? []).first ?? 0)
+            
+//            return currentHoldingsValue
+        } else if past3MonthsSelected {
+            return (past3MonthsData(priceDates: priceDates ?? []).max() ?? 0) - (past3MonthsData(priceDates: priceDates ?? []).min() ?? 0)
+        } else if pastYearSelected {
+            return (pastYearData(priceDates: priceDates ?? []).max() ?? 0) - (pastYearData(priceDates: priceDates ?? []).min() ?? 0)
+        } else {
+            return totalReturn
+        }
     }
         
 //    var priceHistory: [Double] {
@@ -175,6 +261,28 @@ class HomeViewModel: ObservableObject {
             let sum = elms.map { $0[index] }.reduce(0, +)
             return sum / Double(elms.count)
         }
+    }
+    
+    
+    
+    var pastDayReturnPercentage: Double {
+        return (pastDayReturn / totalDollarAmountInPortfolio) * 100
+    }
+    
+    var pastWeekReturnPercentage: Double {
+        return (pastWeekReturn / totalDollarAmountInPortfolio) * 100
+    }
+    
+    var pastMonthReturnPercentage: Double {
+        return (pastMonthReturn / totalDollarAmountInPortfolio) * 100
+    }
+    
+    var past3MonthsReturnPercentage: Double {
+        return (past3MonthsReturn / totalDollarAmountInPortfolio) * 100
+    }
+    
+    var pastYearReturnPercentage: Double {
+        return (pastYearReturn / totalDollarAmountInPortfolio) * 100
     }
     
     var totalReturnPercentage: Double {

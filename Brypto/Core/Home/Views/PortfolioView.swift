@@ -37,13 +37,27 @@ struct PortfolioView: View {
             VStack {
                 homeHeader
                 // testing
-                Text("\(vm.priceDates?[0] ?? Date())")
+//                Button("RESET") {
+//                    vm.totalReturns.removeAll()
+//                    vm.priceDates?.removeAll()
+//                    vm.priceChanges.removeAll()
+//                    UserDefaults.standard.set(vm.totalReturns, forKey: "totalReturns")
+//                    UserDefaults.standard.set(vm.priceDates, forKey: "priceDates")
+//                    UserDefaults.standard.set(vm.priceChanges, forKey: "priceChanges")
+//                }
+                Group {
+                //Text("\(vm.priceDates?[0] ?? Date())")
                 Text("buying power: \(vm.buyingPower.asCurrencyWith2Decimals())")
+//                    ForEach(vm.totalReturns, id: \.self) { returnI in
+//                        Text("\(returnI)")
+//                    }
+                Text("returns count: \(vm.totalReturns.count)")
                 Text("price count: \(vm.priceChanges.count)")
                 Text("date count: \(vm.priceDates?.count ?? 0)")
                 Text("total return: \(vm.totalReturn.asCurrencyWith2Decimals())")
                 Text("portfolio value: \(vm.portfolioValue.asCurrencyWith2Decimals())")
                 Text("total dollar amount: \(vm.totalDollarAmountInPortfolio.asCurrencyWith2Decimals())")
+                }
 //                balanceView
 //                    .padding()
                 //SearchBarView(searchText: $vm.searchText)
@@ -57,13 +71,16 @@ struct PortfolioView: View {
                 //            }
                 
             }
-            .onChange(of: vm.portfolioValue, perform: { newValue in
+            .onChange(of: vm.portfolioValue) { newValue in
                 vm.priceChanges.append(String(newValue))
                 UserDefaults.standard.set(vm.priceChanges, forKey: "priceChanges")
                 
                 vm.priceDates?.append(Date())
                 UserDefaults.standard.set(vm.priceDates, forKey: "priceDates")
-            })
+                
+                vm.totalReturns.append(vm.totalReturn)
+                UserDefaults.standard.set(vm.totalReturns, forKey: "totalReturns")
+            }
             .navigationBarHidden(true)
             .background(
                 Color.theme.background
