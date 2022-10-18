@@ -58,6 +58,71 @@ class HomeViewModel: ObservableObject {
     var priceChanges: [String] = UserDefaults.standard.stringArray(forKey: "priceChanges") ?? []    
     var priceDates = (UserDefaults.standard.array(forKey: "priceDates") ?? []) as? [Date]
     
+    func pastDayData(priceDates: [Date]) -> [Double] {
+        var pastDay: [Double] = []
+        
+        for i in 0..<priceDates.count {
+            if abs(priceDates[i].timeIntervalSinceNow) <= 86_400 {
+                let price: Double = Double(priceChanges[i]) ?? 0
+                pastDay.append(price)
+            }
+        }
+        return pastDay
+    }
+    
+    func pastWeekData(priceDates: [Date]) -> [Double] {
+        var pastWeek: [Double] = []
+        
+        for i in 0..<priceDates.count {
+            if abs(priceDates[i].timeIntervalSinceNow) <= (86_400 * 7) {
+                let price: Double = Double(priceChanges[i]) ?? 0
+                pastWeek.append(price)
+            }
+        }
+        return pastWeek
+    }
+    
+    func pastMonthData(priceDates: [Date]) -> [Double] {
+        var pastMonth: [Double] = []
+        
+        for i in 0..<priceDates.count {
+            if abs(priceDates[i].timeIntervalSinceNow) <= (86_400 * 28) {
+                let price: Double = Double(priceChanges[i]) ?? 0
+                pastMonth.append(price)
+            }
+        }
+        return pastMonth
+    }
+    
+    func past3MonthsData(priceDates: [Date]) -> [Double] {
+        var past3Months: [Double] = []
+        
+        for i in 0..<priceDates.count {
+            if abs(priceDates[i].timeIntervalSinceNow) <= ((86_400 * 7) * 4) * 3 {
+                let price: Double = Double(priceChanges[i]) ?? 0
+                past3Months.append(price)
+            }
+        }
+        return past3Months
+    }
+    
+    func pastYearData(priceDates: [Date]) -> [Double] {
+        var pastYear: [Double] = []
+        
+        for i in 0..<priceDates.count {
+            if abs(priceDates[i].timeIntervalSinceNow) <= ((86_400 * 7) * 4) * 12 {
+                let price: Double = Double(priceChanges[i]) ?? 0
+                pastYear.append(price)
+            }
+        }
+        return pastYear
+    }
+    
+    func pastTotalData(priceDates: [Date]) -> [Double] {
+        let data = priceChanges.map { Double($0) ?? 0 }
+        return data
+    }
+    
     enum SortOption {
         case rank, rankReversed, holdings, holdingsReversed, price, priceReversed
     }
