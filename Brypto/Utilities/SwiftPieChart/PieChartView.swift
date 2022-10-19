@@ -15,7 +15,7 @@ public struct PieChartView: View {
     public let names: [String]
     public let formatter: (Double) -> String
     
-    public var colors: [Color]
+    public var colors: [Color] = [Color.blue, Color.green, Color.orange, Color.cyan, Color.primary, Color.yellow, Color.teal, Color.red, Color.purple, Color.mint, Color.indigo, Color.gray, Color.brown]
     public var backgroundColor: Color
     
     public var widthFraction: CGFloat
@@ -30,18 +30,18 @@ public struct PieChartView: View {
         
         for (i, value) in values.enumerated() {
             let degrees: Double = value * 360 / sum
-            tempSlices.append(PieSliceData(startAngle: Angle(degrees: endDeg), endAngle: Angle(degrees: endDeg + degrees), text: String(format: "%.0f%%", value * 100 / sum), color: self.colors.randomElement() ?? Color.cyan))
+            tempSlices.append(PieSliceData(startAngle: Angle(degrees: endDeg), endAngle: Angle(degrees: endDeg + degrees), text: String(format: "%.0f%%", value * 100 / sum), color: self.colors[i] ?? Color.cyan))
             endDeg += degrees
         }
         return tempSlices
     }
     
-    public init(values:[Double], names: [String], formatter: @escaping (Double) -> String, colors: [Color] = [Color.blue, Color.green, Color.orange, Color.cyan, Color.primary, Color.yellow, Color.teal, Color.red, Color.purple, Color.mint, Color.indigo, Color.gray, Color.brown], backgroundColor: Color = Color(red: 21 / 255, green: 24 / 255, blue: 30 / 255, opacity: 1.0), widthFraction: CGFloat = 0.75, innerRadiusFraction: CGFloat = 0.60){
+    public init(values:[Double], names: [String], formatter: @escaping (Double) -> String, backgroundColor: Color = Color(red: 21 / 255, green: 24 / 255, blue: 30 / 255, opacity: 1.0), widthFraction: CGFloat = 0.75, innerRadiusFraction: CGFloat = 0.60){
         self.values = values
         self.names = names
         self.formatter = formatter
         
-        self.colors = colors
+        //self.colors = colors
         self.backgroundColor = backgroundColor
         self.widthFraction = widthFraction
         self.innerRadiusFraction = innerRadiusFraction
@@ -111,6 +111,8 @@ public struct PieChartView: View {
 
 @available(OSX 10.15, *)
 struct PieChartRows: View {
+    @EnvironmentObject private var vm: HomeViewModel
+    
     var colors: [Color]
     var names: [String]
     var values: [String]
@@ -123,25 +125,34 @@ struct PieChartRows: View {
     var body: some View {
         VStack(spacing: 20) {
             ForEach(0..<self.values.count){ i in
-                HStack {
-                    if !purchasedCoins.isEmpty {
-                    CoinImageView(coin: purchasedCoins[i])
-                        .frame(width: 30, height: 30)
-                    }
-//                    RoundedRectangle(cornerRadius: 5.0)
-//                        .fill(self.colors[i])
-//                        .frame(width: 20, height: 20)
-                    Text(self.names[i])
-                        .font(.headline)
-                        .foregroundColor(Color.theme.accent)
-                    Spacer()
-                    VStack(alignment: .trailing) {
-                        Text(self.values[i])
-                            .bold()
-                            .foregroundColor(Color.theme.accent)
-                        Text(self.percents[i])
+                VStack {
+                    HStack {
+                        if !purchasedCoins.isEmpty {
+                        CoinImageView(coin: purchasedCoins[i])
+                            .frame(width: 30, height: 30)
+                        }
+    //                    RoundedRectangle(cornerRadius: 5.0)
+    //                        .fill(self.colors[i])
+    //                        .frame(width: 20, height: 20)
+                        Text(self.names[i])
                             .font(.headline)
-                            .foregroundColor(Color.theme.secondaryText)
+                            .foregroundColor(Color.theme.accent)
+                        Spacer()
+                        VStack(alignment: .trailing) {
+                            Text(self.values[i])
+                                .bold()
+                                .foregroundColor(Color.theme.accent)
+                            Text(self.percents[i])
+                                .font(.headline)
+                                .foregroundColor(Color.theme.secondaryText)
+                        }
+                    }
+                    HStack {
+                    Rectangle()
+                        .frame(height: 3)
+                        .frame(width: UIScreen.main.bounds.width * (purchasedCoins[i].currentHoldingsValue / vm.portfolioValue))
+                        .foregroundColor(colors[i] ?? .cyan)
+                        Spacer()
                     }
                 }
                 .onTapGesture {

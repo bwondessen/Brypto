@@ -25,17 +25,18 @@ struct LoginView: View {
             //faceIDSection
             loginButton
                 .disabled(!aunthenticateLogin())
-            orDivider
-            signUpButton
+                .opacity(!aunthenticateLogin() ? 0.75 : 1)
+            //orDivider
+            signUpMessage
         }
         .navigationBarHidden(true)
-        .background(
-            Rectangle()
-                .fill(.white)
-                .cornerRadius(5)
-                .shadow(radius: 5)
-        )
-        .padding()
+//        .background(
+//            Rectangle()
+//                .fill(.white)
+//                .cornerRadius(5)
+//                .shadow(radius: 5)
+//        )
+//        .padding()
     }
 }
 
@@ -123,20 +124,35 @@ extension LoginView {
         .padding()
     }
     
-    var signUpButton: some View {
-        NavigationLink {
-            SignUpView()
-                .navigationBarBackButtonHidden(true)
-        } label: {
-            Text("Sign up")
-                .font(.headline.bold())
-                .foregroundColor(Color("LaunchAccentColor"))
-                .padding()
-                .frame(maxWidth: .infinity)
-                .background(.black)
-                .cornerRadius(10)
-                .padding()
+    var signUpMessage: some View {
+//        NavigationLink {
+//            SignUpView()
+//                .navigationBarBackButtonHidden(true)
+//        } label: {
+//            Text("Sign up")
+//                .font(.headline.bold())
+//                .foregroundColor(Color("LaunchAccentColor"))
+//                .padding()
+//                .frame(maxWidth: .infinity)
+//                .background(.black)
+//                .cornerRadius(10)
+//                .padding()
+//        }
+        
+        HStack {
+            Text("Don't have an account?")
+                .font(.subheadline.bold())
+                .foregroundColor(Color.theme.secondaryText)
+            NavigationLink {
+                SignUpView()
+            } label: {
+                Text("Create a new one")
+                    .font(.subheadline.bold())
+                    .foregroundColor(.blue)
+            }
+
         }
+        .padding()
     }
     
     func aunthenticateLogin() -> Bool {

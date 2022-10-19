@@ -607,7 +607,7 @@ class HomeViewModel: ObservableObject {
     }
     
     func login(enteredUserName: String, enteredPassword: String) {
-        if enteredUserName == self.userName && enteredPassword == self.password {
+        if enteredUserName.lowercased() == self.userName.lowercased() && enteredPassword == self.password {
             self.isUnlocked = true
             self.isLoggedIn = true
         }

@@ -18,7 +18,7 @@ struct AccountDetailsView: View {
     //        return color.randomElement() ?? .cyan
     //    }
     
-    let randomColor: [Color] = [.red, .blue, .orange, .green, .purple, .yellow, .brown, .gray, .mint, .cyan].shuffled()
+    let aColor: [Color] = [.red, .blue, .orange, .green, .purple, .yellow, .brown, .gray, .mint, .cyan] // .shuffled()
     
     //    @AppStorage("totalDollarAmountInPortfolio") var totalDollarAmountInPortfolio: Double = 0
     
@@ -152,7 +152,7 @@ extension AccountDetailsView {
                     //String(format: "$%.2f", value)
                     String(value.asCurrencyWith2Decimals())
                 },
-                colors: randomColor,
+                //colors: aColor,
                 backgroundColor: Color.theme.background,
                 widthFraction: 0.70,
                 innerRadiusFraction: 0.55
