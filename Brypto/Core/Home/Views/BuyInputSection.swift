@@ -39,12 +39,13 @@ struct BuyInputSection: View {
     let coin: CoinModel
     
     var body: some View {
-        NavigationView {
+        //NavigationView {
             VStack {
                 inputSection
                 numberPad
                 buyButton
             }
+            .navigationBarBackButtonHidden(true)
             .onChange(of: vm.dollarAmount, perform: { _ in
                 updateDollarAmount()
             })
@@ -60,7 +61,7 @@ struct BuyInputSection: View {
             .onAppear {
                 vm.dollarAmount = ""
             }
-        }
+        //}
         //        .background(
         //            RoundedRectangle(cornerRadius: 10)
         //                .fill(.white)

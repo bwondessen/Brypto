@@ -26,8 +26,6 @@ struct AccountDetailsView: View {
     
     @State private var index: Int = 1
     
-    @State private var diversitySelected: Bool = true
-    @State private var returnSelected: Bool = false
     
     var body: some View {
         ScrollView {
@@ -96,7 +94,7 @@ extension AccountDetailsView {
                             .foregroundColor(Color.theme.accent)
                         Text("(\(vm.totalReturnPercentage.asPercentString()))")
                             .font(.callout)
-                            .foregroundColor(vm.totalReturnPercentage >= 0 ? Color.theme.green : Color.theme.red)
+                            .foregroundColor(vm.totalReturnPercentage >= 0 ? Color.theme.accentMain : Color.theme.red)
                     }
                 }
             }
@@ -118,22 +116,22 @@ extension AccountDetailsView {
         HStack {
             VStack {
                 Text("Diversity")
-                Rectangle().frame(height: 3).foregroundColor(diversitySelected ? Color.theme.green : Color.clear)
+                Rectangle().frame(height: 3).foregroundColor(vm.valueSelected ? Color.theme.green : Color.clear)
             }
             .frame(width: 100, height: 10)
             .onTapGesture {
-                diversitySelected = true
-                returnSelected = false
+                vm.valueSelected = true
+                vm.diversitySelected = false
                 }
             //Spacer()
             VStack {
-                Text("Return")
-                Rectangle().frame(height: 3).foregroundColor(returnSelected ? Color.theme.green : Color.clear)
+                Text("Value")
+                Rectangle().frame(height: 3).foregroundColor(vm.diversitySelected ? Color.theme.green : Color.clear)
             }
                 .frame(width: 100, height: 10)
                 .onTapGesture {
-                    diversitySelected = false
-                    returnSelected = true
+                    vm.valueSelected = false
+                    vm.diversitySelected = true
                 }
         }
         .padding()
@@ -146,7 +144,7 @@ extension AccountDetailsView {
     private var portfolioBreakdownSection: some View {
         VStack {
             PieChartView(
-                values: vm.purchasedCoins.map({diversitySelected ? $0.currentHoldingsValue : vm.getTotalPriceChange(portfolioCoins: vm.purchasedCoins)}),
+                values: vm.purchasedCoins.map({vm.valueSelected ? $0.currentHoldingsValue : ($0.currentHoldings ?? 0) }),
                 names: vm.purchasedCoins.map({$0.name}),
                 formatter: {value in
                     //String(format: "$%.2f", value)

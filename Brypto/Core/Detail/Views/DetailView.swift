@@ -11,11 +11,15 @@ struct DetailLoadingView: View {
     @Binding var coin: CoinModel?
     
     var body: some View {
+        //NavigationView {
         ZStack {
             if let coin = coin {
                 DetailView(coin: coin)
             }
         }
+//        .navigationBarTitleDisplayMode(.inline)
+//        .navigation/Users/bruke/Documents/iOS Development/Brypto/Brypto/Core/Detail/Views/DetailView.swiftBarHidden(true)
+        //}
     }
     
 }
@@ -51,6 +55,7 @@ struct DetailView: View {
     }
     
     var body: some View {
+        //NavigationView {
         VStack {
             ScrollView {
                 
@@ -80,8 +85,10 @@ struct DetailView: View {
                     }
                     .padding()
                 }
+                //.navigationBarTitleDisplayMode(.inline)
             }
         }
+//        .navigationBarTitleDisplayMode(.inline)
         .padding(.bottom)
         .padding(.bottom)
         .padding(.bottom)
@@ -115,6 +122,7 @@ struct DetailView: View {
                 navigationBarTrailingItems
             }
         }
+    //}
     }
 }
 
@@ -172,8 +180,9 @@ extension DetailView {
             if homeVM.purchasedCoins.contains(where: { $0.id == coin.id }) {
                 NavigationLink {
                     SellInputSection(coin: coin)
-                        .navigationBarBackButtonHidden(true)
-                        .navigationBarHidden(true)
+                        //.navigationBarBackButtonHidden(true)
+                        //.navigationBarHidden(true)
+                        //.navigationBarTitleDisplayMode(.inline)
                 } label: {
                     Text("Sell")
                         .font(.headline.bold())
@@ -188,8 +197,9 @@ extension DetailView {
             
             NavigationLink {
                 BuyInputSection(coin: coin)
-                    .navigationBarBackButtonHidden(true)
-                    .navigationBarHidden(true)
+                    //.navigationBarBackButtonHidden(true)
+                    //.navigationBarHidden(true)
+                    //.navigationBarTitleDisplayMode(.inline)
             } label: {
                 Text("Buy")
                     .font(.headline.bold())

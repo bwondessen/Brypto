@@ -94,7 +94,8 @@ public struct PieChartView: View {
                         Text(self.activeIndex == -1 ? "Total" : names[self.activeIndex])
                             .font(.title)
                             .foregroundColor(Color.theme.secondaryText)
-                        Text(self.formatter(self.activeIndex == -1 ? values.reduce(0, +) : values[self.activeIndex]))
+                        //Text(self.formatter(self.activeIndex == -1 ? values.reduce(0, +) : values[self.activeIndex]))
+                        Text(vm.diversitySelected ? vm.totalShares.asNumberString() : (self.formatter(self.activeIndex == -1 ? values.reduce(0, +) : values[self.activeIndex])))
                             .font(.title.bold())
                             .foregroundColor(Color.theme.accent)
                     }
@@ -148,10 +149,13 @@ struct PieChartRows: View {
                         }
                     }
                     HStack {
+                        /*
+                         UIScreen.main.bounds.width * (purchasedCoins[i].currentHoldingsValue / vm.portfolioValue)
+                         */
                     Rectangle()
                         .frame(height: 3)
-                        .frame(width: UIScreen.main.bounds.width * (purchasedCoins[i].currentHoldingsValue / vm.portfolioValue))
-                        .foregroundColor(colors[i] ?? .cyan)
+                        .frame(width: vm.diversitySelected ? UIScreen.main.bounds.width * ((purchasedCoins[i].currentHoldings ?? 0) / vm.totalShares) : UIScreen.main.bounds.width * (purchasedCoins[i].currentHoldingsValue / vm.portfolioValue))
+                        .foregroundColor(colors[i])
                         Spacer()
                     }
                 }

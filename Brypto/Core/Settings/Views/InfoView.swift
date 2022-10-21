@@ -58,10 +58,14 @@ extension InfoView {
     private var develperSection: some View {
         Section {
             VStack(alignment: .leading) {
-                Image("logo")
-                    .resizable()
-                    .frame(width: 100, height: 100)
-                    .clipShape(RoundedRectangle(cornerRadius: 20))
+                HStack {
+                    Spacer()
+                    Image("logo-white")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 150)
+                    Spacer()
+                }
                 Text("Brypto is a new and exciting way to learn to invest in Crypto! Brypto is a paper trading app, which means that it simulates the Crypto market so that you can practice investing without any financial risk. The buying power you have is not real money and you do not legally own the coins purchased with it. The best way to learn is by doing, so let's get started investing - the sky is the limit!")
                     .font(.callout)
                     .fontWeight(.medium)

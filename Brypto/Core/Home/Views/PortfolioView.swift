@@ -51,6 +51,7 @@ struct PortfolioView: View {
 //                    ForEach(vm.totalReturns, id: \.self) { returnI in
 //                        Text("\(returnI)")
 //                    }
+                //Text("\(vm.priceDates?[0] ?? Date())")
                 Text("returns count: \(vm.totalReturns.count)")
                 Text("price count: \(vm.priceChanges.count)")
                 Text("date count: \(vm.priceDates?.count ?? 0)")
@@ -159,6 +160,7 @@ extension PortfolioView {
                 //.frame(height: 100)
         }
 //        //.padding()
+        
     }
     
     private var purchasedAndBookmarkedCoinsRows: some View {
@@ -169,6 +171,7 @@ extension PortfolioView {
                 columnTitles
                     .listRowSeparator(.hidden)
             }
+            .listRowBackground(Color.theme.background)
             .listRowSeparator(.hidden)
             
             Section {
@@ -229,13 +232,13 @@ extension PortfolioView {
                                     .padding(.bottom, 2)
                                 Text((coin.priceChange24H?.asNumberString() ?? "N/A") + "%")
                                     .font(.callout)
-                                    .foregroundColor((coin.priceChange24H ?? 0 >= 0) ? Color.theme.green : Color.theme.red)
+                                    .foregroundColor((coin.priceChange24H ?? 0 >= 0) ? Color.theme.accentMain : Color.theme.red)
                             }
                         }
                         .frame(width: 115, height: 100)
                         .background(
                             RoundedRectangle(cornerRadius: 10)
-                                .strokeBorder((coin.priceChange24H ?? 0 >= 0) ? Color.theme.green : Color.theme.red, lineWidth: 0.40)
+                                .strokeBorder((coin.priceChange24H ?? 0 >= 0) ? Color.theme.accentMain : Color.theme.red, lineWidth: 0.40)
                         )
                         .lineLimit(1)
                         //.padding(.bottom)

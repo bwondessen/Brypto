@@ -64,10 +64,11 @@ struct DiscveryView: View {
                 //.padding()
             }
             .navigationBarHidden(true)
+            
             .background(
                 NavigationLink(
                     isActive: $showDetailView,
-                    destination: { DetailLoadingView(coin: $selectedCoin) },
+                    destination: { DetailLoadingView(coin: $selectedCoin).navigationBarTitleDisplayMode(.inline) },
                     label: { EmptyView() })
             )
             .background(
@@ -196,7 +197,7 @@ extension DiscveryView {
                     } label: {
                         Text("See all")
                             .font(.headline.bold())
-                            .tint(.blue)
+                            .foregroundColor(Color.theme.accentMain)
                     }
                 }
             }
@@ -207,10 +208,19 @@ extension DiscveryView {
                     LazyHGrid(rows: topMoversRows) {
                         ForEach(vm.topMovers(coins: vm.allCoins).prefix(15)) { coin in
                             TopMoversView(coin: coin)
+                                .padding([.vertical, .trailing], 3)
+                                .frame(width: 180)
+                                .overlay(
+                                    Rectangle()
+                                        .fill(.white.opacity(0.00000000000000000000001))
+                                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+//                                        .onTapGesture {
+//                                            segue(coin: coin)
+//                                        }
+                                )
                                 .onTapGesture {
                                     segue(coin: coin)
                                 }
-                                .padding([.vertical, .trailing], 3)
                         }
                     }
                 }
@@ -227,7 +237,7 @@ extension DiscveryView {
                     } label: {
                         Text("See all")
                             .font(.headline.bold())
-                            .tint(.blue)
+                            .foregroundColor(Color.theme.accentMain)
                     }
                 }
             }
@@ -266,7 +276,7 @@ extension DiscveryView {
                     } label: {
                         Text("See all")
                             .font(.headline.bold())
-                            .tint(.blue)
+                            .foregroundColor(Color.theme.accentMain)
                     }
                 }
             }

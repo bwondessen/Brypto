@@ -56,13 +56,13 @@ struct SignUpView_Previews: PreviewProvider {
 extension SignUpView {
     var welcomeSection: some View {
         VStack {
-            Image("logo-transparent")
+            Image("logo-white")
                 .resizable()
                 .scaledToFit()
                 .frame(width: 150, height: 150)
-            Text("Welcome to Brypto!")
-                .font(.largeTitle.bold())
-                .foregroundColor(Color("AccentColor"))
+//            Text("Welcome to Brypto!")
+//                .font(.largeTitle.bold())
+//                .foregroundColor(Color.theme.accentMain)
 //            Text("Sign up to stay up to date with all things crypto.")
 //                .foregroundColor(Color.secondary)
 //                .font(.headline)
@@ -110,7 +110,7 @@ extension SignUpView {
                 .foregroundColor(.white)
                 .padding()
                 .frame(maxWidth: .infinity)
-                .background(Color("LaunchAccentColor"))
+                .background(Color.theme.accentMain)
                 .cornerRadius(10)
                 .padding()
         }
@@ -158,7 +158,6 @@ extension SignUpView {
                     .font(.subheadline.bold())
                     .foregroundColor(.blue)
             }
-
         }
         .padding()
     }

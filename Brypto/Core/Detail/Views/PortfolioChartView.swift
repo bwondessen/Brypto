@@ -168,10 +168,10 @@ struct PortfolioChartView: View {
                     HStack(spacing: 10) {
                         Text("1D")
                             .padding(3)
-                            .foregroundColor(vm.pastDaySelected ? .white : Color.theme.accent)
+                            .foregroundColor(vm.pastDaySelected ? .white : (vm.pastDayReturnPercentage > 0 ? Color.theme.accentMain : Color.theme.red))
                             .background(
                                 RoundedRectangle(cornerRadius: 5)
-                                    .fill(vm.pastDaySelected ? Color.theme.green : .clear)
+                                    .fill(vm.pastDaySelected ? (vm.pastDayReturnPercentage > 0 ? Color.theme.accentMain : Color.theme.red) : .clear)
                             )
                             .onTapGesture {
                                 vm.pastDaySelected = true
@@ -184,10 +184,10 @@ struct PortfolioChartView: View {
                         Spacer()
                         Text("1W")
                             .padding(3)
-                            .foregroundColor(vm.pastWeekSelected ? .white : Color.theme.accent)
+                            .foregroundColor(vm.pastWeekSelected ? .white : (vm.pastDayReturnPercentage > 0 ? Color.theme.accentMain : Color.theme.red))
                             .background(
                                 RoundedRectangle(cornerRadius: 5)
-                                    .fill(vm.pastWeekSelected ? Color.theme.green : .clear)
+                                    .fill(vm.pastWeekSelected ? (vm.pastDayReturnPercentage > 0 ? Color.theme.accentMain : Color.theme.red) : .clear)
                             )
                             .onTapGesture {
                                 vm.pastDaySelected = false
@@ -201,10 +201,10 @@ struct PortfolioChartView: View {
                         Group {
                             Text("1M")
                                 .padding(3)
-                                .foregroundColor(vm.pastMonthSelected ? .white : Color.theme.accent)
+                                .foregroundColor(vm.pastMonthSelected ? .white : (vm.pastDayReturnPercentage > 0 ? Color.theme.accentMain : Color.theme.red))
                                 .background(
                                     RoundedRectangle(cornerRadius: 5)
-                                        .fill(vm.pastMonthSelected ? Color.theme.green : .clear)
+                                        .fill(vm.pastMonthSelected ? (vm.pastDayReturnPercentage > 0 ? Color.theme.accentMain : Color.theme.red) : .clear)
                                 )
                                 .onTapGesture {
                                     vm.pastDaySelected = false
@@ -217,10 +217,10 @@ struct PortfolioChartView: View {
                             Spacer()
                             Text("3M")
                                 .padding(3)
-                                .foregroundColor(vm.past3MonthsSelected ? .white : Color.theme.accent)
+                                .foregroundColor(vm.past3MonthsSelected ? .white : (vm.pastDayReturnPercentage > 0 ? Color.theme.accentMain : Color.theme.red))
                                 .background(
                                     RoundedRectangle(cornerRadius: 5)
-                                        .fill(vm.past3MonthsSelected ? Color.theme.green : .clear)
+                                        .fill(vm.past3MonthsSelected ? (vm.pastDayReturnPercentage > 0 ? Color.theme.accentMain : Color.theme.red) : .clear)
                                 )
                                 .onTapGesture {
                                     vm.pastDaySelected = false
@@ -233,10 +233,10 @@ struct PortfolioChartView: View {
                             Spacer()
                             Text("1Y")
                                 .padding(3)
-                                .foregroundColor(vm.pastYearSelected ? .white : Color.theme.accent)
+                                .foregroundColor(vm.pastYearSelected ? .white : (vm.pastDayReturnPercentage > 0 ? Color.theme.accentMain : Color.theme.red))
                                 .background(
                                     RoundedRectangle(cornerRadius: 5)
-                                        .fill(vm.pastYearSelected ? Color.theme.green : .clear)
+                                        .fill(vm.pastYearSelected ? (vm.pastDayReturnPercentage > 0 ? Color.theme.accentMain : Color.theme.red) : .clear)
                                 )
                                 .onTapGesture {
                                     vm.pastDaySelected = false
@@ -249,10 +249,10 @@ struct PortfolioChartView: View {
                             Spacer()
                             Text("All")
                                 .padding(3)
-                                .foregroundColor(vm.pastTotalSelected ? .white : Color.theme.accent)
+                                .foregroundColor(vm.pastTotalSelected ? .white : (vm.pastDayReturnPercentage > 0 ? Color.theme.accentMain : Color.theme.red))
                                 .background(
                                     RoundedRectangle(cornerRadius: 5)
-                                        .fill(vm.pastTotalSelected ? Color.theme.green : .clear)
+                                        .fill(vm.pastTotalSelected ? (vm.pastDayReturnPercentage > 0 ? Color.theme.accentMain : Color.theme.red) : .clear)
                                 )
                                 .onTapGesture {
                                     vm.pastDaySelected = false
@@ -327,6 +327,8 @@ struct PortfolioChartView: View {
                             let xPosition = geo.size.width / CGFloat(vm.pastDayData(priceDates: vm.priceDates ?? []).count) * CGFloat(index + 1)
                             
                             let yAxis = (vm.pastDayData(priceDates: vm.priceDates ?? []).max() ?? 0) - (vm.pastDayData(priceDates: vm.priceDates ?? []).min() ?? 0)
+                            
+//                            guard index >= pastTotalData(priceDates: vm.priceDates ?? []).count else { return }
                             
                             let yPosition = (1 - CGFloat(vm.pastDayData(priceDates: vm.priceDates ?? [])[index] - (vm.pastDayData(priceDates: vm.priceDates ?? []).min() ?? 0)) / yAxis) * geo.size.height
                             
@@ -418,9 +420,9 @@ struct PortfolioChartView: View {
                 //            .shadow(color: lineColor.opacity(0.5), radius: 10, x: 0, y: 20)
                 //            .shadow(color: lineColor.opacity(0.2), radius: 10, x: 0, y: 30)
                 //            .shadow(color: lineColor.opacity(0.1), radius: 10, x: 0, y: 40)
-                .stroke(vm.pastDaySelected && vm.pastDayReturnPercentage > 0 ? Color.theme.green : (vm.pastWeekSelected && vm.pastWeekReturnPercentage > 0 ? Color.theme.green : (vm.pastMonthSelected && vm.pastMonthReturnPercentage > 0 ? Color.theme.green : (vm.past3MonthsSelected && vm.past3MonthsReturnPercentage > 0 ? Color.theme.green : (vm.pastYearSelected && vm.pastYearReturnPercentage > 0 ? Color.theme.green : vm.pastTotalSelected && vm.totalReturnPercentage > 0 ? Color.theme.green : Color.theme.red)))), style: StrokeStyle(lineWidth: 2, lineCap: .round, lineJoin: .round))
-                .shadow(color: vm.pastDaySelected && vm.pastDayReturnPercentage > 0 ? Color.theme.green : (vm.pastWeekSelected && vm.pastWeekReturnPercentage > 0 ? Color.theme.green : (vm.pastMonthSelected && vm.pastMonthReturnPercentage > 0 ? Color.theme.green : (vm.past3MonthsSelected && vm.past3MonthsReturnPercentage > 0 ? Color.theme.green : (vm.pastYearSelected && vm.pastYearReturnPercentage > 0 ? Color.theme.green : vm.pastTotalSelected && vm.totalReturnPercentage > 0 ? Color.theme.green : Color.theme.red)))), radius: 10, x: 0, y: 10)
-                .shadow(color: vm.pastDaySelected && vm.pastDayReturnPercentage > 0 ? Color.theme.green : (vm.pastWeekSelected && vm.pastWeekReturnPercentage > 0 ? Color.theme.green : (vm.pastMonthSelected && vm.pastMonthReturnPercentage > 0 ? Color.theme.green : (vm.past3MonthsSelected && vm.past3MonthsReturnPercentage > 0 ? Color.theme.green : (vm.pastYearSelected && vm.pastYearReturnPercentage > 0 ? Color.theme.green : vm.pastTotalSelected && vm.totalReturnPercentage > 0 ? Color.theme.green : Color.theme.red)))), radius: 10, x: 0, y: 20)
+                .stroke(vm.pastDaySelected && vm.pastDayReturnPercentage > 0 ? Color.theme.accentMain : (vm.pastWeekSelected && vm.pastWeekReturnPercentage > 0 ? Color.theme.accentMain : (vm.pastMonthSelected && vm.pastMonthReturnPercentage > 0 ? Color.theme.accentMain : (vm.past3MonthsSelected && vm.past3MonthsReturnPercentage > 0 ? Color.theme.accentMain : (vm.pastYearSelected && vm.pastYearReturnPercentage > 0 ? Color.theme.accentMain : vm.pastTotalSelected && vm.totalReturnPercentage > 0 ? Color.theme.accentMain : Color.theme.red)))), style: StrokeStyle(lineWidth: 2, lineCap: .round, lineJoin: .round))
+                .shadow(color: vm.pastDaySelected && vm.pastDayReturnPercentage > 0 ? Color.theme.accentMain : (vm.pastWeekSelected && vm.pastWeekReturnPercentage > 0 ? Color.theme.accentMain : (vm.pastMonthSelected && vm.pastMonthReturnPercentage > 0 ? Color.theme.accentMain : (vm.past3MonthsSelected && vm.past3MonthsReturnPercentage > 0 ? Color.theme.accentMain : (vm.pastYearSelected && vm.pastYearReturnPercentage > 0 ? Color.theme.accentMain : vm.pastTotalSelected && vm.totalReturnPercentage > 0 ? Color.theme.accentMain : Color.theme.red)))), radius: 10, x: 0, y: 10)
+                .shadow(color: vm.pastDaySelected && vm.pastDayReturnPercentage > 0 ? Color.theme.accentMain : (vm.pastWeekSelected && vm.pastWeekReturnPercentage > 0 ? Color.theme.accentMain : (vm.pastMonthSelected && vm.pastMonthReturnPercentage > 0 ? Color.theme.accentMain : (vm.past3MonthsSelected && vm.past3MonthsReturnPercentage > 0 ? Color.theme.accentMain : (vm.pastYearSelected && vm.pastYearReturnPercentage > 0 ? Color.theme.accentMain : vm.pastTotalSelected && vm.totalReturnPercentage > 0 ? Color.theme.accentMain : Color.theme.red)))), radius: 10, x: 0, y: 20)
                 //            .shadow(color: pastDaySelected && vm.pastDayPriceChange > 0 ? Color.theme.green : (pastWeekSelected && vm.pastWeekPriceChange > 0 ? Color.theme.green : (pastMonthSelected && vm.pastMonthPriceChange > 0 ? Color.theme.green : (past3MonthsSelected && vm.past3MonthsPriceChange > 0 ? Color.theme.green : (pastYearSelected && vm.pastYearPriceChange > 0 ? Color.theme.green : Color.theme.red)))).opacity(0.2), radius: 10, x: 0, y: 30)
                 //            .shadow(color: pastDaySelected && vm.pastDayPriceChange > 0 ? Color.theme.green : (pastWeekSelected && vm.pastWeekPriceChange > 0 ? Color.theme.green : (pastMonthSelected && vm.pastMonthPriceChange > 0 ? Color.theme.green : (past3MonthsSelected && vm.past3MonthsPriceChange > 0 ? Color.theme.green : (pastYearSelected && vm.pastYearPriceChange > 0 ? Color.theme.green : Color.theme.red)))).opacity(0.1), radius: 10, x: 0, y: 40)
             }

@@ -35,7 +35,7 @@ struct TopMoversView: View {
                         .rotationEffect(Angle(degrees: (coin.priceChangePercentage24H ?? 0) >= 0 ? 0 : 180))
                     Text(coin.priceChangePercentage24H?.asPercentString() ?? "")
                 }
-                .foregroundColor((coin.priceChangePercentage24H ?? 0) >= 0 ? Color.theme.green : Color.theme.red)
+                .foregroundColor((coin.priceChangePercentage24H ?? 0) >= 0 ? Color.theme.accentMain : Color.theme.red)
             }
         }
         .padding()

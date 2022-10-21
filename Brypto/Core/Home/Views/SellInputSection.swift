@@ -48,18 +48,19 @@ struct SellInputSection: View {
                 numberPad
                 sellButton
             }
+            .navigationBarBackButtonHidden(true)
             .onChange(of: vm.dollarAmount, perform: { _ in
                 updateDollarAmount()
             })
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Image(systemName: "arrow.backward")
-                        .font(.title2.bold())
-                        .onTapGesture {
-                            dismiss()
-                        }
-                }
-            }
+//            .toolbar {
+//                ToolbarItem(placement: .navigationBarLeading) {
+//                    Image(systemName: "arrow.backward")
+//                        .font(.title2.bold())
+//                        .onTapGesture {
+//                            dismiss()
+//                        }
+//                }
+//            }
             .onAppear {
                 vm.dollarAmount = ""
             }

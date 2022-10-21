@@ -53,6 +53,15 @@ class HomeViewModel: ObservableObject {
         
     let icons: [String] = ["bonjour", "antenna.radiowaves.left.and.right", "wifi", "icloud.and.arrow.down", "lock.icloud", "key.icloud", "bolt.horizontal", "network.badge.shield.half.filled", "personalhotspot", "externaldrive.connected.to.line.below", "lock.iphone", "pencil.slash", "square.and.pencil", "folder", "square.grid.3x1.folder.badge.plus", "paperplane", "tray.and.arrow.down", "externaldrive", "doc", "doc.text.magnifyingglass", "note.text", "calendar.badge.clock", "text.book.closed", "newspaper", "link", "umbrella", "bolt.shield", "wand.and.stars", "speedometer", "amplifier", "dice", "theatermasks", "puzzlepiece", "lock", "testtube.2", "checkerboard.shield", "chart.xyaxis.line", "chart.pie", "sdcard", "esim", "camera.filters", "lightbulb", "person.wave.2", "person.crop.circle.fill.badge.plus", "brain.head.profile", "face.smiling", "globe.americas", "flame", "bolt", "scale.3d", "bag", "cart", "creditcard", "banknote", "dollarsign.square", "centsign.square"]
     
+    @Published var valueSelected: Bool = true
+    @Published var diversitySelected: Bool = false
+    
+    var totalShares: Double {
+        let shares = purchasedCoins.map { $0.currentHoldings }
+        let totalShares = shares.reduce(0) { $0 + ($1 ?? 0) }
+        return totalShares
+    }
+    
     //@Published var priceChanges: [Double] = []
 //    let defaults = UserDefaults.standard
     var priceChanges: [String] = UserDefaults.standard.stringArray(forKey: "priceChanges") ?? []    
@@ -170,12 +179,16 @@ class HomeViewModel: ObservableObject {
         let firstIndex = pastDayData(priceDates: priceDates ?? []).startIndex
         let lastIndex = firstIndex + (pastDayData(priceDates: priceDates ?? []).count - 1)
         
+        guard !pastDayData(priceDates: priceDates ?? []).isEmpty else { return 0 }
+        
         return totalReturns[lastIndex] - totalReturns[firstIndex]
     }
     
     var pastWeekReturn: Double {
         let firstIndex = pastWeekData(priceDates: priceDates ?? []).startIndex
         let lastIndex = firstIndex + (pastWeekData(priceDates: priceDates ?? []).count - 1)
+        
+        guard !pastWeekData(priceDates: priceDates ?? []).isEmpty else { return 0 }
         
         return totalReturns[lastIndex] - totalReturns[firstIndex]
     }
@@ -184,6 +197,8 @@ class HomeViewModel: ObservableObject {
         let firstIndex = pastMonthData(priceDates: priceDates ?? []).startIndex
         let lastIndex = firstIndex + (pastMonthData(priceDates: priceDates ?? []).count - 1)
         
+        guard !pastWeekData(priceDates: priceDates ?? []).isEmpty else { return 0 }
+        
         return totalReturns[lastIndex] - totalReturns[firstIndex]
     }
     
@@ -191,12 +206,16 @@ class HomeViewModel: ObservableObject {
         let firstIndex = past3MonthsData(priceDates: priceDates ?? []).startIndex
         let lastIndex = firstIndex + (past3MonthsData(priceDates: priceDates ?? []).count - 1)
         
+        guard !past3MonthsData(priceDates: priceDates ?? []).isEmpty else { return 0 }
+        
         return totalReturns[lastIndex] - totalReturns[firstIndex]
     }
     
     var pastYearReturn: Double {
         let firstIndex = pastYearData(priceDates: priceDates ?? []).startIndex
         let lastIndex = firstIndex + (pastYearData(priceDates: priceDates ?? []).count - 1)
+        
+        guard !pastYearData(priceDates: priceDates ?? []).isEmpty else { return 0 }
         
         return totalReturns[lastIndex] - totalReturns[firstIndex]
     }

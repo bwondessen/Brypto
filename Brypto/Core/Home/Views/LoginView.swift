@@ -49,13 +49,14 @@ struct LoginView_Previews: PreviewProvider {
 extension LoginView {
     var bryptoHeader: some View {
         VStack {
-            Image("logo-transparent")
+            Image("logo-white")
                 .resizable()
                 .scaledToFit()
                 .frame(width: 150, height: 150)
-            Text("Brypto!")
-                .font(.largeTitle.bold())
-                .foregroundColor(Color("AccentColor"))
+//            Text("Brypto!")
+//                //.font(.largeTitle.bold())
+//                .font(.system(<#T##style: Font.TextStyle##Font.TextStyle#>, design: <#T##Font.Design#>))
+//                .foregroundColor(Color.theme.accentMain)
         }
     }
     
@@ -100,10 +101,10 @@ extension LoginView {
         } label: {
             Text("Login")
                 .font(.headline.bold())
-                .foregroundColor(Color("LaunchAccentColor"))
+                .foregroundColor(.white)
                 .padding()
                 .frame(maxWidth: .infinity)
-                .background(.black)
+                .background(Color.theme.accentMain)
                 .cornerRadius(10)
                 .padding()
         }
@@ -150,7 +151,6 @@ extension LoginView {
                     .font(.subheadline.bold())
                     .foregroundColor(.blue)
             }
-
         }
         .padding()
     }
