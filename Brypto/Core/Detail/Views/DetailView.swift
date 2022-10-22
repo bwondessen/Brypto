@@ -15,9 +15,10 @@ struct DetailLoadingView: View {
         ZStack {
             if let coin = coin {
                 DetailView(coin: coin)
+//                    .navigationBarTitleDisplayMode(.inline)
             }
         }
-//        .navigationBarTitleDisplayMode(.inline)
+        //.navigationBarTitleDisplayMode(.inline)
 //        .navigation/Users/bruke/Documents/iOS Development/Brypto/Brypto/Core/Detail/Views/DetailView.swiftBarHidden(true)
         //}
     }
@@ -88,7 +89,7 @@ struct DetailView: View {
                 //.navigationBarTitleDisplayMode(.inline)
             }
         }
-//        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarTitleDisplayMode(.inline)
         .padding(.bottom)
         .padding(.bottom)
         .padding(.bottom)
@@ -197,8 +198,8 @@ extension DetailView {
             
             NavigationLink {
                 BuyInputSection(coin: coin)
-                    //.navigationBarBackButtonHidden(true)
-                    //.navigationBarHidden(true)
+//                    .navigationBarBackButtonHidden(true)
+//                    .navigationBarHidden(true)
                     //.navigationBarTitleDisplayMode(.inline)
             } label: {
                 Text("Buy")

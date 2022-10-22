@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 import Combine
 import LocalAuthentication
+import Firebase
 
 class HomeViewModel: ObservableObject {
     @Published var statistics: [StatisticModel] = []
@@ -646,7 +647,21 @@ class HomeViewModel: ObservableObject {
         }
     }
     
+//    func signUp(enteredUserName: String, enteredPassword: String, enteredEmail: String, enteredFullName: String) {
+//        if !enteredUserName.isEmpty && !enteredPassword.isEmpty && !enteredEmail.isEmpty && !enteredFullName.isEmpty {
+//            self.isUnlocked = true
+//            self.isSignedUp = true
+//            self.isLoggedIn = true
+//        }
+//    }
+    
     func signUp(enteredUserName: String, enteredPassword: String, enteredEmail: String, enteredFullName: String) {
+        Auth.auth().createUser(withEmail: enteredEmail, password: enteredPassword) { result, error in
+            if error != nil {
+                print(error?.localizedDescription ?? "error")
+            }
+        }
+        
         if !enteredUserName.isEmpty && !enteredPassword.isEmpty && !enteredEmail.isEmpty && !enteredFullName.isEmpty {
             self.isUnlocked = true
             self.isSignedUp = true

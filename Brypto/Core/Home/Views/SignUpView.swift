@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Firebase
 
 struct SignUpView: View {
     @EnvironmentObject private var vm: HomeViewModel

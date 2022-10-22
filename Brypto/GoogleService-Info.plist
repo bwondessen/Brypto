@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>716880494849-kbmpqhmuilpa02np7mh8rnpigoqsfdll.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.716880494849-kbmpqhmuilpa02np7mh8rnpigoqsfdll</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAWwr2STg88yIFVf5dattonlpykwjfYV2w</string>
+	<key>GCM_SENDER_ID</key>
+	<string>716880494849</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.brukewondessen.Brypto</string>
+	<key>PROJECT_ID</key>
+	<string>brypto-5d3f9</string>
+	<key>STORAGE_BUCKET</key>
+	<string>brypto-5d3f9.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:716880494849:ios:d9ffbc2a7136c6c165db00</string>
+</dict>
+</plist>

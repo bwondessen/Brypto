@@ -64,11 +64,10 @@ struct DiscveryView: View {
                 //.padding()
             }
             .navigationBarHidden(true)
-            
             .background(
                 NavigationLink(
                     isActive: $showDetailView,
-                    destination: { DetailLoadingView(coin: $selectedCoin).navigationBarTitleDisplayMode(.inline) },
+                    destination: { DetailLoadingView(coin: $selectedCoin) },
                     label: { EmptyView() })
             )
             .background(

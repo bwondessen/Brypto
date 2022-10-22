@@ -131,13 +131,13 @@ extension PortfolioView {
     private var homeHeader: some View {
         ZStack {
             HStack {
-                CircleButtonView(iconName: "plus")
-                    .scaledToFit()
-                    .animation(nil, value: UUID())
-                    .onTapGesture {
-                        showEditPortfolioSheet = true
-                    }
-                Spacer()
+//                CircleButtonView(iconName: "plus")
+//                    .scaledToFit()
+//                    .animation(nil, value: UUID())
+//                    .onTapGesture {
+//                        showEditPortfolioSheet = true
+//                    }
+//                Spacer()
             }
             HStack {
                 Text("Portfolio")
