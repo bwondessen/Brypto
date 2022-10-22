@@ -662,11 +662,19 @@ class HomeViewModel: ObservableObject {
             }
         }
         
-        if !enteredUserName.isEmpty && !enteredPassword.isEmpty && !enteredEmail.isEmpty && !enteredFullName.isEmpty {
+        if !enteredUserName.isEmpty && !enteredPassword.isEmpty && !enteredEmail.isEmpty && isValidEmailAddr(strToValidate: enteredEmail) && !enteredFullName.isEmpty {
             self.isUnlocked = true
             self.isSignedUp = true
             self.isLoggedIn = true
         }
+    }
+    
+    func isValidEmailAddr(strToValidate: String) -> Bool {
+      let emailValidationRegex = "^[\\p{L}0-9!#$%&'*+\\/=?^_`{|}~-][\\p{L}0-9.!#$%&'*+\\/=?^_`{|}~-]{0,63}@[\\p{L}0-9-]+(?:\\.[\\p{L}0-9-]{2,7})*$"  // 1
+
+      let emailValidationPredicate = NSPredicate(format: "SELF MATCHES %@", emailValidationRegex)  // 2
+
+      return emailValidationPredicate.evaluate(with: strToValidate)  // 3
     }
     
     func signIn(userName: String, password: String) {

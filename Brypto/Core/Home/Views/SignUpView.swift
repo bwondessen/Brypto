@@ -164,7 +164,7 @@ extension SignUpView {
     }
     
     func aunthenticateSignUp() -> Bool {
-        if !enteredUserName.isEmpty && !enteredPassword.isEmpty && !enteredName.isEmpty && !enteredEmail.isEmpty {
+        if !enteredUserName.isEmpty && !enteredPassword.isEmpty && !enteredName.isEmpty && !enteredEmail.isEmpty && vm.isValidEmailAddr(strToValidate: enteredEmail) {
             return false
         } else {
             return true
