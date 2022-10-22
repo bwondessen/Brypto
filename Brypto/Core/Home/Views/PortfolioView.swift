@@ -37,20 +37,22 @@ struct PortfolioView: View {
             VStack {
                 homeHeader
                 // testing
-//                Button("RESET") {
+                Button("RESET") {
 //                    vm.totalReturns.removeAll()
 //                    vm.priceDates?.removeAll()
 //                    vm.priceChanges.removeAll()
 //                    UserDefaults.standard.set(vm.totalReturns, forKey: "totalReturns")
 //                    UserDefaults.standard.set(vm.priceDates, forKey: "priceDates")
 //                    UserDefaults.standard.set(vm.priceChanges, forKey: "priceChanges")
-//                }
+                    
+                }
                 Group {
                 //Text("\(vm.priceDates?[0] ?? Date())")
                 Text("buying power: \(vm.buyingPower.asCurrencyWith2Decimals())")
 //                    ForEach(vm.totalReturns, id: \.self) { returnI in
 //                        Text("\(returnI)")
 //                    }
+                    Text("pastdayreturnpercentage: \(vm.pastDayReturnPercentage)")
                 //Text("\(vm.priceDates?[0] ?? Date())")
                 Text("returns count: \(vm.totalReturns.count)")
                 Text("price count: \(vm.priceChanges.count)")
@@ -176,26 +178,35 @@ extension PortfolioView {
             
             Section {
 //                ForEach(vm.searchText.isEmpty ? vm.purchasedCoins : vm.allCoins) { coin in
-                ForEach(collapsePurchasedCoinsSection ? emptyArray : vm.purchasedCoins) { coin in
-                    CoinRowView(coin: coin, showHoldingsColumn: true, showRank: false, showChart: true)
-                        .listRowInsets(.init(top: 10, leading: 0, bottom: 10, trailing: 10))
-                        .padding(.horizontal)
-                        .listRowSeparator(.hidden)
-                        .listRowBackground(Color.theme.background)
-                        .onTapGesture {
-                            segue(coin: coin)
-                        }
-                        .swipeActions {
-                            Button {
-                                withAnimation {
-                                    vm.updateBookmark(coin: coin, isBookmarked: isBookmarked)
-                                }
-                            } label: {
-                                Image(systemName: vm.bookmaredCoins.contains(where: { $0.id == coin.id }) ? "bookmark.slash" : "bookmark")
+                if vm.purchasedCoins.isEmpty {
+                    HStack {
+                        Spacer()
+                        Text("Empty")
+                        Spacer()
+                    }
+                    .listRowSeparator(.hidden)
+                } else {
+                    ForEach(collapsePurchasedCoinsSection ? emptyArray : vm.purchasedCoins) { coin in
+                        CoinRowView(coin: coin, showHoldingsColumn: true, showRank: false, showChart: true)
+                            .listRowInsets(.init(top: 10, leading: 0, bottom: 10, trailing: 10))
+                            .padding(.horizontal)
+                            .listRowSeparator(.hidden)
+                            .listRowBackground(Color.theme.background)
+                            .onTapGesture {
+                                segue(coin: coin)
                             }
-                            .tint(Color("AccentColor"))
-    
-                        }
+                            .swipeActions {
+                                Button {
+                                    withAnimation {
+                                        vm.updateBookmark(coin: coin, isBookmarked: isBookmarked)
+                                    }
+                                } label: {
+                                    Image(systemName: vm.bookmaredCoins.contains(where: { $0.id == coin.id }) ? "bookmark.slash" : "bookmark")
+                                }
+                                .tint(Color("AccentColor"))
+        
+                            }
+                    }
                 }
             } header: {
                 HStack {
@@ -203,50 +214,69 @@ extension PortfolioView {
                         .font(.headline.bold())
                         .foregroundColor(Color.theme.accent)
                     Spacer()
-                    Button {
-                        withAnimation(.default) {
-                            collapsePurchasedCoinsSection.toggle()
+                    if vm.purchasedCoins.isEmpty {
+                        NavigationLink {
+                            AllCoinsListView(showColumnsTitle: true)
+                        } label: {
+                            Image(systemName: "plus")
+                                .font(.headline)
+                                .foregroundColor(Color.theme.secondaryText)
                         }
-                    } label: {
-                        Image(systemName: collapsePurchasedCoinsSection ? "chevron.down" : "chevron.up")
-                            .font(.body)
-                            .foregroundColor(Color.theme.secondaryText)
+                    } else {
+                        Button {
+                            withAnimation(.default) {
+                                collapsePurchasedCoinsSection.toggle()
+                            }
+                        } label: {
+                            Image(systemName: collapsePurchasedCoinsSection ? "chevron.down" : "chevron.up")
+                                .font(.body)
+                                .foregroundColor(Color.theme.secondaryText)
+                        }
                     }
                 }
             }
             //.padding(.vertical)
 
             Section {
-                LazyVGrid(columns: columns) {
-                    ForEach(collapseBookmarkSection ? emptyArray : vm.bookmaredCoins) { coin in
-                        //CoinRowView(coin: coin, showHoldingsColumn: false)
-                        HStack {
-                            VStack {
-                                CoinImageView(coin: coin)
-                                    .frame(width: 30, height: 30)
-                                Text(coin.symbol.uppercased())
+                if vm.bookmaredCoins.isEmpty {
+                    HStack {
+                        Spacer()
+                        Text("Empty")
+                        Spacer()
+                    }
+                    .listRowSeparator(.hidden)
+                } else {
+                    LazyVGrid(columns: columns) {
+                        ForEach(collapseBookmarkSection ? emptyArray : vm.bookmaredCoins) { coin in
+                            //CoinRowView(coin: coin, showHoldingsColumn: false)
+                            HStack {
+                                VStack {
+                                    CoinImageView(coin: coin)
+                                        .frame(width: 30, height: 30)
+                                    Text(coin.symbol.uppercased())
+                                }
+                                VStack {
+                                    Text("\(coin.currentPrice?.asCurrencyWith2Decimals() ?? "N/A")")
+                                        .font(.headline.bold())
+                                        .padding(.bottom, 2)
+                                    Text((coin.priceChange24H?.asNumberString() ?? "N/A") + "%")
+                                        .font(.callout)
+                                        .foregroundColor((coin.priceChange24H ?? 0 >= 0) ? Color.theme.accentMain : Color.theme.red)
+                                }
                             }
-                            VStack {
-                                Text("\(coin.currentPrice?.asCurrencyWith2Decimals() ?? "N/A")")
-                                    .font(.headline.bold())
-                                    .padding(.bottom, 2)
-                                Text((coin.priceChange24H?.asNumberString() ?? "N/A") + "%")
-                                    .font(.callout)
-                                    .foregroundColor((coin.priceChange24H ?? 0 >= 0) ? Color.theme.accentMain : Color.theme.red)
-                            }
+                            .frame(width: 115, height: 100)
+                            .background(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .strokeBorder((coin.priceChange24H ?? 0 >= 0) ? Color.theme.accentMain : Color.theme.red, lineWidth: 0.40)
+                            )
+                            .lineLimit(1)
+                            //.padding(.bottom)
+                                .listRowInsets(.init(top: 10, leading: 0, bottom: 10, trailing: 10))
+                                .listRowSeparator(.hidden)
+                                .onTapGesture {
+                                    segue(coin: coin)
+                                }
                         }
-                        .frame(width: 115, height: 100)
-                        .background(
-                            RoundedRectangle(cornerRadius: 10)
-                                .strokeBorder((coin.priceChange24H ?? 0 >= 0) ? Color.theme.accentMain : Color.theme.red, lineWidth: 0.40)
-                        )
-                        .lineLimit(1)
-                        //.padding(.bottom)
-                            .listRowInsets(.init(top: 10, leading: 0, bottom: 10, trailing: 10))
-                            .listRowSeparator(.hidden)
-                            .onTapGesture {
-                                segue(coin: coin)
-                            }
                     }
                 }
             } header: {
@@ -255,14 +285,25 @@ extension PortfolioView {
                         .font(.headline.bold())
                         .foregroundColor(Color.theme.accent)
                     Spacer()
-                    Button {
-                        withAnimation(.default) {
-                            collapseBookmarkSection.toggle()
+                    if vm.bookmaredCoins.isEmpty {
+                        NavigationLink {
+                            AllCoinsListView(showColumnsTitle: true)
+                        } label: {
+                            Image(systemName: "plus")
+                                .font(.headline)
+                                .foregroundColor(Color.theme.secondaryText)
                         }
-                    } label: {
-                        Image(systemName: collapseBookmarkSection ? "chevron.down" : "chevron.up")
-                            .font(.body)
-                            .foregroundColor(Color.theme.secondaryText)
+
+                    } else {
+                        Button {
+                            withAnimation(.default) {
+                                collapseBookmarkSection.toggle()
+                            }
+                        } label: {
+                            Image(systemName: collapseBookmarkSection ? "chevron.down" : "chevron.up")
+                                .font(.body)
+                                .foregroundColor(Color.theme.secondaryText)
+                        }
                     }
                 }
             }

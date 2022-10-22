@@ -107,6 +107,7 @@ extension BuyInputSection {
                 //Divider()
                 HStack {
                     VStack {
+                        Text("        ")
                         //Text(showSellView ? "Sell all" : "")
 //                        Text(showSellView ? "-\(coin.currentHoldingsValue.asCurrencyWith2Decimals())-" : "")
                     }

@@ -180,7 +180,7 @@ extension DetailView {
             if homeVM.purchasedCoins.contains(where: { $0.id == coin.id }) {
                 NavigationLink {
                     SellInputSection(coin: coin)
-                        //.navigationBarBackButtonHidden(true)
+                        .navigationBarBackButtonHidden(true)
                         //.navigationBarHidden(true)
                         //.navigationBarTitleDisplayMode(.inline)
                 } label: {
@@ -443,10 +443,10 @@ extension DetailView {
                 Link("Website", destination: url)
             }
             
-            if let redditString = vm.redditURL,
-               let url = URL(string: redditString) {
-                Link("Reddit", destination: url)
-            }
+//            if let redditString = vm.redditURL,
+//               let url = URL(string: redditString) {
+//                Link("Reddit", destination: url)
+//            }
         }
         .tint(.blue)
         .frame(maxWidth: .infinity, alignment: .leading)

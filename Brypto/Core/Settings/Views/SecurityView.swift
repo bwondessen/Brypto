@@ -23,7 +23,9 @@ struct SecurityView: View {
                     .onChange(of: faceIDEnabled) { newValue in
                         vm.enableFaceID(faceIDEnabled: newValue)
                     }
+                    .tint(Color.theme.accentMain)
                 Toggle("Enable passcode", isOn: $passcodeRequired)
+                    .tint(Color.theme.accentMain)
             }
         }
         .navigationBarTitle("Security")

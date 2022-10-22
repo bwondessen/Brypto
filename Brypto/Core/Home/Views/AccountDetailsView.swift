@@ -49,10 +49,12 @@ struct AccountDetailsView_Previews: PreviewProvider {
 extension AccountDetailsView {
     private var userAccountHeading: some View {
         VStack(spacing: 10) {
-            Image("lebron")
+            //Image("lebron")
+            Image(systemName: "face.smiling")
                 .resizable()
                 .frame(width: 70, height: 70)
-                .clipShape(Circle())
+                .foregroundColor(Color.theme.secondaryText)
+                //.clipShape(Circle())
             //            Image(systemName: "face.smiling")
             //                .resizable()
             //                .frame(width: 60, height: 60)
@@ -115,23 +117,23 @@ extension AccountDetailsView {
     private var portfolioBreakdownCategoriesHeader: some View {
         HStack {
             VStack {
-                Text("Diversity")
-                Rectangle().frame(height: 3).foregroundColor(vm.valueSelected ? Color.theme.green : Color.clear)
+                Text("Value")
+                Rectangle().frame(height: 3).foregroundColor(vm.valueSelected ? Color.theme.accentMain : Color.clear)
             }
             .frame(width: 100, height: 10)
             .onTapGesture {
                 vm.valueSelected = true
-                vm.diversitySelected = false
+                vm.sharesSelected = false
                 }
             //Spacer()
             VStack {
-                Text("Value")
-                Rectangle().frame(height: 3).foregroundColor(vm.diversitySelected ? Color.theme.green : Color.clear)
+                Text("Shares")
+                Rectangle().frame(height: 3).foregroundColor(vm.sharesSelected ? Color.theme.accentMain : Color.clear)
             }
                 .frame(width: 100, height: 10)
                 .onTapGesture {
                     vm.valueSelected = false
-                    vm.diversitySelected = true
+                    vm.sharesSelected = true
                 }
         }
         .padding()

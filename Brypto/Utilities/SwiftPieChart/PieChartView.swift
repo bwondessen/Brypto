@@ -95,7 +95,7 @@ public struct PieChartView: View {
                             .font(.title)
                             .foregroundColor(Color.theme.secondaryText)
                         //Text(self.formatter(self.activeIndex == -1 ? values.reduce(0, +) : values[self.activeIndex]))
-                        Text(vm.diversitySelected ? vm.totalShares.asNumberString() : (self.formatter(self.activeIndex == -1 ? values.reduce(0, +) : values[self.activeIndex])))
+                        Text(vm.sharesSelected ? vm.totalShares.asNumberString() : (self.formatter(self.activeIndex == -1 ? values.reduce(0, +) : values[self.activeIndex])))
                             .font(.title.bold())
                             .foregroundColor(Color.theme.accent)
                     }
@@ -154,7 +154,7 @@ struct PieChartRows: View {
                          */
                     Rectangle()
                         .frame(height: 3)
-                        .frame(width: vm.diversitySelected ? UIScreen.main.bounds.width * ((purchasedCoins[i].currentHoldings ?? 0) / vm.totalShares) : UIScreen.main.bounds.width * (purchasedCoins[i].currentHoldingsValue / vm.portfolioValue))
+                        .frame(width: vm.sharesSelected ? UIScreen.main.bounds.width * ((purchasedCoins[i].currentHoldings ?? 0) / vm.totalShares) : UIScreen.main.bounds.width * (purchasedCoins[i].currentHoldingsValue / vm.portfolioValue))
                         .foregroundColor(colors[i])
                         Spacer()
                     }

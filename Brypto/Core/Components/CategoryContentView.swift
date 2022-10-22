@@ -84,7 +84,8 @@ struct CategoryContentView: View {
                         .fontWeight(.bold)
                         .padding(.vertical, 4)
                 }
-                .accentColor(.blue)
+                //.accentColor(.blue)
+                .foregroundColor(Color.theme.accentMain)
             }
             .padding()
         }

@@ -42,29 +42,29 @@ struct SellInputSection: View {
     let coin: CoinModel
     
     var body: some View {
-        NavigationView {
+        //NavigationView {
             VStack {
                 inputSection
                 numberPad
                 sellButton
             }
-            .navigationBarBackButtonHidden(true)
+            //.navigationBarBackButtonHidden(true)
             .onChange(of: vm.dollarAmount, perform: { _ in
                 updateDollarAmount()
             })
-//            .toolbar {
-//                ToolbarItem(placement: .navigationBarLeading) {
-//                    Image(systemName: "arrow.backward")
-//                        .font(.title2.bold())
-//                        .onTapGesture {
-//                            dismiss()
-//                        }
-//                }
-//            }
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Image(systemName: "arrow.backward")
+                        .font(.title2.bold())
+                        .onTapGesture {
+                            dismiss()
+                        }
+                }
+            }
             .onAppear {
                 vm.dollarAmount = ""
             }
-        }
+        //}
         //        .background(
         //            RoundedRectangle(cornerRadius: 10)
         //                .fill(.white)
@@ -360,7 +360,7 @@ extension SellInputSection {
     private var sellButton: some View {
         Button {
             sellButtonPressed()
-            vm.totalDollarAmountInPortfolio = 0
+            //vm.totalDollarAmountInPortfolio = 0
         } label: {
             Text("Sell")
                 .font(.headline.bold())

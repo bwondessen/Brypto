@@ -25,7 +25,8 @@ struct StatisticView: View {
             HStack(spacing: 4) {
                 Image(systemName: stat.title == "Balance" ? "triangle.fill" : "")
                     .font(.footnote)
-                    .rotationEffect(Angle(degrees: (stat.percentageChange ?? 0) >= 0 ? 0 : 180))
+//                    .rotationEffect(Angle(degrees: (stat.percentageChange ?? 0) >= 0 ? 0 : 180))
+                    .rotationEffect(Angle(degrees: (vm.pastDaySelected && vm.pastDayReturnPercentage >= 0 ? 0 : (vm.pastWeekSelected && vm.pastWeekReturnPercentage >= 0 ? 0 : (vm.pastMonthSelected && vm.pastMonthReturnPercentage >= 0 ? 0 : (vm.past3MonthsSelected && vm.past3MonthsReturnPercentage >= 0 ? 0 : (vm.pastYearSelected && vm.pastYearReturnPercentage >= 0 ? 0 : vm.pastTotalSelected && vm.totalReturnPercentage >= 0 ? 0 : 180)))))))
 //                Text(stat.percentageChange?.asPercentString() ?? "")
                 Text(stat.title == "Balance" ? ((vm.pastDaySelected ? vm.pastDayReturn : (vm.pastWeekSelected ? vm.pastWeekReturn : (vm.pastMonthSelected ? vm.pastMonthReturn : (vm.past3MonthsSelected ? vm.past3MonthsReturn : (vm.pastYearSelected ? vm.pastYearReturn : vm.totalReturn))))).asCurrencyWith2Decimals()) : "")
                     .font(.subheadline.bold())
@@ -36,7 +37,9 @@ struct StatisticView: View {
                     .foregroundColor(Color.theme.accent)
                 Spacer()
             }
-            .foregroundColor((vm.pastDayReturnPercentage > 0 || vm.pastDayReturnPercentage > 0 || vm.pastWeekReturnPercentage > 0 || vm.pastMonthReturnPercentage > 0 || vm.past3MonthsReturnPercentage > 0 || vm.pastYearReturnPercentage > 0 || vm.totalReturnPercentage > 0) ? Color.theme.accentMain : Color.theme.red)
+            .foregroundColor((vm.pastDaySelected && vm.pastDayReturnPercentage >= 0 ? Color.theme.accentMain : (vm.pastWeekSelected && vm.pastWeekReturnPercentage >= 0 ? Color.theme.accentMain : (vm.pastMonthSelected && vm.pastMonthReturnPercentage >= 0 ? Color.theme.accentMain : (vm.past3MonthsSelected && vm.past3MonthsReturnPercentage >= 0 ? Color.theme.accentMain : (vm.pastYearSelected && vm.pastYearReturnPercentage >= 0 ? Color.theme.accentMain : vm.pastTotalSelected && vm.totalReturnPercentage >= 0 ? Color.theme.accentMain : Color.theme.red))))))
+//            .foregroundColor((vm.pastDayReturnPercentage >= 0 || vm.pastDayReturnPercentage >= 0 || vm.pastWeekReturnPercentage >= 0 || vm.pastMonthReturnPercentage >= 0 || vm.past3MonthsReturnPercentage >= 0 || vm.pastYearReturnPercentage >= 0 || vm.totalReturnPercentage >= 0) ? Color.theme.accentMain : Color.theme.red)
+            
 //            .opacity((vm.pastDayReturnPercentage == nil || vm.pastDayReturnPercentage == nil || vm.pastWeekReturnPercentage == nil || vm.pastMonthReturnPercentage == nil || vm.past3MonthsReturnPercentage == nil || vm.pastYearReturnPercentage == nil || vm.totalReturnPercentage == nil) ? 0.0 : 1.0)
         }
     }

@@ -13,9 +13,13 @@ struct AllCoinsListView: View {
     @State private var showDetailView: Bool = false
     @State private var isBookmarked: Bool = false
     
+    let showColumnsTitle: Bool
+    
     var body: some View {
         VStack {
-            columnsTitle
+            if showColumnsTitle {
+                columnsTitle
+            }
             
             List {
                 ForEach(vm.allCoins) { coin in

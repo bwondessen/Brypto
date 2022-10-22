@@ -58,7 +58,7 @@ struct DiscveryView: View {
                             coinDiscoverySection
                         }
                     } else {
-                        AllCoinsListView()
+                        AllCoinsListView(showColumnsTitle: false)
                     }
                 }
                 //.padding()
@@ -272,7 +272,7 @@ extension DiscveryView {
                         .foregroundColor(Color.theme.accent)
                     Spacer()
                     NavigationLink {
-                        AllCoinsListView()
+                        AllCoinsListView(showColumnsTitle: true)
                     } label: {
                         Text("See all")
                             .font(.headline.bold())

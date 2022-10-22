@@ -54,7 +54,7 @@ class HomeViewModel: ObservableObject {
     let icons: [String] = ["bonjour", "antenna.radiowaves.left.and.right", "wifi", "icloud.and.arrow.down", "lock.icloud", "key.icloud", "bolt.horizontal", "network.badge.shield.half.filled", "personalhotspot", "externaldrive.connected.to.line.below", "lock.iphone", "pencil.slash", "square.and.pencil", "folder", "square.grid.3x1.folder.badge.plus", "paperplane", "tray.and.arrow.down", "externaldrive", "doc", "doc.text.magnifyingglass", "note.text", "calendar.badge.clock", "text.book.closed", "newspaper", "link", "umbrella", "bolt.shield", "wand.and.stars", "speedometer", "amplifier", "dice", "theatermasks", "puzzlepiece", "lock", "testtube.2", "checkerboard.shield", "chart.xyaxis.line", "chart.pie", "sdcard", "esim", "camera.filters", "lightbulb", "person.wave.2", "person.crop.circle.fill.badge.plus", "brain.head.profile", "face.smiling", "globe.americas", "flame", "bolt", "scale.3d", "bag", "cart", "creditcard", "banknote", "dollarsign.square", "centsign.square"]
     
     @Published var valueSelected: Bool = true
-    @Published var diversitySelected: Bool = false
+    @Published var sharesSelected: Bool = false
     
     var totalShares: Double {
         let shares = purchasedCoins.map { $0.currentHoldings }
@@ -285,27 +285,63 @@ class HomeViewModel: ObservableObject {
     
     
     var pastDayReturnPercentage: Double {
+        guard
+            //!totalDollarAmountInPortfolio.isNaN,
+            !totalDollarAmountInPortfolio.isZero
+            //!pastDayReturn.isZero
+        else { return 0 }
+        
         return (pastDayReturn / totalDollarAmountInPortfolio) * 100
     }
     
     var pastWeekReturnPercentage: Double {
+        guard
+            //!totalDollarAmountInPortfolio.isNaN,
+            !totalDollarAmountInPortfolio.isZero
+            //!pastDayReturn.isZero
+        else { return 0 }
+        
         return (pastWeekReturn / totalDollarAmountInPortfolio) * 100
     }
     
     var pastMonthReturnPercentage: Double {
+        guard
+            //!totalDollarAmountInPortfolio.isNaN,
+            !totalDollarAmountInPortfolio.isZero
+            //!pastDayReturn.isZero
+        else { return 0 }
+        
         return (pastMonthReturn / totalDollarAmountInPortfolio) * 100
     }
     
     var past3MonthsReturnPercentage: Double {
+        guard
+            //!totalDollarAmountInPortfolio.isNaN,
+            !totalDollarAmountInPortfolio.isZero
+            //!pastDayReturn.isZero
+        else { return 0 }
+        
         return (past3MonthsReturn / totalDollarAmountInPortfolio) * 100
     }
     
     var pastYearReturnPercentage: Double {
+        guard
+            //!totalDollarAmountInPortfolio.isNaN,
+            !totalDollarAmountInPortfolio.isZero
+            //!pastDayReturn.isZero
+        else { return 0 }
+        
         return (pastYearReturn / totalDollarAmountInPortfolio) * 100
     }
     
     var totalReturnPercentage: Double {
-        ((portfolioValue - totalDollarAmountInPortfolio) / totalDollarAmountInPortfolio) * 100
+        guard
+            //!totalDollarAmountInPortfolio.isNaN,
+            !totalDollarAmountInPortfolio.isZero
+            //!pastDayReturn.isZero
+        else { return 0 }
+        
+        return ((portfolioValue - totalDollarAmountInPortfolio) / totalDollarAmountInPortfolio) * 100
     }
     
     func getTop3Coins(coins: [CoinModel]) -> [String] {

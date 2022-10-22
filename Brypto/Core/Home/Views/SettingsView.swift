@@ -125,6 +125,7 @@ extension SettingsView {
     
     private var themeSection: some View {
         Toggle("Alternative Theme", isOn: $vm.alternativeTheme)
+            .accentColor(Color.theme.accentMain)
     }
     
     private var logOutSection: some View {
@@ -133,12 +134,12 @@ extension SettingsView {
         } label: {
             Text("Log out")
                 .font(.headline.bold())
-                .foregroundColor(Color.theme.accent)
+                .foregroundColor(Color.theme.accentMain)
                 .padding()
                 .frame(maxWidth: .infinity)
                 .overlay(
                     RoundedRectangle(cornerRadius: 10)
-                        .strokeBorder(Color.theme.accent, lineWidth: 0.55)
+                        .strokeBorder(Color.theme.accentMain, lineWidth: 0.55)
                 )
         }
     }
