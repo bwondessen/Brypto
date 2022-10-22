@@ -73,7 +73,7 @@ extension InfoView {
             }
             .padding(.vertical)
             .listRowSeparator(.hidden)
-            Link("👨‍💻 Contact Developer", destination: emailURL)
+            //Link("👨‍💻 Contact Developer", destination: emailURL)
             //Link("My Twitter 📱", destination: twitterURL)
             //Link("My Github 👾", destination: githubURL)
         }

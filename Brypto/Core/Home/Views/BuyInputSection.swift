@@ -362,10 +362,10 @@ extension BuyInputSection {
         } label: {
             Text("Buy")
                 .font(.headline.bold())
-                .foregroundColor(Color("AccentColorReversed"))
+                .foregroundColor(.white)
                 .padding()
                 .frame(maxWidth: .infinity)
-                .background(Color.theme.accent)
+                .background(Color.theme.accentMain)
                 .cornerRadius(10)
                 .padding(.horizontal)
         }

@@ -164,10 +164,10 @@ extension DetailView {
         } label: {
             Text("Trade")
                 .font(.headline.bold())
-                .foregroundColor(Color("AccentColorReversed"))
+                .foregroundColor(.white)
                 .padding()
                 .frame(maxWidth: .infinity)
-                .background(Color.theme.accent)
+                .background(Color.theme.accentMain)
                 .cornerRadius(10)
                 .padding(.horizontal)
 //                .onTapGesture {
@@ -187,10 +187,10 @@ extension DetailView {
                 } label: {
                     Text("Sell")
                         .font(.headline.bold())
-                        .foregroundColor(Color("AccentColorReversed"))
+                        .foregroundColor(.white)
                         .padding()
                         .frame(maxWidth: .infinity)
-                        .background(Color.theme.accent)
+                        .background(Color.theme.accentMain)
                         .cornerRadius(10)
                         .padding(.horizontal)
                 }
@@ -204,10 +204,10 @@ extension DetailView {
             } label: {
                 Text("Buy")
                     .font(.headline.bold())
-                    .foregroundColor(Color("AccentColorReversed"))
+                    .foregroundColor(.white)
                     .padding()
                     .frame(maxWidth: .infinity)
-                    .background(Color.theme.accent)
+                    .background(Color.theme.accentMain)
                     .cornerRadius(10)
                     .padding(.horizontal)
             }

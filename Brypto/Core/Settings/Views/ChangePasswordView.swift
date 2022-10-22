@@ -33,10 +33,10 @@ struct ChangePasswordView: View {
                     } label: {
                         Text("Confirm")
                             .font(.headline.bold())
-                            .foregroundColor(Color("LaunchAccentColor"))
+                            .foregroundColor(.white)
                             .padding()
                             .frame(maxWidth: .infinity)
-                            .background(.black)
+                            .background(Color.theme.accentMain)
                             .cornerRadius(10)
                             .padding()
                     }

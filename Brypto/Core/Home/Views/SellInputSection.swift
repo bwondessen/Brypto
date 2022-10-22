@@ -364,10 +364,10 @@ extension SellInputSection {
         } label: {
             Text("Sell")
                 .font(.headline.bold())
-                .foregroundColor(Color("AccentColorReversed"))
+                .foregroundColor(.white)
                 .padding()
                 .frame(maxWidth: .infinity)
-                .background(Color.theme.accent)
+                .background(Color.theme.accentMain)
                 .cornerRadius(10)
                 .padding(.horizontal)
         }

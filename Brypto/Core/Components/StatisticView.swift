@@ -15,11 +15,11 @@ struct StatisticView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             Text(stat.title)
-                .font(stat.title == "Balance" ? .title3 : .callout)
+                .font(stat.title == "Balance" ? .title : .callout)
                 .fontWeight(.medium)
                 .foregroundColor(stat.title == "Balance" ? .primary : Color.theme.secondaryText)
             Text(stat.value)
-                .font(stat.title == "Balance" ? .title : .headline.bold())
+                .font(stat.title == "Balance" ? .largeTitle.bold() : .headline.bold())
                 .fontWeight(.semibold)
             
             HStack(spacing: 4) {
