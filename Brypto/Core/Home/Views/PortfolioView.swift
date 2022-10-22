@@ -89,9 +89,9 @@ struct PortfolioView: View {
                 Color.theme.background
                     .ignoresSafeArea()
             )
-            .sheet(isPresented: $showEditPortfolioSheet) {
-                EditPortfolioTabView()
-            }
+//            .sheet(isPresented: $showEditPortfolioSheet) {
+//                EditPortfolioTabView()
+//            }
             //            .toolbar {
             //                ToolbarItem(placement: .navigationBarLeading) {
             //                    if !inPortfolioTab {
