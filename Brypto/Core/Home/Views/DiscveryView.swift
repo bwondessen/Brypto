@@ -135,7 +135,7 @@ extension DiscveryView {
             //                   x CircleButtonAnimationView(animate: $showPortfolio)
             //                )
             //Spacer()
-            Text("Live Prices")
+            Text("Discover")
                 .font(.headline)
                 .fontWeight(.heavy)
                 .foregroundColor(Color.theme.accent)

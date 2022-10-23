@@ -86,6 +86,55 @@ extension CryptoNewsView {
             }
             //.listRowSeparator(.hidden)
         }
-        //.navigationTitle("News")        
+        //.navigationTitle("News")
     }
+    
+//    private var newsArticleView: some View {
+//        List {
+//            ForEach(vm.marketNews) { newsArticle in
+//                Link(destination: URL(string: newsArticle.link) ?? URL(string: "https://dilbert.com/404")!) {
+//                    VStack(alignment: .leading) {
+//                        HStack {
+//                            Text(newsArticle.sourceID.capitalized)
+//                                .font(.headline)
+//                            Text(Date(coinGeckoString: newsArticle.pubDate).asShortDateString())
+//                                .font(.footnote)
+//                            Spacer()
+//                        }
+//                        HStack {
+//                            Text(newsArticle.description)
+//                                .font(.body)
+//                                .lineLimit(4)
+//                                .padding(.trailing)
+//                                .frame(height: 80)
+//
+//                            Spacer()
+//
+//                            AsyncImage(url: URL(string: newsArticle.imageURL ?? images.randomElement() ?? "https://plus.unsplash.com/premium_photo-1663931932637-e30332303b71?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80")) { image in
+//                                image.resizable()
+//                            } placeholder: {
+//                                ProgressView()
+//                            }
+//                            .scaledToFill()
+//                            .frame(width: 70, height: 70)
+//                            .cornerRadius(5)
+//                            //.clipped()
+//                        }
+//                        //ChartViewMinimal(coin: vm.allCoins[randomCoin])
+////                        Rectangle()
+////                            .frame(height: 0.20)
+////                            .foregroundColor(Color.theme.secondaryText)
+//                    }
+////                    .padding()
+////                    .background(
+////                        RoundedRectangle(cornerRadius: 10)
+////                            .fill(.white)
+////                            .shadow(radius: 3)
+////                    )
+//                }
+//            }
+//            //.listRowSeparator(.hidden)
+//        }
+//        //.navigationTitle("News")
+//    }
 }

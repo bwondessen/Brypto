@@ -19,8 +19,8 @@ struct LoginView: View {
     var body: some View {
         VStack {
             bryptoHeader
-            Text("username: \(userName)")
-            Text("password: \(password)")
+            //Text("username: \(userName)")
+            //Text("password: \(password)")
             login
             //faceIDSection
             loginButton

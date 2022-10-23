@@ -45,10 +45,12 @@ struct Brypto: App {
         }
         .onChange(of: scenePhase) { phase in
             switch phase {
-            case .background:
+            case .inactive:
                 if vm.faceIDEnabled {
                     vm.isUnlocked = false
+                    //vm.isLoggedIn = false
                 }
+            case .background:
                 if vm.passcodeRequired {
                     vm.isLoggedIn = false
                 }
