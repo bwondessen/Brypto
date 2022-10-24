@@ -284,16 +284,21 @@ struct PortfolioChartView: View {
                 }
                 .padding(.vertical)
                 
-                HStack {
-                    Text("Buying Power")
-                    //                Text("past day count: \(pastDayData(priceDates: vm.priceDates ?? []).count)")
-                    //                Text("past week count: \(pastWeekData(priceDates: vm.priceDates ?? []).count)")
-                        .font(.headline)
-                        .foregroundColor(Color.theme.secondaryText)
-                    Spacer()
-                    Text(vm.buyingPower.asCurrencyWith2Decimals())
-                        .font(.headline)
-                        .foregroundColor(Color.theme.accent)
+                NavigationLink {
+                    EditBuyingPowerView()
+                        .navigationBarBackButtonHidden(true)
+                } label: {
+                    HStack {
+                        Text("Buying Power")
+                        //                Text("past day count: \(pastDayData(priceDates: vm.priceDates ?? []).count)")
+                        //                Text("past week count: \(pastWeekData(priceDates: vm.priceDates ?? []).count)")
+                            .font(.headline)
+                            .foregroundColor(Color.theme.secondaryText)
+                        Spacer()
+                        Text(vm.buyingPower.asCurrencyWith2Decimals())
+                            .font(.headline)
+                            .foregroundColor(Color.theme.accent)
+                    }
                 }
             }
             //        .sheet(isPresented: $showPortfolioInputSection) {

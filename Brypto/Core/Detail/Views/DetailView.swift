@@ -103,9 +103,20 @@ struct DetailView: View {
                 if showBuyAndSellButtons {
                     //withAnimation {
                         buyAndSellButtons
-                            .padding(.bottom)
+                            .padding(.vertical)
+                            .padding(.top)
                             .background(
-                                Color.white.opacity(0.000001)
+                                ZStack {
+                                    Color.white
+                                    VStack {
+                                        Rectangle()
+                                            .frame(height: 1)
+                                        Spacer()
+                                    }
+                                }
+                            )
+                            .background(
+                                Color.gray.opacity(0.2)
                                     .frame(height: 20000)
                                     .onTapGesture {
                                         showBuyAndSellButtons = false

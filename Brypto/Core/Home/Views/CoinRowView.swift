@@ -63,15 +63,16 @@ extension CoinRowView {
     private var leftColumn: some View {
         HStack(spacing: 0) {
             if !showRank {
-                Text(" ")
-                    .frame(minWidth: 10)
+                Text("")
+                    //.frame(minWidth: 10)
             }
             
             if showRank {
                 Text("\(coin.rank)")
                     .font(.caption)
                     .foregroundColor(Color.theme.secondaryText)
-                    .frame(minWidth: 30)
+                    //.frame(minWidth: 30)
+                    .padding(.trailing, 6.5)
             }
             CoinImageView(coin: coin)
                 .frame(width: 30, height: 30)
@@ -91,7 +92,7 @@ extension CoinRowView {
             .lineLimit(1)
             .padding(.leading, 5)
         }
-        .frame(width: showHoldingsColumn ? UIScreen.main.bounds.width / 2.5 : UIScreen.main.bounds.width / 2.5, alignment: .leading)
+        //.frame(width: showHoldingsColumn ? UIScreen.main.bounds.width / 2.5 : UIScreen.main.bounds.width / 2.5, alignment: .leading)
     }
     
 //    private var chartView: some View {
@@ -119,6 +120,6 @@ extension CoinRowView {
                         Color.theme.red
                 )
         }
-        .frame(width: UIScreen.main.bounds.width / 4.75, alignment: .trailing)
+        //.frame(width: UIScreen.main.bounds.width / 4.75, alignment: .trailing)
     }
 }

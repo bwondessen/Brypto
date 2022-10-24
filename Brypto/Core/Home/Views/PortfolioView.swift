@@ -187,7 +187,7 @@ extension PortfolioView {
                 } else {
                     ForEach(collapsePurchasedCoinsSection ? emptyArray : vm.purchasedCoins) { coin in
                         CoinRowView(coin: coin, showHoldingsColumn: true, showRank: false, showChart: true)
-                            .listRowInsets(.init(top: 10, leading: 0, bottom: 10, trailing: 10))
+                            .listRowInsets(.init(top: 10, leading: 0, bottom: 10, trailing: 4))
                             .padding(.horizontal)
                             .listRowSeparator(.hidden)
                             .listRowBackground(Color.theme.background)
