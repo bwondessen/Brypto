@@ -26,7 +26,7 @@ struct ChangeUserNameView: View {
                         .disableAutocorrection(true)
                 }
                 
-                Section("Enter password to confirm change") {
+                Section("Enter password") {
                     SecureField("Password", text: $enteredPassword)
                         .textFieldStyle(.roundedBorder)
                 }

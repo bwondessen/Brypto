@@ -104,7 +104,6 @@ extension SettingsView {
                 }
             }
         }
-
     }
     
     private var securitySection: some View {

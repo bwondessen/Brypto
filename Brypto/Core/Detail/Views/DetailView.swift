@@ -378,29 +378,29 @@ extension DetailView {
                 }
             )
             
-            VStack(spacing: 15) {
-                HStack {
-                    Text("Todays Return")
-                        .font(.callout)
-                        .foregroundColor(Color.theme.secondaryText)
-                    Spacer()
-                    Text("$1 million")
-                        .font(.headline)
-                        .foregroundColor(Color.theme.accent)
-                }
-                Divider()
-                
-                HStack {
-                    Text("Total Return")
-                        .font(.callout)
-                        .foregroundColor(Color.theme.secondaryText)
-                    Spacer()
-                    Text("$1,000 (\(homeVM.getTotalPriceChange(portfolioCoins: [coin]).asPercentString()))")
-                        .font(.headline)
-                        .foregroundColor(Color.theme.accent)
-                }
-                Divider()
-            }
+//            VStack(spacing: 15) {
+//                HStack {
+//                    Text("Todays Return")
+//                        .font(.callout)
+//                        .foregroundColor(Color.theme.secondaryText)
+//                    Spacer()
+//                    Text("$1 million")
+//                        .font(.headline)
+//                        .foregroundColor(Color.theme.accent)
+//                }
+//                Divider()
+//
+//                HStack {
+//                    Text("Total Return")
+//                        .font(.callout)
+//                        .foregroundColor(Color.theme.secondaryText)
+//                    Spacer()
+//                    Text("$1,000 (\(homeVM.getTotalPriceChange(portfolioCoins: [coin]).asPercentString()))")
+//                        .font(.headline)
+//                        .foregroundColor(Color.theme.accent)
+//                }
+//                Divider()
+//            }
         }
         .padding(.bottom)
     }
