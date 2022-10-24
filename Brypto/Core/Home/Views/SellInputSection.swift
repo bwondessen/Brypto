@@ -47,6 +47,7 @@ struct SellInputSection: View {
                 inputSection
                 numberPad
                 sellButton
+                    .padding(.bottom)
             }
             //.navigationBarBackButtonHidden(true)
             .onChange(of: vm.dollarAmount, perform: { _ in

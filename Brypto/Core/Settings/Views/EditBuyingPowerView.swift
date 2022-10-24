@@ -44,7 +44,6 @@ struct EditBuyingPowerView: View {
                 numberPad
                 confirmButton
                     .padding(.bottom)
-                    .padding(.bottom)
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -311,7 +310,7 @@ extension EditBuyingPowerView {
                     .padding(.horizontal)
                     .scaleEffect(animateTheArrow ? 3 : 1)
                     .onTapGesture {
-                        if !vm.dollarAmount.isEmpty {
+                        if !vm.buyingAmount.isEmpty {
                             withAnimation(.spring()) {
                                 animateTheArrow = true
                             }

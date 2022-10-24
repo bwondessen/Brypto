@@ -50,6 +50,7 @@ struct DiscveryView: View {
                 // content layer
                 VStack {
                     homeHeader
+                    
                     SearchBarView(searchText: $vm.searchText)
                         .padding(.horizontal, 8)
                     
@@ -85,6 +86,7 @@ struct DiscveryView: View {
             //                    InfoView()
             //                }
         }
+        .navigationViewStyle(.stack)
     }
 }
 
@@ -218,7 +220,7 @@ extension DiscveryView {
 //                                        }
                                 )
                                 .onTapGesture {
-                                    segue(coin: coin)
+                                    segueToDetailView(coin: coin)
                                 }
                         }
                     }
@@ -248,7 +250,7 @@ extension DiscveryView {
                         CoinRowView(coin: coin, showHoldingsColumn: false)
                         //.listRowInsets(.init(top: 10, leading: 0, bottom: 10, trailing: 10))
                             .onTapGesture {
-                                segue(coin: coin)
+                                segueToDetailView(coin: coin)
                             }
                             .listRowBackground(Color.theme.background)
                             .listRowSeparator(.hidden)
@@ -307,7 +309,7 @@ extension DiscveryView {
     }
     
     
-    private func segue(coin: CoinModel) {
+    private func segueToDetailView(coin: CoinModel) {
         selectedCoin = coin
         showDetailView.toggle()
     }
