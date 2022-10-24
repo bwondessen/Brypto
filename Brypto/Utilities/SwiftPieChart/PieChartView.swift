@@ -30,7 +30,7 @@ public struct PieChartView: View {
         
         for (i, value) in values.enumerated() {
             let degrees: Double = value * 360 / sum
-            tempSlices.append(PieSliceData(startAngle: Angle(degrees: endDeg), endAngle: Angle(degrees: endDeg + degrees), text: String(format: "%.0f%%", value * 100 / sum), color: self.colors[i] ?? Color.cyan))
+            tempSlices.append(PieSliceData(startAngle: Angle(degrees: endDeg), endAngle: Angle(degrees: endDeg + degrees), text: String(format: "%.0f%%", value * 100 / sum), color: i < colors.count ? self.colors[i] : Color.cyan))
             endDeg += degrees
         }
         return tempSlices
@@ -155,7 +155,7 @@ struct PieChartRows: View {
                     Rectangle()
                         .frame(height: 3)
                         .frame(width: vm.sharesSelected ? UIScreen.main.bounds.width * ((purchasedCoins[i].currentHoldings ?? 0) / vm.totalShares) : UIScreen.main.bounds.width * (purchasedCoins[i].currentHoldingsValue / vm.portfolioValue))
-                        .foregroundColor(colors[i])
+                        //.foregroundColor(i < colors.count ? colors[i] : Color.cyan)
                         Spacer()
                     }
                 }
