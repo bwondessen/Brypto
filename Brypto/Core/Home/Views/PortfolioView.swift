@@ -34,87 +34,173 @@ struct PortfolioView: View {
     
     var body: some View {
         NavigationView {
-            VStack {
-                homeHeader
-                // testing
-                //Button("RESET") {
-//                    vm.totalReturns.removeAll()
-//                    vm.priceDates?.removeAll()
-//                    vm.priceChanges.removeAll()
-//                    UserDefaults.standard.set(vm.totalReturns, forKey: "totalReturns")
-//                    UserDefaults.standard.set(vm.priceDates, forKey: "priceDates")
-//                    UserDefaults.standard.set(vm.priceChanges, forKey: "priceChanges")
-                //}
-//                Group {
-//                //Text("\(vm.priceDates?[0] ?? Date())")
-//                Text("buying power: \(vm.buyingPower.asCurrencyWith2Decimals())")
-////                    ForEach(vm.totalReturns, id: \.self) { returnI in
-////                        Text("\(returnI)")
-////                    }
-//                    Text("pastdayreturnpercentage: \(vm.pastDayReturnPercentage)")
-//                //Text("\(vm.priceDates?[0] ?? Date())")
-//                Text("returns count: \(vm.totalReturns.count)")
-//                Text("price count: \(vm.priceChanges.count)")
-//                Text("date count: \(vm.priceDates?.count ?? 0)")
-//                Text("total return: \(vm.totalReturn.asCurrencyWith2Decimals())")
-//                Text("portfolio value: \(vm.portfolioValue.asCurrencyWith2Decimals())")
-//                Text("total dollar amount: \(vm.totalDollarAmountInPortfolio.asCurrencyWith2Decimals())")
-//                }
-//                balanceView
-//                    .padding()
-                //SearchBarView(searchText: $vm.searchText)
+            if #available(iOS 16.0, *) {
                 VStack {
-                    purchasedAndBookmarkedCoinsRows
-                    //.listRowInsets(.init(top: 10, leading: 0, bottom: 10, trailing: 10))
+                    homeHeader
+                    // testing
+                    //Button("RESET") {
+                    //                    vm.totalReturns.removeAll()
+                    //                    vm.priceDates?.removeAll()
+                    //                    vm.priceChanges.removeAll()
+                    //                    UserDefaults.standard.set(vm.totalReturns, forKey: "totalReturns")
+                    //                    UserDefaults.standard.set(vm.priceDates, forKey: "priceDates")
+                    //                    UserDefaults.standard.set(vm.priceChanges, forKey: "priceChanges")
+                    //}
+                    //                Group {
+                    //                //Text("\(vm.priceDates?[0] ?? Date())")
+                    //                Text("buying power: \(vm.buyingPower.asCurrencyWith2Decimals())")
+                    ////                    ForEach(vm.totalReturns, id: \.self) { returnI in
+                    ////                        Text("\(returnI)")
+                    ////                    }
+                    //                    Text("pastdayreturnpercentage: \(vm.pastDayReturnPercentage)")
+                    //                //Text("\(vm.priceDates?[0] ?? Date())")
+                    //                Text("returns count: \(vm.totalReturns.count)")
+                    //                Text("price count: \(vm.priceChanges.count)")
+                    //                Text("date count: \(vm.priceDates?.count ?? 0)")
+                    //                Text("total return: \(vm.totalReturn.asCurrencyWith2Decimals())")
+                    //                Text("portfolio value: \(vm.portfolioValue.asCurrencyWith2Decimals())")
+                    //                Text("total dollar amount: \(vm.totalDollarAmountInPortfolio.asCurrencyWith2Decimals())")
+                    //                }
+                    //                balanceView
+                    //                    .padding()
+                    //SearchBarView(searchText: $vm.searchText)
+                    VStack {
+                        purchasedAndBookmarkedCoinsRows
+                        //.listRowInsets(.init(top: 10, leading: 0, bottom: 10, trailing: 10))
+                    }
+                    //            if selectedCoin != nil {
+                    //                portfolioInputSection
+                    //                    .padding(.bottom)
+                    //            }
+                    
                 }
-                //            if selectedCoin != nil {
-                //                portfolioInputSection
-                //                    .padding(.bottom)
+                .scrollIndicators(.hidden)
+                .onChange(of: vm.portfolioValue) { newValue in
+                    vm.priceChanges.append(String(newValue))
+                    UserDefaults.standard.set(vm.priceChanges, forKey: "priceChanges")
+                    
+                    vm.priceDates?.append(Date())
+                    UserDefaults.standard.set(vm.priceDates, forKey: "priceDates")
+                    
+                    vm.totalReturns.append(vm.totalReturn)
+                    UserDefaults.standard.set(vm.totalReturns, forKey: "totalReturns")
+                }
+                .navigationBarHidden(true)
+                .background(
+                    Color.theme.background
+                        .ignoresSafeArea()
+                )
+                //            .sheet(isPresented: $showEditPortfolioSheet) {
+                //                EditPortfolioTabView()
                 //            }
-                
-            }
-            .onChange(of: vm.portfolioValue) { newValue in
-                vm.priceChanges.append(String(newValue))
-                UserDefaults.standard.set(vm.priceChanges, forKey: "priceChanges")
-                
-                vm.priceDates?.append(Date())
-                UserDefaults.standard.set(vm.priceDates, forKey: "priceDates")
-                
-                vm.totalReturns.append(vm.totalReturn)
-                UserDefaults.standard.set(vm.totalReturns, forKey: "totalReturns")
-            }
-            .navigationBarHidden(true)
-            .background(
-                Color.theme.background
-                    .ignoresSafeArea()
-            )
-//            .sheet(isPresented: $showEditPortfolioSheet) {
-//                EditPortfolioTabView()
-//            }
-            //            .toolbar {
-            //                ToolbarItem(placement: .navigationBarLeading) {
-            //                    if !inPortfolioTab {
-            //                        XMarkButton(dismiss: _dismiss)
-            //                    }
-            //                }
-            //            }
-            //            .toolbar {
-            //                ToolbarItem(placement: .navigationBarTrailing) {
-            //                    trailingNavBarButtons
-            //                }
-            //            }
-            .onChange(of: vm.searchText) { newValue in
-                if newValue == "" {
-                    removeSelectedCoin()
+                //            .toolbar {
+                //                ToolbarItem(placement: .navigationBarLeading) {
+                //                    if !inPortfolioTab {
+                //                        XMarkButton(dismiss: _dismiss)
+                //                    }
+                //                }
+                //            }
+                //            .toolbar {
+                //                ToolbarItem(placement: .navigationBarTrailing) {
+                //                    trailingNavBarButtons
+                //                }
+                //            }
+                .onChange(of: vm.searchText) { newValue in
+                    if newValue == "" {
+                        removeSelectedCoin()
+                    }
                 }
+                .navigationBarHidden(true)
+                .background(
+                    NavigationLink(
+                        isActive: $showDetailView,
+                        destination: { DetailLoadingView(coin: $selectedCoin) },
+                        label: { EmptyView() })
+                )
+            } else {
+                // Fallback on earlier versions
+                VStack {
+                    homeHeader
+                    // testing
+                    //Button("RESET") {
+                    //                    vm.totalReturns.removeAll()
+                    //                    vm.priceDates?.removeAll()
+                    //                    vm.priceChanges.removeAll()
+                    //                    UserDefaults.standard.set(vm.totalReturns, forKey: "totalReturns")
+                    //                    UserDefaults.standard.set(vm.priceDates, forKey: "priceDates")
+                    //                    UserDefaults.standard.set(vm.priceChanges, forKey: "priceChanges")
+                    //}
+                    //                Group {
+                    //                //Text("\(vm.priceDates?[0] ?? Date())")
+                    //                Text("buying power: \(vm.buyingPower.asCurrencyWith2Decimals())")
+                    ////                    ForEach(vm.totalReturns, id: \.self) { returnI in
+                    ////                        Text("\(returnI)")
+                    ////                    }
+                    //                    Text("pastdayreturnpercentage: \(vm.pastDayReturnPercentage)")
+                    //                //Text("\(vm.priceDates?[0] ?? Date())")
+                    //                Text("returns count: \(vm.totalReturns.count)")
+                    //                Text("price count: \(vm.priceChanges.count)")
+                    //                Text("date count: \(vm.priceDates?.count ?? 0)")
+                    //                Text("total return: \(vm.totalReturn.asCurrencyWith2Decimals())")
+                    //                Text("portfolio value: \(vm.portfolioValue.asCurrencyWith2Decimals())")
+                    //                Text("total dollar amount: \(vm.totalDollarAmountInPortfolio.asCurrencyWith2Decimals())")
+                    //                }
+                    //                balanceView
+                    //                    .padding()
+                    //SearchBarView(searchText: $vm.searchText)
+                    VStack {
+                        purchasedAndBookmarkedCoinsRows
+                        //.listRowInsets(.init(top: 10, leading: 0, bottom: 10, trailing: 10))
+                    }
+                    //            if selectedCoin != nil {
+                    //                portfolioInputSection
+                    //                    .padding(.bottom)
+                    //            }
+                    
+                }
+                .onChange(of: vm.portfolioValue) { newValue in
+                    vm.priceChanges.append(String(newValue))
+                    UserDefaults.standard.set(vm.priceChanges, forKey: "priceChanges")
+                    
+                    vm.priceDates?.append(Date())
+                    UserDefaults.standard.set(vm.priceDates, forKey: "priceDates")
+                    
+                    vm.totalReturns.append(vm.totalReturn)
+                    UserDefaults.standard.set(vm.totalReturns, forKey: "totalReturns")
+                }
+                .navigationBarHidden(true)
+                .background(
+                    Color.theme.background
+                        .ignoresSafeArea()
+                )
+                //            .sheet(isPresented: $showEditPortfolioSheet) {
+                //                EditPortfolioTabView()
+                //            }
+                //            .toolbar {
+                //                ToolbarItem(placement: .navigationBarLeading) {
+                //                    if !inPortfolioTab {
+                //                        XMarkButton(dismiss: _dismiss)
+                //                    }
+                //                }
+                //            }
+                //            .toolbar {
+                //                ToolbarItem(placement: .navigationBarTrailing) {
+                //                    trailingNavBarButtons
+                //                }
+                //            }
+                .onChange(of: vm.searchText) { newValue in
+                    if newValue == "" {
+                        removeSelectedCoin()
+                    }
+                }
+                .navigationBarHidden(true)
+                .background(
+                    NavigationLink(
+                        isActive: $showDetailView,
+                        destination: { DetailLoadingView(coin: $selectedCoin) },
+                        label: { EmptyView() })
+                )
             }
-            .navigationBarHidden(true)
-            .background(
-                NavigationLink(
-                    isActive: $showDetailView,
-                    destination: { DetailLoadingView(coin: $selectedCoin) },
-                    label: { EmptyView() })
-            )
         }
     }
 }
@@ -354,7 +440,7 @@ extension PortfolioView {
             //                    .padding()
             //            }
         }
-        .listStyle(.grouped)
+        .listStyle(.inset)
         //.padding(.leading)
     }
     

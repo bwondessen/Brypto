@@ -25,6 +25,7 @@ struct AllCoinsListView: View {
                 ForEach(vm.allCoins) { coin in
                     CoinRowView(coin: coin, showHoldingsColumn: false)
                         .listRowInsets(.init(top: 0, leading: -10, bottom: 10, trailing: 0))
+                        .padding(.horizontal)
                         .onTapGesture {
                             segue(coin: coin)
                         }
@@ -46,6 +47,7 @@ struct AllCoinsListView: View {
                 .listRowSeparator(.hidden)
             }
             //.listRowSeparator(.hidden)
+            .listStyle(.inset)
         }
         .navigationTitle("All coins")
         .navigationBarTitleDisplayMode(.inline)

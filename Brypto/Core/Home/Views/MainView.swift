@@ -13,21 +13,7 @@ struct MainView: View {
     @State private var inPortfolioTab = true
     
     var body: some View {
-        if vm.isSignedUp && vm.isLoggedIn && vm.faceIDEnabled {
-            if !vm.isUnlocked {
-                faceIDScreen
-            } else {
-                mainView
-            }
-        } else if vm.isSignedUp && vm.isLoggedIn && !vm.faceIDEnabled {
-            mainView
-        } else if vm.isSignedUp && !vm.isLoggedIn {
-            NavigationView {
-                LoginView()
-            }
-        } else {
-            SignUpView()
-        }
+        mainView
     }
 }
 
@@ -40,11 +26,11 @@ struct MainView_Previews: PreviewProvider {
 extension MainView {
     var mainView: some View {
         TabView(selection: $selectedTab) {
-            CryptoNewsView()
-                .tabItem {
-                    Image(systemName: "newspaper")
-                }
-                .tag("CryptoNewsView")
+//            CryptoNewsView()
+//                .tabItem {
+//                    Image(systemName: "newspaper")
+//                }
+//                .tag("CryptoNewsView")
             
             DiscveryView()
                 .tabItem {
@@ -64,21 +50,15 @@ extension MainView {
                     Image(systemName: "person")
                 }
                 .tag("SettingsView")
-            
-            SettingsView()
-                .tabItem {
-                    Image(systemName: "gearshape")
-                }
-                .tag("SettingsView")
         }
      }
     
-    var faceIDScreen: some View {
-        ZStack {
-            Color.white
-                .ignoresSafeArea()
-        }
-        .onAppear(perform: vm.authenticate)
-    }
+//    var faceIDScreen: some View {
+//        ZStack {
+//            Color.white
+//                .ignoresSafeArea()
+//        }
+//        .onAppear(perform: vm.authenticate)
+//    }
 }
 

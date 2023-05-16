@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 import Combine
 import LocalAuthentication
-import Firebase
+//import Firebase
 
 class HomeViewModel: ObservableObject {
     @Published var statistics: [StatisticModel] = []
@@ -626,26 +626,26 @@ class HomeViewModel: ObservableObject {
 //        return categories
 //    }
     
-    func authenticate() {
-        let context = LAContext()
-        var error: NSError?
-        
-        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
-            let reason = "Please authenticate yourself to use Brypto."
-            
-            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) { success, authenticationError in
-                if success {
-                    Task { @MainActor in
-                        self.isUnlocked = true
-                    }
-                } else {
-                    // error
-                }
-            }
-        } else {
-            // no biometrics
-        }
-    }
+//    func authenticate() {
+//        let context = LAContext()
+//        var error: NSError?
+//
+//        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
+//            let reason = "Please authenticate yourself to use Brypto."
+//
+//            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) { success, authenticationError in
+//                if success {
+//                    Task { @MainActor in
+//                        self.isUnlocked = true
+//                    }
+//                } else {
+//                    // error
+//                }
+//            }
+//        } else {
+//            // no biometrics
+//        }
+//    }
     
 //    func signUp(enteredUserName: String, enteredPassword: String, enteredEmail: String, enteredFullName: String) {
 //        if !enteredUserName.isEmpty && !enteredPassword.isEmpty && !enteredEmail.isEmpty && !enteredFullName.isEmpty {
@@ -655,63 +655,63 @@ class HomeViewModel: ObservableObject {
 //        }
 //    }
     
-    func signUp(enteredUserName: String, enteredPassword: String, enteredEmail: String, enteredFullName: String) {
-        Auth.auth().createUser(withEmail: enteredEmail, password: enteredPassword) { result, error in
-            if error != nil {
-                print(error?.localizedDescription ?? "error")
-            }
-        }
-        
-        if !enteredUserName.isEmpty && !enteredPassword.isEmpty && !enteredEmail.isEmpty && isValidEmailAddr(strToValidate: enteredEmail) && !enteredFullName.isEmpty {
-            self.isUnlocked = true
-            self.isSignedUp = true
-            self.isLoggedIn = true
-        }
-    }
-    
-    func isValidEmailAddr(strToValidate: String) -> Bool {
-      let emailValidationRegex = "^[\\p{L}0-9!#$%&'*+\\/=?^_`{|}~-][\\p{L}0-9.!#$%&'*+\\/=?^_`{|}~-]{0,63}@[\\p{L}0-9-]+(?:\\.[\\p{L}0-9-]{2,7})*$"  // 1
-
-      let emailValidationPredicate = NSPredicate(format: "SELF MATCHES %@", emailValidationRegex)  // 2
-
-      return emailValidationPredicate.evaluate(with: strToValidate)  // 3
-    }
-    
-    func signIn(userName: String, password: String) {
-        if userName == self.userName && password == self.password {
-            self.isUnlocked = true
-            self.isSignedUp = true
-        }
-    }
-    
-    func login(enteredUserName: String, enteredPassword: String) {
-        if enteredUserName.lowercased() == self.userName.lowercased() && enteredPassword == self.password {
-            self.isUnlocked = true
-            self.isLoggedIn = true
-        }
-    }
-    
-    func enableFaceID(faceIDEnabled: Bool) {
-        if faceIDEnabled {
-            authenticate()
-        }
-    }
-    
-    func logOut() {
-        self.isLoggedIn = false
-        self.isUnlocked = false
-    }
-    
-    func deleteAccount() {
-        self.isLoggedIn = false
-        self.isUnlocked = false
-        self.isSignedUp = false
-        
-        self.userName = ""
-        self.password = ""
-        self.fullName = ""
-        self.email = ""
-    }
+//    func signUp(enteredUserName: String, enteredPassword: String, enteredEmail: String, enteredFullName: String) {
+//        Auth.auth().createUser(withEmail: enteredEmail, password: enteredPassword) { result, error in
+//            if error != nil {
+//                print(error?.localizedDescription ?? "error")
+//            }
+//        }
+//
+//        if !enteredUserName.isEmpty && !enteredPassword.isEmpty && !enteredEmail.isEmpty && isValidEmailAddr(strToValidate: enteredEmail) && !enteredFullName.isEmpty {
+//            self.isUnlocked = true
+//            self.isSignedUp = true
+//            self.isLoggedIn = true
+//        }
+//    }
+//
+//    func isValidEmailAddr(strToValidate: String) -> Bool {
+//      let emailValidationRegex = "^[\\p{L}0-9!#$%&'*+\\/=?^_`{|}~-][\\p{L}0-9.!#$%&'*+\\/=?^_`{|}~-]{0,63}@[\\p{L}0-9-]+(?:\\.[\\p{L}0-9-]{2,7})*$"  // 1
+//
+//      let emailValidationPredicate = NSPredicate(format: "SELF MATCHES %@", emailValidationRegex)  // 2
+//
+//      return emailValidationPredicate.evaluate(with: strToValidate)  // 3
+//    }
+//
+//    func signIn(userName: String, password: String) {
+//        if userName == self.userName && password == self.password {
+//            self.isUnlocked = true
+//            self.isSignedUp = true
+//        }
+//    }
+//
+//    func login(enteredUserName: String, enteredPassword: String) {
+//        if enteredUserName.lowercased() == self.userName.lowercased() && enteredPassword == self.password {
+//            self.isUnlocked = true
+//            self.isLoggedIn = true
+//        }
+//    }
+//
+//    func enableFaceID(faceIDEnabled: Bool) {
+//        if faceIDEnabled {
+//            authenticate()
+//        }
+//    }
+//
+//    func logOut() {
+//        self.isLoggedIn = false
+//        self.isUnlocked = false
+//    }
+//
+//    func deleteAccount() {
+//        self.isLoggedIn = false
+//        self.isUnlocked = false
+//        self.isSignedUp = false
+//
+//        self.userName = ""
+//        self.password = ""
+//        self.fullName = ""
+//        self.email = ""
+//    }
     
 //    func changeTheme() {
 //        if !alternativeTheme {

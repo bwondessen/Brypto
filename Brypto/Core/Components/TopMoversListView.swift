@@ -20,6 +20,7 @@ struct TopMoversListView: View {
                 ForEach(vm.topMovers(coins: vm.allCoins)) { coin in
                     CoinRowView(coin: coin, showHoldingsColumn: false, showRank: false)
                         .listRowInsets(.init(top: 0, leading: -10, bottom: 10, trailing: 0))
+                        .padding(.horizontal)
                         .onTapGesture {
                             segue(coin: coin)
                         }
@@ -40,6 +41,7 @@ struct TopMoversListView: View {
                 }
             }
             .listRowSeparator(.hidden)
+            .listStyle(.inset)
         }
         .navigationTitle("All coins")
         .navigationBarTitleDisplayMode(.inline)

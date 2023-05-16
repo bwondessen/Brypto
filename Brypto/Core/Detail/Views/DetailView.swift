@@ -361,13 +361,15 @@ extension DetailView {
                         Text("Portfolio Diversity")
                             .font(.callout)
                             .foregroundColor(Color.theme.secondaryText)
-                        HStack(spacing: -85) {
+                        HStack {
                             Text(((coin.currentHoldingsValue / homeVM.portfolioValue) * 100).asPercentString())
                                 .font(.headline)
                                 .foregroundColor(Color.theme.accent)
+                                .padding(.trailing)
                             Circle()
                                 .trim(from: 0, to: ((coin.currentHoldingsValue / homeVM.portfolioValue)))
                                 .stroke(Color.theme.green, lineWidth: 2.5)
+                                .frame(width: 35, height: 35)
                                 .background(
                                     Circle()
                                         .trim(from: 0, to: ((coin.currentHoldingsValue / homeVM.portfolioValue)))

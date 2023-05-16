@@ -28,13 +28,28 @@ struct AccountDetailsView: View {
     
     
     var body: some View {
-        ScrollView {
-            VStack {
-                userAccountHeading
-                investingInfoSection
-                portfolioBreakdownHeader
-                portfolioBreakdownCategoriesHeader
-                portfolioBreakdownSection
+        NavigationView {
+            ScrollView(showsIndicators: false) {
+                VStack {
+                    userAccountHeading
+                    investingInfoSection
+                        .padding()
+                    portfolioBreakdownHeader
+                        .padding()
+                    portfolioBreakdownCategoriesHeader
+                    portfolioBreakdownSection
+                }
+            }
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    NavigationLink {
+                        SettingsView()
+                    } label: {
+                        Image(systemName: "line.3.horizontal")
+                            .font(.headline.bold())
+                    }
+                    
+                }
             }
         }
     }
@@ -58,8 +73,8 @@ extension AccountDetailsView {
             //            Image(systemName: "face.smiling")
             //                .resizable()
             //                .frame(width: 60, height: 60)
-            Text("@\(vm.userName)")
-                .font(.headline.bold())
+            //Text("@\(vm.userName)")
+                //.font(.headline.bold())
         }
         .padding(.vertical)
     }
@@ -159,7 +174,5 @@ extension AccountDetailsView {
             )
             //                    PieChartView(values: T##[Double], names: T##[String], formatter: T##(Double) -> String, colors: T##[Color], backgroundColor: T##Color, widthFraction: T##CGFloat, innerRadiusFraction: T##CGFloat)
         }
-        .padding()
-        .padding(.bottom)
     }
 }

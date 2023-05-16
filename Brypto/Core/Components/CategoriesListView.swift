@@ -44,6 +44,7 @@ struct CategoriesListView: View {
             }
             .listRowSeparator(.hidden)
         }
+        .listStyle(.inset)
     }
 }
 

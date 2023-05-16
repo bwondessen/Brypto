@@ -37,6 +37,7 @@
 		3664AE8F28E9516400C58E04 /* SellInputSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3664AE8E28E9516400C58E04 /* SellInputSection.swift */; };
 		3664AE9128E955CB00C58E04 /* BuyInputSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3664AE9028E955CB00C58E04 /* BuyInputSection.swift */; };
 		3667A1F128F376FA005908CA /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3667A1F028F376F9005908CA /* ChartView.swift */; };
+		366D37E52A121409009EAA36 /* NewsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366D37E42A121409009EAA36 /* NewsView.swift */; };
 		36766628286105810008CD85 /* CoinLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36766627286105810008CD85 /* CoinLogoView.swift */; };
 		3676662B28611FA40008CD85 /* PortfolioContainer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3676662928611FA40008CD85 /* PortfolioContainer.xcdatamodeld */; };
 		3676662D286120E10008CD85 /* PortfolioDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3676662C286120E10008CD85 /* PortfolioDataService.swift */; };
@@ -123,6 +124,7 @@
 		3664AE8E28E9516400C58E04 /* SellInputSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellInputSection.swift; sourceTree = "<group>"; };
 		3664AE9028E955CB00C58E04 /* BuyInputSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyInputSection.swift; sourceTree = "<group>"; };
 		3667A1F028F376F9005908CA /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
+		366D37E42A121409009EAA36 /* NewsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsView.swift; sourceTree = "<group>"; };
 		36766627286105810008CD85 /* CoinLogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinLogoView.swift; sourceTree = "<group>"; };
 		3676662A28611FA40008CD85 /* PortfolioContainer.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PortfolioContainer.xcdatamodel; sourceTree = "<group>"; };
 		3676662C286120E10008CD85 /* PortfolioDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioDataService.swift; sourceTree = "<group>"; };
@@ -316,6 +318,7 @@
 			children = (
 				361F4B5728528E1000FB9530 /* CircleButtonView.swift */,
 				361F4B592852947F00FB9530 /* CircleButtonAnimationView.swift */,
+				366D37E42A121409009EAA36 /* NewsView.swift */,
 			);
 			path = CircleButton;
 			sourceTree = "<group>";
@@ -575,6 +578,7 @@
 				3683699E28C96B2D002BE257 /* ChangeUserNameView.swift in Sources */,
 				3664AE8F28E9516400C58E04 /* SellInputSection.swift in Sources */,
 				361F4B6C2859458700FB9530 /* NetworkingManager.swift in Sources */,
+				366D37E52A121409009EAA36 /* NewsView.swift in Sources */,
 				36766628286105810008CD85 /* CoinLogoView.swift in Sources */,
 				367CE7C1285E88C200EFCB09 /* HomeStatsView.swift in Sources */,
 				36E09CD8285FE70000FFEA59 /* MarketDataService.swift in Sources */,
@@ -738,16 +742,15 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Brypto/Preview Content\"";
 				DEVELOPMENT_TEAM = PMP3AMXY6R;
-				ENABLE_BITCODE = YES;
+				ENABLE_BITCODE = NO;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "Use face ID to unlock your device";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -772,16 +775,15 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Brypto/Preview Content\"";
 				DEVELOPMENT_TEAM = PMP3AMXY6R;
-				ENABLE_BITCODE = YES;
+				ENABLE_BITCODE = NO;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "Use face ID to unlock your device";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

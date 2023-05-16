@@ -32,55 +32,99 @@ struct DiscveryView: View {
         GridItem(.flexible())
     ]
     
-    init() {
-        UITableView.appearance().showsVerticalScrollIndicator = false
-    }
-    
     var body: some View {
         NavigationView {
-            ZStack {
-                // background layer
-                Color.theme.background
-                    .ignoresSafeArea()
-                    .sheet(isPresented: $showPortfolioView) {
-                        EditPortfolioTabView()
-                            .environmentObject(vm)
-                    }
-                
-                // content layer
-                VStack {
-                    homeHeader
-                    
-                    SearchBarView(searchText: $vm.searchText)
-                        .padding(.horizontal, 8)
-                    
-                    if vm.searchText.isEmpty {
-                        VStack {
-                            coinDiscoverySection
+            if #available(iOS 16.0, *) {
+                ZStack {
+                    // background layer
+                    Color.theme.background
+                        .ignoresSafeArea()
+                        .sheet(isPresented: $showPortfolioView) {
+                            EditPortfolioTabView()
+                                .environmentObject(vm)
                         }
-                    } else {
-                        AllCoinsListView(showColumnsTitle: false)
+                    
+                    // content layer
+                    VStack {
+                        homeHeader
+                        
+                        SearchBarView(searchText: $vm.searchText)
+                            .padding(.horizontal, 8)
+                        
+                        if vm.searchText.isEmpty {
+                            VStack {
+                                coinDiscoverySection
+                            }
+                        } else {
+                            AllCoinsListView(showColumnsTitle: false)
+                        }
                     }
+                    //.padding()
                 }
-                //.padding()
+                .scrollIndicators(.hidden)
+                .navigationBarHidden(true)
+                .background(
+                    NavigationLink(
+                        isActive: $showDetailView,
+                        destination: { DetailLoadingView(coin: $selectedCoin) },
+                        label: { EmptyView() })
+                )
+                .background(
+                    NavigationLink(
+                        isActive: $showCategoryContentView,
+                        destination: {
+                            CategoryContentView(category: selectedCategory ?? MarketCategoryDataModel(id: "", name: "dfad", marketCap: 1, marketCapChange24h: 1, content: "dfsd", top3Coins: ["d"], volume24h: 1))
+                        },
+                        label: {
+                            EmptyView()
+                        })
+                )
+            } else {
+                // Fallback on earlier versions
+                ZStack {
+                    // background layer
+                    Color.theme.background
+                        .ignoresSafeArea()
+                        .sheet(isPresented: $showPortfolioView) {
+                            EditPortfolioTabView()
+                                .environmentObject(vm)
+                        }
+                    
+                    // content layer
+                    VStack {
+                        homeHeader
+                        
+                        SearchBarView(searchText: $vm.searchText)
+                            .padding(.horizontal, 8)
+                        
+                        if vm.searchText.isEmpty {
+                            VStack {
+                                coinDiscoverySection
+                            }
+                        } else {
+                            AllCoinsListView(showColumnsTitle: false)
+                        }
+                    }
+                    //.padding()
+                }
+                .navigationBarHidden(true)
+                .background(
+                    NavigationLink(
+                        isActive: $showDetailView,
+                        destination: { DetailLoadingView(coin: $selectedCoin) },
+                        label: { EmptyView() })
+                )
+                .background(
+                    NavigationLink(
+                        isActive: $showCategoryContentView,
+                        destination: {
+                            CategoryContentView(category: selectedCategory ?? MarketCategoryDataModel(id: "", name: "dfad", marketCap: 1, marketCapChange24h: 1, content: "dfsd", top3Coins: ["d"], volume24h: 1))
+                        },
+                        label: {
+                            EmptyView()
+                        })
+                )
             }
-            .navigationBarHidden(true)
-            .background(
-                NavigationLink(
-                    isActive: $showDetailView,
-                    destination: { DetailLoadingView(coin: $selectedCoin) },
-                    label: { EmptyView() })
-            )
-            .background(
-                NavigationLink(
-                    isActive: $showCategoryContentView,
-                    destination: {
-                        CategoryContentView(category: selectedCategory ?? MarketCategoryDataModel(id: "", name: "dfad", marketCap: 1, marketCapChange24h: 1, content: "dfsd", top3Coins: ["d"], volume24h: 1))
-                    },
-                    label: {
-                        EmptyView()
-                    })
-            )
 
             //                .sheet(isPresented: $showSettingsView) {
             //                    InfoView()
@@ -183,10 +227,9 @@ extension DiscveryView {
                                 }
                         }
                     }
-                    //.foregroundColor(Color.theme.accent)
+                    //.foregroundColor(Color.theme.accent
                 }
                 .listRowSeparator(.hidden)
-                .listRowBackground(Color.theme.background)
             } header: {
                 HStack {
                     Text("Categories")
@@ -226,7 +269,7 @@ extension DiscveryView {
                     }
                 }
                 .frame(width: UIScreen.main.bounds.width)
-                .listRowBackground(Color.theme.background)
+                .padding(.leading)
             } header: {
                 HStack {
                     Text("Top movers")
@@ -281,8 +324,35 @@ extension DiscveryView {
                     }
                 }
             }
+            
+            if vm.marketNews.isEmpty {
+                
+            } else {
+                Section {
+                    ForEach(vm.marketNews) { news in
+                        Link(destination: URL(string: news.link) ?? URL(string: "https://dilbert.com/404")!) {
+                            NewsView(sourceID: news.sourceID.capitalized, date: Date(coinGeckoString: news.pubDate).asShortDateString(), description: news.description, url: news.imageURL ?? "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80")
+                        }
+                    }
+                } header: {
+                    HStack {
+                        Text("News")
+                            .font(.headline.bold())
+                            //.foregroundColor(.primary)
+                            .foregroundColor(Color.theme.accent)
+                        Spacer()
+                        NavigationLink {
+                            CryptoNewsView()
+                        } label: {
+                            Text("See all")
+                                .font(.headline.bold())
+                                .foregroundColor(Color.theme.accentMain)
+                        }
+                    }
+                }
+            }
         }
-        .listStyle(.grouped)
+        .listStyle(.inset)
     }
     
     //    private var portfolioCoinsList: some View {

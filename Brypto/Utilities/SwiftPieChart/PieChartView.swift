@@ -147,7 +147,7 @@ struct PieChartRows: View {
                                 .font(.headline)
                                 .foregroundColor(Color.theme.secondaryText)
                         }
-                    }
+                    }.padding()
                     HStack {
                         /*
                          UIScreen.main.bounds.width * (purchasedCoins[i].currentHoldingsValue / vm.portfolioValue)

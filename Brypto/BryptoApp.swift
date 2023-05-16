@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import Firebase
+//import Firebase
 
 @main
 struct Brypto: App {
@@ -16,7 +16,7 @@ struct Brypto: App {
     @State private var showLaunchView: Bool = true
     
     init() {
-        FirebaseApp.configure()
+//        FirebaseApp.configure()
         
         UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor : UIColor(Color.theme.accent)]
         UINavigationBar.appearance().titleTextAttributes = [.foregroundColor : UIColor(Color.theme.accent)]

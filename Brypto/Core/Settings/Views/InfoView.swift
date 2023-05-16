@@ -85,11 +85,13 @@ extension InfoView {
                 TermsOfConditionsView(htmlString: TermsOfConditionsHTML.terms)
                     .navigationBarTitle("Terms of Conditions")
                     .navigationBarTitleDisplayMode(.inline)
+                    .navigationBarBackButtonHidden(true)
             }
             NavigationLink("Privacy Policy") {
                 PrivacyPolicyView(htmlString: PrivacyPolicyHTML.policy)
                     .navigationBarTitle("Privacy Policy")
                     .navigationBarTitleDisplayMode(.inline)
+                    .navigationBarBackButtonHidden(true)
             }
             //Link("Terms of Service", destination: defaultURL)
             //Link("Privacy Policy", destination: defaultURL)
