@@ -135,7 +135,7 @@ struct PieChartRows: View {
     //                    RoundedRectangle(cornerRadius: 5.0)
     //                        .fill(self.colors[i])
     //                        .frame(width: 20, height: 20)
-                        Text(self.names[i])
+                        Text(self.names[i] ?? "")
                             .font(.headline)
                             .foregroundColor(Color.theme.accent)
                         Spacer()

@@ -86,6 +86,7 @@ extension CryptoNewsView {
             }
             //.listRowSeparator(.hidden)
         }
+        .listStyle(.inset)
         //.navigationTitle("News")
     }
     

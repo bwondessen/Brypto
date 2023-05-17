@@ -32,6 +32,10 @@ struct DiscveryView: View {
         GridItem(.flexible())
     ]
     
+    let newsRows = [
+        GridItem(.flexible())
+    ]
+    
     var body: some View {
         NavigationView {
             if #available(iOS 16.0, *) {
@@ -56,7 +60,8 @@ struct DiscveryView: View {
                                 coinDiscoverySection
                             }
                         } else {
-                            AllCoinsListView(showColumnsTitle: false)
+                            //AllCoinsListView(showColumnsTitle: false)
+                            TopMoversListView(showColumnsTitle: false)
                         }
                     }
                     //.padding()
@@ -277,7 +282,7 @@ extension DiscveryView {
                         .foregroundColor(Color.theme.accent)
                     Spacer()
                     NavigationLink {
-                        TopMoversListView()
+                        TopMoversListView(showColumnsTitle: true)
                     } label: {
                         Text("See all")
                             .font(.headline.bold())
@@ -329,11 +334,25 @@ extension DiscveryView {
                 
             } else {
                 Section {
-                    ForEach(vm.marketNews) { news in
-                        Link(destination: URL(string: news.link) ?? URL(string: "https://dilbert.com/404")!) {
-                            NewsView(sourceID: news.sourceID.capitalized, date: Date(coinGeckoString: news.pubDate).asShortDateString(), description: news.description, url: news.imageURL ?? "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80")
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        LazyHGrid(rows: newsRows) {
+                            ForEach(vm.marketNews.prefix(5)) { news in
+                                Link(destination: URL(string: news.link) ?? URL(string: "https://dilbert.com/404")!) {
+                                    NewsView(sourceID: news.sourceID.capitalized, date: Date(coinGeckoString: news.pubDate).asShortDateString(), description: news.description, url: news.imageURL ?? "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80")
+                                }
+//                                    .padding([.vertical, .trailing], 3)
+//                                    .frame(width: 180)
+//                                    .overlay(
+//                                        Rectangle()
+//                                            .fill(.white.opacity(0.00000000000000000000001))
+//                                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+//                                    )
+                            }
                         }
                     }
+                    .frame(width: UIScreen.main.bounds.width)
+                    .padding(.horizontal)
+                    .padding(.leading)
                 } header: {
                     HStack {
                         Text("News")
@@ -350,6 +369,7 @@ extension DiscveryView {
                         }
                     }
                 }
+                .listRowSeparator(.hidden)
             }
         }
         .listStyle(.inset)

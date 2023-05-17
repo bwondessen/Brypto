@@ -17,9 +17,13 @@ struct CoinImageView: View {
     var body: some View {
         ZStack {
             if let image = vm.image {
-                Image(uiImage: image)
-                    .resizable()
-                    .scaledToFit()
+                if vm.coin.name.lowercased() != "pepe" {
+                    Image(uiImage: image)
+                        .resizable()
+                        .scaledToFit()
+                } else {
+                    Image(systemName: "questionmark.app")
+                }
             } else if vm.isLoading {
                 ProgressView()
             } else {
