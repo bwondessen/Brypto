@@ -34,3 +34,4 @@ After setting up your buying power, you can browse through hundreds of top-ranke
 * Combine
 * MVVM architecture
 * JSON API calls
+* UserDefaults
