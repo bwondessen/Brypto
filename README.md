@@ -1,5 +1,4 @@
 # Brypto
-
 A Cryptocurrency paper trading app designed for users to practice investing/trading without any real financial risk!
 
 <a href="https://apps.apple.com/us/app/brypto/id6443970065?platform=iphone">
