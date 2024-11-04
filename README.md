@@ -33,5 +33,5 @@ After setting up your buying power, you can browse through hundreds of top-ranke
 * Core Data
 * Combine
 * MVVM architecture
-* JSON API calls
+* Networking
 * UserDefaults
