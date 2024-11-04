@@ -13,7 +13,7 @@ My passion for investing and desire for helping others increase their financial 
 
 To start using Brypto, you need to set a buying power amount because by default it is set to $0. Your buying power can be adjusted in either the home tab underneath the graph or in settings. 
 
-After setting up your buying power, you can browse through hundreds of top-ranked coins and buy, sell, and bookmark coins to heart's content. Learn more about the world of crypto via the asset categories section. Stay up to date with the comprehensive market-related news section. Your balance, along with your investment performance will be visually displayed in graphs and charts. 
+After setting up your buying power, you can browse through hundreds of top-ranked coins and buy, sell, and bookmark coins to your heart's content. Learn more about the world of crypto via the asset categories section. Stay up to date with the comprehensive market-related news section. Your balance, along with your investment performance will be visually displayed in graphs and charts. 
 
 ## Features
 * Buy, sell, & bookmark coins
