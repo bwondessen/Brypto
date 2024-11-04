@@ -5,7 +5,7 @@ A Cryptocurrency paper trading app designed for users to practice investing/trad
   <img src="https://img.shields.io/badge/App_Store-0D96F6?style=for-the-badge&logo=app-store&logoColor=white" />
 </a>
 
-![BryptoREADMEPics](https://github.com/user-attachments/assets/0822ec71-a0a7-4a53-8044-dfa8ac21a831)
+![BryptoREADMEPics](https://github.com/user-attachments/assets/25d8e462-7c05-4e92-a8cb-a9caadb7fbc2)
 
 ## Overview
 My passion for investing and desire for helping others increase their financial literacy lead me to create Brypto. 
