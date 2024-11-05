@@ -29,6 +29,7 @@ After setting up your buying power, you can browse through hundreds of top-ranke
 * Animations
 
 ## Technologies
+* SwiftUI
 * Core Data
 * Combine
 * MVVM architecture
